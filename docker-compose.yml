@@ -7,6 +7,8 @@ services:
     container_name: website-container
     ports:
       - "8098:8098"
+    env_file:
+      - .env.local
     environment:
       - NODE_ENV=production
       - PORT=8098
