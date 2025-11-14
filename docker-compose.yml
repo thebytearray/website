@@ -13,5 +13,8 @@ services:
       - NODE_ENV=production
       - PORT=8098
       - HOSTNAME=0.0.0.0
+      - NEXT_PUBLIC_GITHUB_URL=https://github.com/TheBytearray
+      - NEXT_PUBLIC_ORGANIZATION_NAME=The Byte Array
+      - NEXT_PUBLIC_ORGANIZATION_DESCRIPTION=Building privacy-focused open-source solutions for a better digital life.
     restart: unless-stopped
 
