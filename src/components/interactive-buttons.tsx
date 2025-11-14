@@ -12,7 +12,7 @@ export function GitHubButton() {
     <Button 
       variant="outline"
       className="w-full sm:w-auto"
-      onClick={() => window.open(process.env.NEXT_PUBLIC_GITHUB_URL, '_blank')}
+      onClick={() => window.open('https://github.com/TheBytearray', '_blank')}
     >
       View on GitHub
     </Button>

@@ -65,10 +65,10 @@ export default function Home() {
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight lg:leading-[1.1] animate-fade-in-up bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/80">
-              {process.env.NEXT_PUBLIC_ORGANIZATION_NAME}
+              The Byte Array
             </h1>
             <p className="max-w-3xl text-lg md:text-xl text-muted-foreground animate-fade-in-up delay-100 leading-relaxed">
-              {process.env.NEXT_PUBLIC_ORGANIZATION_DESCRIPTION}
+              Building privacy-focused open-source solutions for a better digital life.
             </p>
           </div>
         </div>
