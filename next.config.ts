@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import { withContentlayer } from "next-contentlayer2";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
@@ -17,7 +18,6 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-    // Allow all domains for maximum flexibility
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
