@@ -1,50 +1,61 @@
-# Vite & HeroUI Template
+# Website
 
-This is a template for creating applications using Vite and HeroUI (v2).
+A modern web application built with Vite, React, and TypeScript.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/vite-template)
+## Technologies
 
-## Technologies Used
+- Vite
+- React
+- TypeScript
+- Tailwind CSS
+- HeroUI
 
-- [Vite](https://vitejs.dev/guide/)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+## Installation
 
-## How to Use
-
-To clone the project, run the following command:
+Clone the repository:
 
 ```bash
-git clone https://github.com/heroui-inc/vite-template.git
+git clone https://github.com/thebytearray/website.git
+cd website
 ```
 
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Run the development server
+## Development
+
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+Build for production:
 
 ```bash
-public-hoist-pattern[]=*@heroui/*
+npm run build
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+## Docker
+
+Build and run using Docker:
+
+```bash
+docker-compose up
+```
+
+Or using Docker directly:
+
+```bash
+docker build -t website .
+docker run -p 8098:8098 website
+```
+
+The application will be available at http://localhost:8098
 
 ## License
 
-Licensed under the [MIT license](https://github.com/heroui-inc/vite-template/blob/main/LICENSE).
+This project is licensed under the GNU General Public License v3.0. See the LICENSE file for details.
