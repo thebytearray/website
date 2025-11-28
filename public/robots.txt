@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://thebytearray.org/sitemap.xml
+
+# Block admin and private paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Block development files
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.log$
+
+# Allow important pages
+Allow: /blog/
+Allow: /blog/*
+
+# Crawl delay
+Crawl-delay: 1 
