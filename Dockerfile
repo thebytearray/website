@@ -10,12 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM ubuntu:24.04
-
-RUN apt-get update && \
-    apt-get install -y nodejs npm && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+FROM node:20-alpine
 
 RUN npm install -g serve
 
