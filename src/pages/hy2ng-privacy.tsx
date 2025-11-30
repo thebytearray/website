@@ -62,7 +62,7 @@ export default function Hy2ngPrivacyPage() {
               variants={fadeInUp}
               className="text-lg text-default-500 mb-2"
             >
-              Hy2ng — Hysteria2 VPN Client for Android
+              Hy2NG : Client &amp; Server Setup
             </motion.p>
             <motion.p
               variants={fadeInUp}
@@ -90,13 +90,13 @@ export default function Hy2ngPrivacyPage() {
                 shadow="none"
               >
                 <CardBody className="p-5">
-                  <p className="text-default-600 leading-relaxed">
-                    <strong className="text-foreground">TL;DR:</strong> Hy2ng
-                    does not collect, store, or transmit any personal data. All
-                    your VPN configurations and settings stay on your device.
-                    We don&apos;t track you, we don&apos;t have analytics, and
-                    we don&apos;t sell anything.
-                  </p>
+                <p className="text-default-600 leading-relaxed">
+                  <strong className="text-foreground">TL;DR:</strong> Hy2NG
+                  does not collect, store, or transmit any personal data. All
+                  your VPN configurations and settings stay on your device.
+                  We don&apos;t track you, we don&apos;t have analytics, and
+                  we don&apos;t sell anything.
+                </p>
                 </CardBody>
               </Card>
             </motion.div>
@@ -108,7 +108,7 @@ export default function Hy2ngPrivacyPage() {
                 Information We Don&apos;t Collect
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>Hy2ng is designed with privacy as a core principle. We do not collect:</p>
+                <p>Hy2NG is designed with privacy as a core principle. We do not collect:</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>Personal information (name, email, phone number)</li>
                   <li>Device identifiers or advertising IDs</li>
@@ -228,7 +228,7 @@ export default function Hy2ngPrivacyPage() {
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
                 <p>
-                  Hy2ng does not integrate any third-party analytics, advertising,
+                  Hy2NG does not integrate any third-party analytics, advertising,
                   or tracking services. There are:
                 </p>
                 <ul className="list-disc pl-5 space-y-2">
@@ -263,7 +263,7 @@ export default function Hy2ngPrivacyPage() {
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
                 <p>
-                  Hy2ng is not directed at children under 13. We don&apos;t
+                  Hy2NG is not directed at children under 13. We don&apos;t
                   knowingly collect any information from children because we
                   don&apos;t collect information from anyone.
                 </p>
