@@ -90,65 +90,49 @@ export default function Hy2ngPrivacyPage() {
                 shadow="none"
               >
                 <CardBody className="p-5">
-                <p className="text-default-600 leading-relaxed">
-                  <strong className="text-foreground">TL;DR:</strong> Hy2NG
-                  does not collect, store, or transmit any personal data. All
-                  your VPN configurations and settings stay on your device.
-                  We don&apos;t track you, we don&apos;t have analytics, and
-                  we don&apos;t sell anything.
-                </p>
+                  <p className="text-default-600 leading-relaxed">
+                    <strong className="text-foreground">In short:</strong> We
+                    do not collect any data. Everything stays on your device.
+                  </p>
                 </CardBody>
               </Card>
             </motion.div>
 
-            {/* Section: Information We Don't Collect */}
+            {/* Section: No Data Collection */}
             <motion.div variants={fadeInUp} className="space-y-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Information We Don&apos;t Collect
-              </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>Hy2NG is designed with privacy as a core principle. We do not collect:</p>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>Personal information (name, email, phone number)</li>
-                  <li>Device identifiers or advertising IDs</li>
-                  <li>Location data</li>
-                  <li>Usage analytics or app statistics</li>
-                  <li>Browsing history or network traffic content</li>
-                  <li>Crash reports or diagnostics (unless you manually send feedback)</li>
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Section: Data Stored Locally */}
-            <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Data Stored Locally on Your Device
+                We Don&apos;t Collect Any Data
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
                 <p>
-                  The app stores certain data locally on your device to function properly.
-                  This data never leaves your device:
+                  Hy2NG does not collect, transmit, or store any personal
+                  information on our servers. We have no analytics, no
+                  tracking, and no way to see how you use the app.
                 </p>
+                <p>
+                  All your data—VPN configurations, settings, and
+                  preferences—is stored locally on your device and never
+                  leaves it.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Section: What's Stored on Your Device */}
+            <motion.div variants={fadeInUp} className="space-y-4">
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-primary rounded-full" />
+                What&apos;s Stored on Your Device
+              </h2>
+              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+                <p>The app saves the following locally:</p>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li>
-                    <strong className="text-foreground">VPN Configurations:</strong>{" "}
-                    Server addresses, ports, passwords, and connection settings you enter
-                    or import via QR code
-                  </li>
-                  <li>
-                    <strong className="text-foreground">App Settings:</strong>{" "}
-                    Your preferences like theme (dark/light), DNS settings, and MTU values
-                  </li>
-                  <li>
-                    <strong className="text-foreground">Per-App Proxy Settings:</strong>{" "}
-                    Which apps you&apos;ve chosen to exclude from the VPN tunnel
-                  </li>
+                  <li>VPN server configurations you add</li>
+                  <li>App settings (theme, DNS, MTU)</li>
+                  <li>Per-app proxy preferences</li>
                 </ul>
-                <p className="text-sm text-default-500 mt-4">
-                  All this data is stored using Android&apos;s secure DataStore and
-                  is deleted when you uninstall the app.
+                <p className="text-sm text-default-500 mt-3">
+                  This data is deleted when you uninstall the app.
                 </p>
               </div>
             </motion.div>
@@ -160,26 +144,41 @@ export default function Hy2ngPrivacyPage() {
                 Network Connections
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>The app makes the following network connections:</p>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>
-                    <strong className="text-foreground">VPN Server:</strong>{" "}
-                    When you connect, the app establishes an encrypted tunnel to
-                    the Hysteria2 server you configured. We don&apos;t operate
-                    these servers—you provide them.
-                  </li>
-                  <li>
-                    <strong className="text-foreground">Server Setup Wizard:</strong>{" "}
-                    If you use the built-in server setup feature, the app connects
-                    to your server via SSH using credentials you provide. These
-                    credentials are used only for the setup session and are not
-                    stored permanently.
-                  </li>
-                </ul>
-                <p className="mt-3">
-                  <strong className="text-foreground">Important:</strong> The app
-                  does not connect to any of our servers. We have no way to see
-                  your traffic or know when you use the app.
+                <p>
+                  The app only connects to VPN servers that <strong className="text-foreground">you</strong> configure.
+                  We don&apos;t operate any servers and have no visibility into your
+                  traffic.
+                </p>
+                <p>
+                  If you use the server setup wizard, the app connects to your
+                  own server via SSH using credentials you provide.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Section: Google Play */}
+            <motion.div variants={fadeInUp} className="space-y-4">
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-primary rounded-full" />
+                Google Play Services
+              </h2>
+              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+                <p>
+                  This app is distributed through Google Play. Google may
+                  collect certain data as part of their standard Play Store
+                  services (such as purchase verification and app licensing).
+                </p>
+                <p>
+                  This data collection is handled by Google, not by us. For
+                  details on what Google collects, please see{" "}
+                  <Link
+                    isExternal
+                    href="https://policies.google.com/privacy"
+                    className="text-primary hover:underline"
+                  >
+                    Google&apos;s Privacy Policy
+                  </Link>
+                  .
                 </p>
               </div>
             </motion.div>
@@ -188,100 +187,27 @@ export default function Hy2ngPrivacyPage() {
             <motion.div variants={fadeInUp} className="space-y-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-primary rounded-full" />
-                App Permissions Explained
+                App Permissions
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <ul className="list-disc pl-5 space-y-3">
+                <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    <strong className="text-foreground">VPN Permission:</strong>{" "}
-                    Required to create a VPN tunnel on your device. Android
-                    shows a system prompt when you first connect.
+                    <strong className="text-foreground">VPN:</strong> To create
+                    the VPN tunnel
                   </li>
                   <li>
-                    <strong className="text-foreground">Internet Access:</strong>{" "}
-                    Required to connect to VPN servers.
+                    <strong className="text-foreground">Internet:</strong> To
+                    connect to VPN servers
                   </li>
                   <li>
                     <strong className="text-foreground">Notifications:</strong>{" "}
-                    Used to show VPN connection status in your notification bar.
-                    You can disable this in Android settings.
+                    To show connection status
                   </li>
                   <li>
-                    <strong className="text-foreground">Query Installed Apps:</strong>{" "}
-                    Used only for the per-app proxy feature, so you can choose
-                    which apps bypass the VPN. We don&apos;t send this list anywhere.
-                  </li>
-                  <li>
-                    <strong className="text-foreground">Camera (Optional):</strong>{" "}
-                    Only used if you scan a QR code to import a configuration.
-                    Not required for normal operation.
+                    <strong className="text-foreground">Camera:</strong>{" "}
+                    Optional, only for QR code scanning
                   </li>
                 </ul>
-              </div>
-            </motion.div>
-
-            {/* Section: Third-Party Services */}
-            <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Third-Party Services
-              </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>
-                  Hy2NG does not integrate any third-party analytics, advertising,
-                  or tracking services. There are:
-                </p>
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>No Google Analytics or Firebase Analytics</li>
-                  <li>No crash reporting services (like Crashlytics)</li>
-                  <li>No advertising SDKs</li>
-                  <li>No social media tracking</li>
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Section: Feedback */}
-            <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Feedback & Support
-              </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>
-                  If you contact us via the in-app feedback feature or email,
-                  we&apos;ll only see what you choose to send us. We use this
-                  information solely to respond to your inquiry and improve the app.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Section: Children */}
-            <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Children&apos;s Privacy
-              </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>
-                  Hy2NG is not directed at children under 13. We don&apos;t
-                  knowingly collect any information from children because we
-                  don&apos;t collect information from anyone.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Section: Changes */}
-            <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Changes to This Policy
-              </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>
-                  If we make changes to this privacy policy, we&apos;ll update
-                  the &quot;Last updated&quot; date at the top. For significant
-                  changes, we may also add a notice in the app.
-                </p>
               </div>
             </motion.div>
 
@@ -289,13 +215,10 @@ export default function Hy2ngPrivacyPage() {
             <motion.div variants={fadeInUp} className="space-y-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-primary rounded-full" />
-                Contact Us
+                Contact
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <p>
-                  If you have questions about this privacy policy or the app,
-                  reach out to us:
-                </p>
+                <p>Questions? Reach out:</p>
                 <div className="flex items-center gap-2 mt-2">
                   <EmailIcon size={16} className="text-primary" />
                   <Link
@@ -348,4 +271,3 @@ export default function Hy2ngPrivacyPage() {
     </div>
   );
 }
-
