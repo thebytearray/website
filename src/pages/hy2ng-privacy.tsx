@@ -98,6 +98,35 @@ export default function Hy2ngPrivacyPage() {
               </Card>
             </motion.div>
 
+            {/* Section: About This App */}
+            <motion.div variants={fadeInUp} className="space-y-4">
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-primary rounded-full" />
+                About This App
+              </h2>
+              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+                <p>
+                  Hy2NG is a <strong className="text-foreground">third-party client app</strong> for
+                  the{" "}
+                  <Link
+                    isExternal
+                    href="https://v2.hysteria.network"
+                    className="text-primary hover:underline"
+                  >
+                    Hysteria2 protocol
+                  </Link>
+                  . It allows you to connect to Hysteria2 VPN servers and also
+                  helps you set up your own server.
+                </p>
+                <p>
+                  <strong className="text-foreground">We do not provide any VPN servers or configurations.</strong>{" "}
+                  You need to use your own server or obtain configurations from
+                  a trusted source. The app is simply a tool to connect to and
+                  manage Hysteria2 servers.
+                </p>
+              </div>
+            </motion.div>
+
             {/* Section: No Data Collection */}
             <motion.div variants={fadeInUp} className="space-y-4">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
