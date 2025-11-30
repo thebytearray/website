@@ -258,6 +258,11 @@ export default function Hy2ngPrivacyPage() {
                     {siteConfig.email}
                   </Link>
                 </div>
+                <div className="mt-6 pt-4 border-t border-default-100">
+                  <p className="text-sm text-default-500">
+                    <strong className="text-foreground">The Byte Array LTD</strong>
+                  </p>
+                </div>
               </div>
             </motion.div>
 
