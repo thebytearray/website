@@ -219,22 +219,38 @@ export default function Hy2ngPrivacyPage() {
                 App Permissions
               </h2>
               <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
-                <ul className="list-disc pl-5 space-y-2">
+                <p>Here are the permissions the app requires and why:</p>
+                <ul className="list-disc pl-5 space-y-3">
                   <li>
-                    <strong className="text-foreground">VPN:</strong> To create
-                    the VPN tunnel
+                    <strong className="text-foreground">VPN Service:</strong>{" "}
+                    Required to create a secure VPN tunnel on your device. Android
+                    will show a system prompt asking for your permission before
+                    connecting.
                   </li>
                   <li>
-                    <strong className="text-foreground">Internet:</strong> To
-                    connect to VPN servers
+                    <strong className="text-foreground">Internet:</strong>{" "}
+                    Required to connect to the VPN servers you configure in the app.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Foreground Service:</strong>{" "}
+                    Allows the VPN to run reliably in the background while you use
+                    other apps.
                   </li>
                   <li>
                     <strong className="text-foreground">Notifications:</strong>{" "}
-                    To show connection status
+                    Used to display the VPN connection status in your notification
+                    bar so you always know when you&apos;re connected.
                   </li>
                   <li>
-                    <strong className="text-foreground">Camera:</strong>{" "}
-                    Optional, only for QR code scanning
+                    <strong className="text-foreground">Query All Packages:</strong>{" "}
+                    Used for the per-app proxy feature. This lets you choose which
+                    apps should use the VPN and which should bypass it. The app list
+                    stays on your device and is not sent anywhere.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">Camera (Optional):</strong>{" "}
+                    Only requested if you choose to scan a QR code to import a
+                    configuration. Not required for normal use.
                   </li>
                 </ul>
               </div>
