@@ -12,6 +12,7 @@ import {
 import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
@@ -19,12 +20,30 @@ import { GithubIcon } from "@/components/icons";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    
+    if (isHomePage) {
+      // On home page, scroll to section
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // On other pages, navigate to home with hash
+      navigate("/" + href);
+    }
+  };
+
+  const handleLogoClick = () => {
+    if (isHomePage) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
     }
   };
 
@@ -43,10 +62,9 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-2 max-w-fit">
           <Link
-            className="flex justify-start items-center gap-2"
+            className="flex justify-start items-center gap-2 cursor-pointer"
             color="foreground"
-            href="#"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={handleLogoClick}
           >
             <span className="font-mono text-base font-bold text-foreground">
               The Byte[]
@@ -110,7 +128,7 @@ export const Navbar = () => {
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item.label}-${index}`}>
               <Link
-                className="w-full text-sm py-2.5 px-3 rounded-md text-default-600 hover:bg-default-100 hover:text-foreground transition-all"
+                className="w-full text-sm py-2.5 px-3 rounded-md text-default-600 hover:bg-default-100 hover:text-foreground transition-all cursor-pointer"
                 color="foreground"
                 onClick={() => handleNavClick(item.href)}
               >
