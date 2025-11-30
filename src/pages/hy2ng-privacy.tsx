@@ -140,8 +140,8 @@ export default function Hy2ngPrivacyPage() {
                   tracking, and no way to see how you use the app.
                 </p>
                 <p>
-                  All your data—VPN configurations, settings, and
-                  preferences—is stored locally on your device and never
+                  All your data (VPN configurations, settings, and
+                  preferences) is stored locally on your device and never
                   leaves it.
                 </p>
               </div>
