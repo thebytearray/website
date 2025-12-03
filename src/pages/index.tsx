@@ -163,6 +163,14 @@ const hy2ngFeatures = [
 const FeaturedAppSection = () => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
 
+  // Preload all screenshots on mount
+  useEffect(() => {
+    hy2ngScreenshots.forEach((screenshot) => {
+      const img = new Image();
+      img.src = screenshot.src;
+    });
+  }, []);
+
   const nextScreenshot = () => {
     setCurrentScreenshot((prev) => (prev + 1) % hy2ngScreenshots.length);
   };
@@ -206,16 +214,28 @@ const FeaturedAppSection = () => {
                       {/* Pixel 9 Pro punch-hole camera */}
                       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
                       
-                      {/* Screenshot Image */}
-                      <motion.img
-                        key={currentScreenshot}
-                        src={hy2ngScreenshots[currentScreenshot].src}
-                        alt={hy2ngScreenshots[currentScreenshot].alt}
-                        className="w-full h-full object-cover"
-                        initial={{ opacity: 0, scale: 1.02 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
+                      {/* Preloaded images (hidden but cached) */}
+                      <div className="hidden">
+                        {hy2ngScreenshots.map((screenshot, index) => (
+                          <img key={index} src={screenshot.src} alt="" />
+                        ))}
+                      </div>
+                      
+                      {/* Screenshot Images - all rendered, visibility controlled */}
+                      {hy2ngScreenshots.map((screenshot, index) => (
+                        <motion.img
+                          key={index}
+                          src={screenshot.src}
+                          alt={screenshot.alt}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          initial={false}
+                          animate={{ 
+                            opacity: index === currentScreenshot ? 1 : 0,
+                            scale: index === currentScreenshot ? 1 : 1.02
+                          }}
+                          transition={{ duration: 0.25, ease: "easeOut" }}
+                        />
+                      ))}
                     </div>
                   </div>
                   
