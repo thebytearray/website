@@ -19,6 +19,13 @@ import {
   SendIcon,
   ArrowRightIcon,
   languageColors,
+  ShieldIcon,
+  QrCodeIcon,
+  ServerIcon,
+  AppsIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  PlayStoreIcon,
 } from "@/components/icons";
 
 interface GitHubRepo {
@@ -132,6 +139,184 @@ export default byteArray;`,
         </div>
       </div>
     </motion.div>
+  );
+};
+
+// Hy2NG App Screenshots
+const hy2ngScreenshots = [
+  { src: "/images/hy2ng/Screenshot_20251201_041544.png", alt: "Configurations list" },
+  { src: "/images/hy2ng/Screenshot_20251201_041639.png", alt: "Add configuration" },
+  { src: "/images/hy2ng/Screenshot_20251201_041720.png", alt: "QR code sharing" },
+  { src: "/images/hy2ng/Screenshot_20251201_041741.png", alt: "Server setup wizard" },
+  { src: "/images/hy2ng/Screenshot_20251201_041802.png", alt: "Per-app proxy" },
+];
+
+// Hy2NG App Features
+const hy2ngFeatures = [
+  { icon: ServerIcon, title: "Server Setup Wizard", desc: "Configure your own VPS with built-in setup guide" },
+  { icon: QrCodeIcon, title: "QR Code Import", desc: "Import configs via QR code or clipboard" },
+  { icon: AppsIcon, title: "Per-App Proxy", desc: "Choose which apps use the VPN connection" },
+  { icon: ShieldIcon, title: "Privacy First", desc: "No ads, no tracking, all data stays on device" },
+];
+
+// Featured App Section Component
+const FeaturedAppSection = () => {
+  const [currentScreenshot, setCurrentScreenshot] = useState(0);
+
+  const nextScreenshot = () => {
+    setCurrentScreenshot((prev) => (prev + 1) % hy2ngScreenshots.length);
+  };
+
+  const prevScreenshot = () => {
+    setCurrentScreenshot((prev) => (prev - 1 + hy2ngScreenshots.length) % hy2ngScreenshots.length);
+  };
+
+  return (
+    <section id="featured-app" className="py-20 sm:py-28 bg-default-50/80 dark:bg-default-50/30 border-t border-default-100 overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+        >
+          {/* Section Header */}
+          <motion.div variants={fadeInUp} className="text-center mb-14">
+            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Featured</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              Hy2NG
+            </h2>
+            <p className="text-default-500 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
+              A powerful Hysteria2 VPN client for Android with built-in server setup wizard.
+              Connect to Hysteria2 servers with ease.
+            </p>
+          </motion.div>
+
+          {/* Main Content */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+            {/* Screenshots Carousel */}
+            <motion.div variants={fadeInUp} className="relative order-2 lg:order-1">
+              <div className="relative mx-auto" style={{ maxWidth: "280px" }}>
+                {/* Pixel 9 Pro Frame */}
+                <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-zinc-700/50">
+                  {/* Inner bezel */}
+                  <div className="bg-[#0d0d0d] rounded-[2.6rem] p-[6px]">
+                    {/* Screen */}
+                    <div className="relative rounded-[2.2rem] overflow-hidden bg-black aspect-[9/20]">
+                      {/* Pixel 9 Pro punch-hole camera */}
+                      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
+                      
+                      {/* Screenshot Image */}
+                      <motion.img
+                        key={currentScreenshot}
+                        src={hy2ngScreenshots[currentScreenshot].src}
+                        alt={hy2ngScreenshots[currentScreenshot].alt}
+                        className="w-full h-full object-cover"
+                        initial={{ opacity: 0, scale: 1.02 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Side buttons - Volume */}
+                  <div className="absolute left-[-2px] top-28 w-[3px] h-8 bg-zinc-700 rounded-l-sm" />
+                  <div className="absolute left-[-2px] top-40 w-[3px] h-12 bg-zinc-700 rounded-l-sm" />
+                  {/* Power button */}
+                  <div className="absolute right-[-2px] top-32 w-[3px] h-10 bg-zinc-700 rounded-r-sm" />
+                </div>
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevScreenshot}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+                  aria-label="Previous screenshot"
+                >
+                  <ChevronLeftIcon size={16} />
+                </button>
+                <button
+                  onClick={nextScreenshot}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+                  aria-label="Next screenshot"
+                >
+                  <ChevronRightIcon size={16} />
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="flex justify-center gap-1.5 mt-6">
+                  {hy2ngScreenshots.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentScreenshot(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentScreenshot
+                          ? "bg-primary w-6"
+                          : "bg-default-300 dark:bg-default-200 hover:bg-default-400"
+                      }`}
+                      aria-label={`Go to screenshot ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* App Info */}
+            <motion.div variants={fadeInUp} className="order-1 lg:order-2 space-y-8">
+              {/* App Badge */}
+              <div className="flex items-center gap-3">
+                <img 
+                  src="/images/hy2ng/hy2ng.png" 
+                  alt="Hy2NG App Icon" 
+                  className="w-14 h-14 rounded-2xl shadow-lg"
+                />
+                <div>
+                  <h3 className="font-bold text-lg text-foreground">Hy2NG</h3>
+                  <p className="text-xs text-default-500 font-mono">Hysteria2 Client</p>
+                </div>
+              </div>
+
+              {/* Features Grid */}
+              <div className="grid sm:grid-cols-2 gap-4">
+                {hy2ngFeatures.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="p-4 rounded-xl border border-default-200 dark:border-default-100 bg-background hover:border-primary/50 transition-colors group"
+                  >
+                    <feature.icon size={20} className="text-primary mb-2" />
+                    <h4 className="font-semibold text-sm text-foreground mb-1">{feature.title}</h4>
+                    <p className="text-xs text-default-500 leading-relaxed">{feature.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Download Button */}
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  as={Link}
+                  isExternal
+                  href="https://play.google.com/store/apps/details?id=org.thebytearray.hy2.ng"
+                  color="primary"
+                  size="md"
+                  radius="md"
+                  className="font-semibold"
+                  startContent={<PlayStoreIcon size={18} />}
+                >
+                  Get on Google Play
+                </Button>
+              </div>
+
+              {/* Contact */}
+              <p className="text-xs text-default-400">
+                Questions or feedback?{" "}
+                <Link href="mailto:contact@thebytearray.org" className="text-primary hover:underline">
+                  contact@thebytearray.org
+                </Link>
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 };
 
@@ -362,6 +547,9 @@ export default function IndexPage() {
         </div>
       </section>
 
+      {/* Featured App Section - Hy2NG */}
+      <FeaturedAppSection />
+
       {/* Projects Section */}
       <section id="projects" className="py-20 sm:py-28 bg-default-50/80 dark:bg-default-50/30 border-t border-default-100">
         <div className="container mx-auto px-4 sm:px-6">
@@ -375,7 +563,7 @@ export default function IndexPage() {
             <motion.div variants={fadeInUp} className="text-center mb-12">
               <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Projects</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-                Our Work
+                Our Open-Source Work
               </h2>
               <p className="text-default-500 mt-3 max-w-md mx-auto text-sm">
                 Public repositories and open source projects
