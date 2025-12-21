@@ -567,6 +567,123 @@ export const PlayStoreIcon: React.FC<IconSvgProps> = ({
   </svg>
 );
 
+export const MusicIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 24 24"
+    width={size || width}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M9 18V5l12-2v13" />
+    <circle cx="6" cy="18" r="3" />
+    <circle cx="18" cy="16" r="3" />
+  </svg>
+);
+
+export const VideoIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 24 24"
+    width={size || width}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="m22 8-6 4 6 4V8Z" />
+    <rect x="2" y="6" width="14" height="12" rx="2" ry="2" />
+  </svg>
+);
+
+export const TagIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 24 24"
+    width={size || width}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
+    <path d="M7 7h.01" />
+  </svg>
+);
+
+export const ImageIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 24 24"
+    width={size || width}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+    <circle cx="9" cy="9" r="2" />
+    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+  </svg>
+);
+
+export const WifiOffIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    height={size || height}
+    viewBox="0 0 24 24"
+    width={size || width}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <line x1="2" y1="2" x2="22" y2="22" />
+    <path d="M8.5 16.5a5 5 0 0 1 7 0" />
+    <path d="M2 8.82a15 15 0 0 1 4.17-2.65" />
+    <path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76" />
+    <path d="M16.85 11.25a10 10 0 0 1 2.22 1.68" />
+    <path d="M5 13a10 10 0 0 1 5.24-2.76" />
+    <line x1="12" y1="20" x2="12.01" y2="20" />
+  </svg>
+);
+
 // Language color mapping for GitHub repos
 export const languageColors: Record<string, string> = {
   JavaScript: "#f1e05a",

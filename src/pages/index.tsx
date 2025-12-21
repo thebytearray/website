@@ -26,6 +26,11 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   PlayStoreIcon,
+  MusicIcon,
+  VideoIcon,
+  TagIcon,
+  ImageIcon,
+  WifiOffIcon,
 } from "@/components/icons";
 
 interface GitHubRepo {
@@ -142,6 +147,25 @@ export default byteArray;`,
   );
 };
 
+// Convertit App Screenshots
+const convertitScreenshots = [
+  { src: "/images/convertit/Screenshot_20251211_065244.png", alt: "Home screen with features" },
+  { src: "/images/convertit/Screenshot_20251211_065315.png", alt: "Audio conversion" },
+  { src: "/images/convertit/Screenshot_20251211_065357.png", alt: "Format selection" },
+  { src: "/images/convertit/Screenshot_20251211_065428.png", alt: "Conversion progress" },
+  { src: "/images/convertit/Screenshot_20251211_065436.png", alt: "Conversion complete" },
+];
+
+// Convertit App Features
+const convertitFeatures = [
+  { icon: MusicIcon, title: "Audio Conversion", desc: "Convert between MP3, FLAC, WAV, AAC, OGG, and more" },
+  { icon: VideoIcon, title: "Video Conversion", desc: "Transform video files to various formats" },
+  { icon: TagIcon, title: "Metadata Editor", desc: "Edit audio tags and metadata with ease" },
+  { icon: ImageIcon, title: "EXIF Cleaner", desc: "Remove EXIF data from images and videos" },
+  { icon: WifiOffIcon, title: "100% Offline", desc: "All processing happens locally on your device" },
+  { icon: ShieldIcon, title: "Privacy First", desc: "No data collection, no tracking, no ads" },
+];
+
 // Hy2NG App Screenshots
 const hy2ngScreenshots = [
   { src: "/images/hy2ng/Screenshot_20251201_041544.png", alt: "Configurations list" },
@@ -159,7 +183,188 @@ const hy2ngFeatures = [
   { icon: ShieldIcon, title: "Privacy First", desc: "No ads, no tracking, all data stays on device" },
 ];
 
-// Featured App Section Component
+// Convertit Featured Section Component
+const ConvertitFeaturedSection = () => {
+  const [currentScreenshot, setCurrentScreenshot] = useState(0);
+
+  // Preload all screenshots on mount
+  useEffect(() => {
+    convertitScreenshots.forEach((screenshot) => {
+      const img = new Image();
+      img.src = screenshot.src;
+    });
+  }, []);
+
+  const nextScreenshot = () => {
+    setCurrentScreenshot((prev) => (prev + 1) % convertitScreenshots.length);
+  };
+
+  const prevScreenshot = () => {
+    setCurrentScreenshot((prev) => (prev - 1 + convertitScreenshots.length) % convertitScreenshots.length);
+  };
+
+  return (
+    <section id="convertit" className="py-20 sm:py-28 bg-default-50/80 dark:bg-default-50/30 border-t border-default-100 overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerContainer}
+        >
+          {/* Section Header */}
+          <motion.div variants={fadeInUp} className="text-center mb-14">
+            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Featured</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              Convertit
+            </h2>
+            <p className="text-default-500 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
+              A powerful offline media toolkit for Android. Convert audio &amp; video,
+              edit metadata, and clean EXIF data with complete privacy.
+            </p>
+          </motion.div>
+
+          {/* Main Content */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+            {/* Screenshots Carousel */}
+            <motion.div variants={fadeInUp} className="relative order-2 lg:order-1">
+              <div className="relative mx-auto" style={{ maxWidth: "280px" }}>
+                {/* Pixel 9 Pro Frame */}
+                <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-zinc-700/50">
+                  {/* Inner bezel */}
+                  <div className="bg-[#0d0d0d] rounded-[2.6rem] p-[6px]">
+                    {/* Screen */}
+                    <div className="relative rounded-[2.2rem] overflow-hidden bg-black aspect-[9/20]">
+                      {/* Pixel 9 Pro punch-hole camera */}
+                      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
+                      
+                      {/* Preloaded images (hidden but cached) */}
+                      <div className="hidden">
+                        {convertitScreenshots.map((screenshot, index) => (
+                          <img key={index} src={screenshot.src} alt="" />
+                        ))}
+                      </div>
+                      
+                      {/* Screenshot Images - all rendered, visibility controlled */}
+                      {convertitScreenshots.map((screenshot, index) => (
+                        <motion.img
+                          key={index}
+                          src={screenshot.src}
+                          alt={screenshot.alt}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          initial={false}
+                          animate={{ 
+                            opacity: index === currentScreenshot ? 1 : 0,
+                            scale: index === currentScreenshot ? 1 : 1.02
+                          }}
+                          transition={{ duration: 0.25, ease: "easeOut" }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Side buttons - Volume */}
+                  <div className="absolute left-[-2px] top-28 w-[3px] h-8 bg-zinc-700 rounded-l-sm" />
+                  <div className="absolute left-[-2px] top-40 w-[3px] h-12 bg-zinc-700 rounded-l-sm" />
+                  {/* Power button */}
+                  <div className="absolute right-[-2px] top-32 w-[3px] h-10 bg-zinc-700 rounded-r-sm" />
+                </div>
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevScreenshot}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+                  aria-label="Previous screenshot"
+                >
+                  <ChevronLeftIcon size={16} />
+                </button>
+                <button
+                  onClick={nextScreenshot}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+                  aria-label="Next screenshot"
+                >
+                  <ChevronRightIcon size={16} />
+                </button>
+
+                {/* Dots Indicator */}
+                <div className="flex justify-center gap-1.5 mt-6">
+                  {convertitScreenshots.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentScreenshot(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentScreenshot
+                          ? "bg-primary w-6"
+                          : "bg-default-300 dark:bg-default-200 hover:bg-default-400"
+                      }`}
+                      aria-label={`Go to screenshot ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* App Info */}
+            <motion.div variants={fadeInUp} className="order-1 lg:order-2 space-y-8">
+              {/* App Badge */}
+              <div className="flex items-center gap-3">
+                <img 
+                  src="/images/convertit/convertit.png" 
+                  alt="Convertit App Icon" 
+                  className="w-14 h-14 rounded-2xl shadow-lg"
+                />
+                <div>
+                  <h3 className="font-bold text-lg text-foreground">Convertit</h3>
+                  <p className="text-xs text-default-500 font-mono">Media Toolkit</p>
+                </div>
+              </div>
+
+              {/* Features Grid */}
+              <div className="grid sm:grid-cols-2 gap-4">
+                {convertitFeatures.map((feature, index) => (
+                  <div
+                    key={index}
+                    className="p-4 rounded-xl border border-default-200 dark:border-default-100 bg-background hover:border-primary/50 transition-colors group"
+                  >
+                    <feature.icon size={20} className="text-primary mb-2" />
+                    <h4 className="font-semibold text-sm text-foreground mb-1">{feature.title}</h4>
+                    <p className="text-xs text-default-500 leading-relaxed">{feature.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Download Button */}
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  as={Link}
+                  isExternal
+                  href="https://play.google.com/store/apps/details?id=org.thebytearray.convertit"
+                  color="primary"
+                  size="md"
+                  radius="md"
+                  className="font-semibold"
+                  startContent={<PlayStoreIcon size={18} />}
+                >
+                  Get on Google Play
+                </Button>
+              </div>
+
+              {/* Contact */}
+              <p className="text-xs text-default-400">
+                Questions or feedback?{" "}
+                <Link href="mailto:contact@thebytearray.org" className="text-primary hover:underline">
+                  contact@thebytearray.org
+                </Link>
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// Hy2NG Featured App Section Component
 const FeaturedAppSection = () => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
 
@@ -566,6 +771,9 @@ export default function IndexPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Featured App Section - Convertit */}
+      <ConvertitFeaturedSection />
 
       {/* Featured App Section - Hy2NG */}
       <FeaturedAppSection />
