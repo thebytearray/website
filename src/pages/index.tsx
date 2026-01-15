@@ -5,7 +5,6 @@ import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
 import { Avatar } from "@heroui/avatar";
 import { Input } from "@heroui/input";
 import { Spinner } from "@heroui/spinner";
-import { Divider } from "@heroui/divider";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import { Navbar } from "@/components/navbar";
