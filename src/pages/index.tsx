@@ -13,6 +13,7 @@ import { siteConfig } from "@/config/site";
 import {
   GithubIcon,
   StarIcon,
+  StarFilledIcon,
   ForkIcon,
   ExternalLinkIcon,
   EmailIcon,
@@ -166,6 +167,34 @@ const convertitFeatures = [
   { icon: ShieldIcon, title: "Privacy First", desc: "No data collection, no tracking, no ads" },
 ];
 
+// Convertit User Reviews
+const convertitReviews = [
+  {
+    avatar: "https://lh3.googleusercontent.com/a-/ALV-UjUNNlgiqAczGCNe5jV7B5CHqz1LxArO_uvNAq1OV4GP3wJssin6",
+    name: "DarkDuck",
+    stars: 5,
+    comment: "honestly I don't know why this isn't among the first 10 or 20 apps when I search \"audio converter\" on play store. it's better, actually works and does not show 30 seconds of ads for every single action you make inside the app.",
+  },
+  {
+    avatar: "https://lh3.googleusercontent.com/a-/ALV-UjUNIkim7F7dgCg9QtOtTZHlSggLVNLf8BcTcBy70yDpCleXwvB9",
+    name: "Marek Ryfko",
+    stars: 5,
+    comment: "No ads, no nags, does what it is supposed to. Great job!",
+  },
+  {
+    avatar: "https://lh3.googleusercontent.com/a-/ALV-UjX3QYp9SosGPXRvDF2k2M8QZDPbhwSatFwW1k5bz6YJ3uIctKU",
+    name: "Ben Bunnell",
+    stars: 5,
+    comment: "only audio / video converter app on the playstore that says what it does with no strings attached. FOSS with no ads, quick and intuitive. this needs to be top result for media conversion. but of course, Google likes to keep the high grossing subscription scams at the forefront.",
+  },
+  {
+    avatar: "https://lh3.googleusercontent.com/a/ACg8ocIaYZrcBS68jPeFUKbRxo7vqC6I90t41jai-2XA2rCuAxREWg=mo",
+    name: "joe swanson",
+    stars: 5,
+    comment: "amazing for converting files. it has a good discord and a responsive community. The application is amazing for converting multiple files that would normally have you running to your wallet. It's incredibly easy to use, even if you're not confident in your technical abilities. From my own experience, if you report a problem, or want something added, the maker and their team is incredibly accommodating and are quick to help. 5/5, as long as it keeps moving foward this way.",
+  },
+];
+
 // Hy2NG App Screenshots
 const hy2ngScreenshots = [
   { src: "/images/hy2ng/Screenshot_20251201_041544.png", alt: "Configurations list" },
@@ -186,6 +215,19 @@ const hy2ngFeatures = [
 // Convertit Featured Section Component
 const ConvertitFeaturedSection = () => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
+  const [expandedReviews, setExpandedReviews] = useState<Set<number>>(new Set());
+
+  const toggleReview = (index: number) => {
+    setExpandedReviews((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
 
   // Preload all screenshots on mount
   useEffect(() => {
@@ -216,7 +258,7 @@ const ConvertitFeaturedSection = () => {
           <motion.div variants={fadeInUp} className="text-center mb-14">
             <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Featured</p>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Convertit
+              Convertit Pro
             </h2>
             <p className="text-default-500 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
               A powerful offline media toolkit for Android. Convert audio &amp; video,
@@ -309,12 +351,12 @@ const ConvertitFeaturedSection = () => {
               {/* App Badge */}
               <div className="flex items-center gap-3">
                 <img 
-                  src="/images/convertit/convertit.png" 
-                  alt="Convertit App Icon" 
+                  src="/images/convertit/c_pro.png" 
+                  alt="Convertit Pro App Icon" 
                   className="w-14 h-14 rounded-2xl shadow-lg"
                 />
                 <div>
-                  <h3 className="font-bold text-lg text-foreground">Convertit</h3>
+                  <h3 className="font-bold text-lg text-foreground">Convertit Pro</h3>
                   <p className="text-xs text-default-500 font-mono">Media Toolkit</p>
                 </div>
               </div>
@@ -358,6 +400,59 @@ const ConvertitFeaturedSection = () => {
               </p>
             </motion.div>
           </div>
+
+          {/* User Reviews */}
+          <motion.div variants={fadeInUp} className="mt-20">
+            <div className="text-center mb-10">
+              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Reviews</p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
+                What Users Say
+              </h3>
+            </div>
+            
+            <div className="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
+              {convertitReviews.map((review, index) => {
+                const isExpanded = expandedReviews.has(index);
+                const isLongReview = review.comment.length > 150;
+                
+                return (
+                  <motion.div
+                    key={index}
+                    variants={fadeInUp}
+                    className="p-5 rounded-xl border border-default-200 dark:border-default-100 bg-background hover:border-primary/30 transition-colors"
+                  >
+                    <div className="flex items-start gap-3 mb-3">
+                      <img 
+                        src={review.avatar} 
+                        alt={review.name}
+                        className="w-10 h-10 rounded-full object-cover"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-sm text-foreground truncate">{review.name}</h4>
+                        <div className="flex gap-0.5 mt-0.5">
+                          {Array.from({ length: review.stars }).map((_, i) => (
+                            <StarFilledIcon key={i} size={14} className="text-amber-400" />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <p className={`text-sm text-default-500 leading-relaxed ${!isExpanded && isLongReview ? "line-clamp-3" : ""}`}>
+                      "{review.comment}"
+                    </p>
+                    {isLongReview && (
+                      <button
+                        onClick={() => toggleReview(index)}
+                        className="mt-2 text-xs text-primary hover:text-primary/80 font-medium transition-colors"
+                      >
+                        {isExpanded ? "Show less" : "Read more"}
+                      </button>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
