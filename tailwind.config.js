@@ -12,8 +12,37 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        sans: ['"Poppins"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Poppins"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"Poppins"', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+        'gradient': 'gradient 8s ease infinite',
+        'shimmer': 'shimmer 2s linear infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.8' },
+        },
+        gradient: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
       },
     },
   },
@@ -22,8 +51,8 @@ export default {
     themes: {
       light: {
         colors: {
-          background: "#ffffff",
-          foreground: "#09090b",
+          background: "#fafafa",
+          foreground: "#0a0a0a",
           primary: {
             50: "#ecfdf5",
             100: "#d1fae5",
@@ -82,7 +111,7 @@ export default {
       },
       dark: {
         colors: {
-          background: "#09090b",
+          background: "#0a0a0a",
           foreground: "#fafafa",
           primary: {
             50: "#064e3b",
@@ -96,7 +125,7 @@ export default {
             800: "#d1fae5",
             900: "#ecfdf5",
             DEFAULT: "#10b981",
-            foreground: "#09090b",
+            foreground: "#0a0a0a",
           },
           secondary: {
             50: "#18181b",
@@ -110,19 +139,19 @@ export default {
             800: "#f4f4f5",
             900: "#fafafa",
             DEFAULT: "#a1a1aa",
-            foreground: "#09090b",
+            foreground: "#0a0a0a",
           },
           default: {
             50: "#18181b",
-            100: "#27272a",
-            200: "#3f3f46",
-            300: "#52525b",
-            400: "#71717a",
-            500: "#a1a1aa",
-            600: "#d4d4d8",
-            700: "#e4e4e7",
-            800: "#f4f4f5",
-            900: "#fafafa",
+            100: "#1c1c1f",
+            200: "#27272a",
+            300: "#3f3f46",
+            400: "#52525b",
+            500: "#71717a",
+            600: "#a1a1aa",
+            700: "#d4d4d8",
+            800: "#e4e4e7",
+            900: "#f4f4f5",
           },
           success: {
             50: "#064e3b",
@@ -136,7 +165,7 @@ export default {
             800: "#d1fae5",
             900: "#ecfdf5",
             DEFAULT: "#34d399",
-            foreground: "#09090b",
+            foreground: "#0a0a0a",
           },
         },
       },

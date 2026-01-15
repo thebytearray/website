@@ -54,7 +54,7 @@ export const Navbar = () => {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       classNames={{
-        base: "bg-background/90 backdrop-blur-md border-b border-default-100",
+        base: "bg-background/80 backdrop-blur-xl border-b border-default-100/50 shadow-sm",
         wrapper: "px-4 sm:px-6",
       }}
     >
@@ -62,11 +62,11 @@ export const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-2 max-w-fit">
           <Link
-            className="flex justify-start items-center gap-2 cursor-pointer"
+            className="flex justify-start items-center gap-2 cursor-pointer group"
             color="foreground"
             onClick={handleLogoClick}
           >
-            <span className="font-mono text-base font-bold text-foreground">
+            <span className="font-display text-lg font-medium text-foreground group-hover:text-primary transition-colors">
               The Byte[]
             </span>
           </Link>
@@ -80,7 +80,7 @@ export const Navbar = () => {
             <Link
               className={clsx(
                 linkStyles({ color: "foreground" }),
-                "cursor-pointer text-sm text-default-500 hover:text-foreground px-3 py-1.5 rounded-md hover:bg-default-100 transition-all",
+                "cursor-pointer text-sm text-default-500 hover:text-foreground px-4 py-2 rounded-lg hover:bg-default-100/80 transition-all duration-200",
               )}
               color="foreground"
               onClick={() => handleNavClick(item.href)}
@@ -96,15 +96,15 @@ export const Navbar = () => {
         className="hidden md:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="flex gap-2 items-center">
+        <NavbarItem className="flex gap-3 items-center">
           <ThemeSwitch />
           <Button
             isExternal
             as={Link}
-            className="font-medium font-mono text-xs"
+            className="font-medium text-xs px-4 shadow-sm"
             color="primary"
             href={siteConfig.links.github}
-            radius="md"
+            radius="lg"
             size="sm"
             variant="flat"
             startContent={<GithubIcon size={14} />}
@@ -119,16 +119,17 @@ export const Navbar = () => {
         <ThemeSwitch />
         <NavbarMenuToggle 
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="text-foreground"
         />
       </NavbarContent>
 
       {/* Mobile Menu */}
-      <NavbarMenu className="pt-4 bg-background/98 backdrop-blur-md">
-        <div className="mx-4 mt-2 flex flex-col gap-1">
+      <NavbarMenu className="pt-6 bg-background/98 backdrop-blur-xl">
+        <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item.label}-${index}`}>
               <Link
-                className="w-full text-sm py-2.5 px-3 rounded-md text-default-600 hover:bg-default-100 hover:text-foreground transition-all cursor-pointer"
+                className="w-full text-base py-3 px-4 rounded-xl text-default-600 hover:bg-default-100 hover:text-foreground transition-all cursor-pointer font-medium"
                 color="foreground"
                 onClick={() => handleNavClick(item.href)}
               >
@@ -137,16 +138,17 @@ export const Navbar = () => {
             </NavbarMenuItem>
           ))}
           
-          <NavbarMenuItem className="mt-3 pt-3 border-t border-default-100">
+          <NavbarMenuItem className="mt-4 pt-4 border-t border-default-100">
             <Button
               isExternal
               as={Link}
-              className="w-full font-medium font-mono text-xs"
+              className="w-full font-medium text-sm"
               color="primary"
               href={siteConfig.links.github}
-              radius="md"
+              radius="lg"
+              size="md"
               variant="flat"
-              startContent={<GithubIcon size={14} />}
+              startContent={<GithubIcon size={16} />}
             >
               GitHub
             </Button>

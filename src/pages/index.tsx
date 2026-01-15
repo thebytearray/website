@@ -121,27 +121,42 @@ export default byteArray;`,
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3, duration: 0.5 }}
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="w-full max-w-md"
     >
-      <div className="rounded-xl border border-default-200 dark:border-default-100 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm">
-        <div className="flex items-center gap-1.5 px-4 py-3 border-b border-default-200 dark:border-default-100 bg-default-50 dark:bg-zinc-900">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-          <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
-          <span className="text-[11px] text-default-400 ml-3 font-mono">index.ts</span>
-        </div>
-        <div className="p-4 font-mono text-[13px] leading-relaxed">
-          <pre className="text-default-700 dark:text-default-400 whitespace-pre-wrap">
-            <code>
-              {displayText}
-              {!isComplete && (
-                <span className="inline-block w-[2px] h-4 bg-primary ml-0.5 animate-blink" />
-              )}
-            </code>
-          </pre>
+      <div className="relative group">
+        {/* Glow effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        <div className="relative rounded-2xl border border-default-200 dark:border-default-100/50 bg-white dark:bg-zinc-900/90 overflow-hidden shadow-xl backdrop-blur-sm">
+          {/* Header with gradient */}
+          <div className="flex items-center gap-2 px-4 py-3 border-b border-default-200 dark:border-default-100/50 bg-gradient-to-r from-default-50 to-default-100/50 dark:from-zinc-900 dark:to-zinc-800/50">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-400/80 hover:bg-red-400 transition-colors" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400/80 hover:bg-yellow-400 transition-colors" />
+              <div className="w-3 h-3 rounded-full bg-green-400/80 hover:bg-green-400 transition-colors" />
+            </div>
+            <div className="flex-1 flex justify-center">
+              <span className="text-[11px] text-default-400 font-mono px-3 py-0.5 rounded-md bg-default-100 dark:bg-zinc-800">index.ts</span>
+            </div>
+          </div>
+          
+          {/* Code content */}
+          <div className="p-5 font-mono text-[13px] leading-relaxed">
+            <pre className="text-default-700 dark:text-default-400 whitespace-pre-wrap">
+              <code>
+                {displayText}
+                {!isComplete && (
+                  <span className="inline-block w-[2px] h-4 bg-primary ml-0.5 animate-blink" />
+                )}
+              </code>
+            </pre>
+          </div>
+          
+          {/* Bottom accent line */}
+          <div className="h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
         </div>
       </div>
     </motion.div>
@@ -246,8 +261,11 @@ const ConvertitFeaturedSection = () => {
   };
 
   return (
-    <section id="convertit" className="py-20 sm:py-28 bg-default-50/80 dark:bg-default-50/30 border-t border-default-100 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="convertit" className="relative py-24 sm:py-32 bg-default-50/50 dark:bg-default-50/20 border-t border-default-100 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-grid opacity-30" />
+      
+      <div className="relative container mx-auto px-4 sm:px-6">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -255,15 +273,16 @@ const ConvertitFeaturedSection = () => {
           variants={staggerContainer}
         >
           {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-14">
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Featured</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+          <motion.div variants={fadeInUp} className="text-center mb-16">
+            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Featured App</p>
+            <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
               Convertit Pro
             </h2>
-            <p className="text-default-500 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
+            <p className="text-default-500 mt-4 max-w-xl mx-auto text-base leading-relaxed">
               A powerful offline media toolkit for Android. Convert audio &amp; video,
               edit metadata, and clean EXIF data with complete privacy.
             </p>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
           </motion.div>
 
           {/* Main Content */}
@@ -356,20 +375,22 @@ const ConvertitFeaturedSection = () => {
                   className="w-14 h-14 rounded-2xl shadow-lg"
                 />
                 <div>
-                  <h3 className="font-bold text-lg text-foreground">Convertit Pro</h3>
+                  <h3 className="font-medium text-lg text-foreground">Convertit Pro</h3>
                   <p className="text-xs text-default-500 font-mono">Media Toolkit</p>
                 </div>
               </div>
 
               {/* Features Grid */}
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3">
                 {convertitFeatures.map((feature, index) => (
                   <div
                     key={index}
-                    className="p-4 rounded-xl border border-default-200 dark:border-default-100 bg-background hover:border-primary/50 transition-colors group"
+                    className="feature-card p-4 rounded-xl border border-default-200 dark:border-default-100/50 bg-background/80 hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/5"
                   >
-                    <feature.icon size={20} className="text-primary mb-2" />
-                    <h4 className="font-semibold text-sm text-foreground mb-1">{feature.title}</h4>
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                      <feature.icon size={18} className="text-primary" />
+                    </div>
+                    <h4 className="font-medium text-sm text-foreground mb-1">{feature.title}</h4>
                     <p className="text-xs text-default-500 leading-relaxed">{feature.desc}</p>
                   </div>
                 ))}
@@ -382,9 +403,9 @@ const ConvertitFeaturedSection = () => {
                   isExternal
                   href="https://play.google.com/store/apps/details?id=org.thebytearray.convertit"
                   color="primary"
-                  size="md"
-                  radius="md"
-                  className="font-semibold"
+                  size="lg"
+                  radius="lg"
+                  className="font-medium btn-glow shadow-lg shadow-primary/20"
                   startContent={<PlayStoreIcon size={18} />}
                 >
                   Get on Google Play
@@ -402,10 +423,10 @@ const ConvertitFeaturedSection = () => {
           </div>
 
           {/* User Reviews */}
-          <motion.div variants={fadeInUp} className="mt-20">
-            <div className="text-center mb-10">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Reviews</p>
-              <h3 className="text-2xl sm:text-3xl font-bold text-foreground">
+          <motion.div variants={fadeInUp} className="mt-24">
+            <div className="text-center mb-12">
+              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Reviews</p>
+              <h3 className="text-xl sm:text-2xl font-display font-medium text-foreground">
                 What Users Say
               </h3>
             </div>
@@ -419,33 +440,33 @@ const ConvertitFeaturedSection = () => {
                   <motion.div
                     key={index}
                     variants={fadeInUp}
-                    className="p-5 rounded-xl border border-default-200 dark:border-default-100 bg-background hover:border-primary/30 transition-colors"
+                    className="p-5 rounded-2xl border border-default-200 dark:border-default-100/50 bg-background/80 backdrop-blur-sm hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                   >
-                    <div className="flex items-start gap-3 mb-3">
+                    <div className="flex items-start gap-3 mb-4">
                       <img 
                         src={review.avatar} 
                         alt={review.name}
-                        className="w-10 h-10 rounded-full object-cover"
+                        className="w-11 h-11 rounded-full object-cover ring-2 ring-default-100 dark:ring-default-200"
                         referrerPolicy="no-referrer"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm text-foreground truncate">{review.name}</h4>
-                        <div className="flex gap-0.5 mt-0.5">
+                        <h4 className="font-medium text-sm text-foreground truncate">{review.name}</h4>
+                        <div className="flex gap-0.5 mt-1">
                           {Array.from({ length: review.stars }).map((_, i) => (
-                            <StarFilledIcon key={i} size={14} className="text-amber-400" />
+                            <StarFilledIcon key={i} size={14} className="text-amber-400 drop-shadow-sm" />
                           ))}
                         </div>
                       </div>
                     </div>
-                    <p className={`text-sm text-default-500 leading-relaxed ${!isExpanded && isLongReview ? "line-clamp-3" : ""}`}>
+                    <p className={`text-sm text-default-500 leading-relaxed italic ${!isExpanded && isLongReview ? "line-clamp-3" : ""}`}>
                       "{review.comment}"
                     </p>
                     {isLongReview && (
                       <button
                         onClick={() => toggleReview(index)}
-                        className="mt-2 text-xs text-primary hover:text-primary/80 font-medium transition-colors"
+                        className="mt-3 text-xs text-primary hover:text-primary/80 font-medium transition-colors"
                       >
-                        {isExpanded ? "Show less" : "Read more"}
+                        {isExpanded ? "← Show less" : "Read more →"}
                       </button>
                     )}
                   </motion.div>
@@ -480,8 +501,11 @@ const FeaturedAppSection = () => {
   };
 
   return (
-    <section id="featured-app" className="py-20 sm:py-28 bg-default-50/80 dark:bg-default-50/30 border-t border-default-100 overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="featured-app" className="relative py-24 sm:py-32 bg-default-50/50 dark:bg-default-50/20 border-t border-default-100 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-grid opacity-30" />
+      
+      <div className="relative container mx-auto px-4 sm:px-6">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -489,15 +513,16 @@ const FeaturedAppSection = () => {
           variants={staggerContainer}
         >
           {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-14">
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Featured</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+          <motion.div variants={fadeInUp} className="text-center mb-16">
+            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Featured App</p>
+            <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
               Hy2NG
             </h2>
-            <p className="text-default-500 mt-3 max-w-lg mx-auto text-sm leading-relaxed">
+            <p className="text-default-500 mt-4 max-w-xl mx-auto text-base leading-relaxed">
               A powerful Hysteria2 VPN client for Android with built-in server setup wizard.
               Connect to Hysteria2 servers with ease.
             </p>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
           </motion.div>
 
           {/* Main Content */}
@@ -590,20 +615,22 @@ const FeaturedAppSection = () => {
                   className="w-14 h-14 rounded-2xl shadow-lg"
                 />
                 <div>
-                  <h3 className="font-bold text-lg text-foreground">Hy2NG</h3>
+                  <h3 className="font-medium text-lg text-foreground">Hy2NG</h3>
                   <p className="text-xs text-default-500 font-mono">Hysteria2 Client</p>
                 </div>
               </div>
 
               {/* Features Grid */}
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-3">
                 {hy2ngFeatures.map((feature, index) => (
                   <div
                     key={index}
-                    className="p-4 rounded-xl border border-default-200 dark:border-default-100 bg-background hover:border-primary/50 transition-colors group"
+                    className="feature-card p-4 rounded-xl border border-default-200 dark:border-default-100/50 bg-background/80 hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/5"
                   >
-                    <feature.icon size={20} className="text-primary mb-2" />
-                    <h4 className="font-semibold text-sm text-foreground mb-1">{feature.title}</h4>
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
+                      <feature.icon size={18} className="text-primary" />
+                    </div>
+                    <h4 className="font-medium text-sm text-foreground mb-1">{feature.title}</h4>
                     <p className="text-xs text-default-500 leading-relaxed">{feature.desc}</p>
                   </div>
                 ))}
@@ -616,9 +643,9 @@ const FeaturedAppSection = () => {
                   isExternal
                   href="https://play.google.com/store/apps/details?id=org.thebytearray.hy2.ng"
                   color="primary"
-                  size="md"
-                  radius="md"
-                  className="font-semibold"
+                  size="lg"
+                  radius="lg"
+                  className="font-medium btn-glow shadow-lg shadow-primary/20"
                   startContent={<PlayStoreIcon size={18} />}
                 >
                   Get on Google Play
@@ -694,8 +721,14 @@ export default function IndexPage() {
         ref={heroRef}
         className="relative min-h-[90vh] flex items-center overflow-hidden"
       >
+        {/* Background layers */}
         <div className="absolute inset-0 bg-hero-gradient" />
-        <div className="absolute inset-0 bg-dots opacity-40" />
+        <div className="absolute inset-0 bg-grid opacity-50" />
+        <div className="absolute inset-0 bg-noise" />
+        
+        {/* Floating orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '-3s' }} />
         
         <motion.div 
           style={{ opacity: heroOpacity }}
@@ -709,14 +742,22 @@ export default function IndexPage() {
               variants={staggerContainer}
               className="text-center lg:text-left"
             >
+              {/* Badge */}
+              <motion.div variants={fadeInUp} className="mb-6">
+                <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  Open Source & Products
+                </span>
+              </motion.div>
+
               {/* Main Heading */}
               <motion.h1
                 variants={fadeInUp}
-                className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight mb-5 leading-[1.1] text-foreground"
+                className="text-4xl sm:text-5xl lg:text-6xl font-display font-medium tracking-tight mb-6 leading-[1.05] text-foreground"
               >
                 Software development
                 <br />
-                <span className="text-primary">done right</span>
+                <span className="text-gradient">done right</span>
               </motion.h1>
 
               {/* Description */}
@@ -739,8 +780,8 @@ export default function IndexPage() {
                   href={siteConfig.links.github}
                   color="primary"
                   size="lg"
-                  radius="md"
-                  className="font-semibold"
+                  radius="lg"
+                  className="font-medium btn-glow shadow-lg shadow-primary/20"
                   endContent={<ArrowRightIcon size={16} />}
                 >
                   View Projects
@@ -750,8 +791,8 @@ export default function IndexPage() {
                   href="#contact"
                   variant="bordered"
                   size="lg"
-                  radius="md"
-                  className="font-semibold border-default-200 dark:border-default-100 hover:border-primary hover:text-primary"
+                  radius="lg"
+                  className="font-medium border-default-200 dark:border-default-100 hover:border-primary hover:text-primary backdrop-blur-sm"
                   onClick={(e) => {
                     e.preventDefault();
                     document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
@@ -764,25 +805,25 @@ export default function IndexPage() {
               {/* Stats */}
               <motion.div
                 variants={fadeInUp}
-                className="flex flex-wrap justify-center lg:justify-start gap-8 mt-12 pt-8 border-t border-default-100 dark:border-default-100"
+                className="flex flex-wrap justify-center lg:justify-start gap-10 mt-14 pt-8 border-t border-default-200/50 dark:border-default-100/50"
               >
                 <div className="text-center lg:text-left">
-                  <div className="text-2xl font-bold text-foreground font-mono">
+                  <div className="text-3xl font-medium text-foreground font-mono stat-number">
                     {repos.length || "—"}
                   </div>
-                  <div className="text-xs text-default-400 mt-0.5 uppercase tracking-wide">Repositories</div>
+                  <div className="text-xs text-default-400 mt-1 uppercase tracking-widest">Repositories</div>
                 </div>
                 <div className="text-center lg:text-left">
-                  <div className="text-2xl font-bold text-foreground font-mono">
+                  <div className="text-3xl font-medium text-foreground font-mono stat-number">
                     {totalStars || "—"}
                   </div>
-                  <div className="text-xs text-default-400 mt-0.5 uppercase tracking-wide">GitHub Stars</div>
+                  <div className="text-xs text-default-400 mt-1 uppercase tracking-widest">GitHub Stars</div>
                 </div>
                 <div className="text-center lg:text-left">
-                  <div className="text-2xl font-bold text-primary font-mono">
+                  <div className="text-3xl font-medium text-primary font-mono">
                     OSS
                   </div>
-                  <div className="text-xs text-default-400 mt-0.5 uppercase tracking-wide">& Products</div>
+                  <div className="text-xs text-default-400 mt-1 uppercase tracking-widest font-medium">& Products</div>
                 </div>
               </motion.div>
             </motion.div>
@@ -796,23 +837,26 @@ export default function IndexPage() {
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden sm:block"
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <div className="w-5 h-8 rounded-full border-2 border-default-200 dark:border-default-200 flex justify-center pt-1.5">
+          <div className="w-6 h-10 rounded-full border-2 border-default-300 dark:border-default-200 flex justify-center pt-2 backdrop-blur-sm">
             <motion.div 
-              className="w-1 h-1.5 bg-primary rounded-full"
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 1.8, repeat: Infinity }}
+              className="w-1.5 h-2 bg-primary rounded-full"
+              animate={{ opacity: [0.3, 1, 0.3], y: [0, 4, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
             />
           </div>
         </motion.div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 sm:py-28 border-t border-default-100">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section id="about" className="relative py-24 sm:py-32 border-t border-default-100 overflow-hidden">
+        {/* Background accent */}
+        <div className="absolute inset-0 bg-section-gradient" />
+        
+        <div className="relative container mx-auto px-4 sm:px-6">
           <motion.div
             className="max-w-5xl mx-auto"
             initial="hidden"
@@ -821,42 +865,43 @@ export default function IndexPage() {
             variants={staggerContainer}
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-14">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">About</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <motion.div variants={fadeInUp} className="text-center mb-16">
+              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">About</p>
+              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
                 The Byte Array
               </h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
             </motion.div>
 
             {/* Content Grid */}
-            <div className="grid md:grid-cols-2 gap-10 items-start">
-              <motion.div variants={fadeInUp} className="space-y-4">
-                <p className="text-default-600 leading-relaxed">
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              <motion.div variants={fadeInUp} className="space-y-5">
+                <p className="text-default-600 leading-relaxed text-base">
                   We're a software development team building tools, libraries, and 
                   applications. Some of our work is released as open source for the community.
                 </p>
-                <p className="text-default-600 leading-relaxed">
+                <p className="text-default-600 leading-relaxed text-base">
                   We're also working on commercial products and SaaS solutions. 
                   We open source projects when it makes sense—not everything needs to be public.
                 </p>
-                <p className="text-default-600 leading-relaxed">
+                <p className="text-default-600 leading-relaxed text-base">
                   Our focus is on building practical software that solves real problems, 
                   whether that's a free library or a paid service.
                 </p>
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <div className="rounded-xl border border-default-200 dark:border-default-100 p-5 space-y-4 bg-default-50/50 dark:bg-default-50/50">
+                <div className="rounded-2xl border border-default-200 dark:border-default-100/50 p-6 space-y-5 bg-background/50 dark:bg-default-50/30 backdrop-blur-sm shadow-sm">
                   {[
                     { title: "Developer Tools", desc: "CLI applications, build tools, and utilities that streamline workflows." },
                     { title: "Libraries", desc: "Reusable packages for common problems across multiple languages." },
                     { title: "Applications", desc: "End-user software built with modern technologies." }
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                    <div key={i} className="flex items-start gap-4 group">
+                      <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0 group-hover:scale-125 transition-transform" />
                       <div>
-                        <h4 className="font-semibold text-sm text-foreground">{item.title}</h4>
-                        <p className="text-sm text-default-500 mt-0.5">{item.desc}</p>
+                        <h4 className="font-medium text-sm text-foreground">{item.title}</h4>
+                        <p className="text-sm text-default-500 mt-1">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -874,8 +919,11 @@ export default function IndexPage() {
       <FeaturedAppSection />
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 sm:py-28 bg-default-50/80 dark:bg-default-50/30 border-t border-default-100">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section id="projects" className="relative py-24 sm:py-32 border-t border-default-100 overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 bg-section-gradient" />
+        
+        <div className="relative container mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -883,14 +931,15 @@ export default function IndexPage() {
             variants={staggerContainer}
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-12">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Projects</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <motion.div variants={fadeInUp} className="text-center mb-14">
+              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Projects</p>
+              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
                 Our Open-Source Work
               </h2>
-              <p className="text-default-500 mt-3 max-w-md mx-auto text-sm">
+              <p className="text-default-500 mt-4 max-w-md mx-auto text-base">
                 Public repositories and open source projects
               </p>
+              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
             </motion.div>
 
             {/* Projects Grid */}
@@ -929,7 +978,7 @@ export default function IndexPage() {
                           <div className="w-8 h-8 rounded-lg bg-default-100 dark:bg-default-100 flex items-center justify-center">
                             <GithubIcon size={16} className="text-default-500" />
                           </div>
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors font-mono text-sm">
+                          <h3 className="font-medium text-foreground group-hover:text-primary transition-colors font-mono text-sm">
                             {repo.name}
                           </h3>
                         </div>
@@ -998,8 +1047,10 @@ export default function IndexPage() {
       </section>
 
       {/* Team Section */}
-      <section id="team" className="py-20 sm:py-28 border-t border-default-100">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section id="team" className="relative py-24 sm:py-32 bg-default-50/50 dark:bg-default-50/20 border-t border-default-100 overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-30" />
+        
+        <div className="relative container mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -1008,49 +1059,50 @@ export default function IndexPage() {
             className="max-w-3xl mx-auto"
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-12">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Team</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <motion.div variants={fadeInUp} className="text-center mb-14">
+              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Team</p>
+              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
                 Contributors
               </h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
             </motion.div>
 
             {/* Team Member */}
             <motion.div variants={fadeInUp}>
               <Card
-                className="max-w-xs mx-auto bg-background border border-default-200 dark:border-default-100 overflow-hidden"
+                className="max-w-sm mx-auto bg-background/80 backdrop-blur-sm border border-default-200 dark:border-default-100/50 overflow-hidden shadow-xl"
                 shadow="none"
               >
-                <div className="h-20 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent" />
+                <div className="h-24 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent" />
 
-                <CardBody className="relative px-6 pb-6 -mt-10">
-                  <div className="flex justify-center mb-4">
+                <CardBody className="relative px-6 pb-8 -mt-12">
+                  <div className="flex justify-center mb-5">
                     <Avatar
                       src={siteConfig.team.founder.avatar}
-                      className="w-20 h-20 ring-4 ring-background"
+                      className="w-24 h-24 ring-4 ring-background shadow-xl"
                     />
                   </div>
 
                   <div className="text-center">
-                    <h3 className="text-lg font-bold text-foreground">
+                    <h3 className="text-xl font-display font-medium text-foreground">
                       {siteConfig.team.founder.name}
                     </h3>
-                    <p className="text-primary text-xs font-mono mt-0.5">
+                    <p className="text-primary text-xs font-mono mt-1 font-medium">
                       {siteConfig.team.founder.role}
                     </p>
-                    <p className="text-default-500 text-sm mt-3 leading-relaxed">
+                    <p className="text-default-500 text-sm mt-4 leading-relaxed">
                       {siteConfig.team.founder.bio}
                     </p>
 
-                    <div className="mt-4">
+                    <div className="mt-5">
                       <Button
                         as={Link}
                         isExternal
                         href={siteConfig.team.founder.github}
                         variant="flat"
-                        radius="md"
+                        radius="lg"
                         size="sm"
-                        className="bg-default-100 dark:bg-default-100 font-mono text-xs"
+                        className="bg-default-100 dark:bg-default-100 font-mono text-xs px-4"
                         startContent={<GithubIcon size={14} />}
                       >
                         @{siteConfig.team.founder.username}
@@ -1065,46 +1117,49 @@ export default function IndexPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 sm:py-28 bg-default-50/80 dark:bg-default-50/30 border-t border-default-100">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section id="contact" className="relative py-24 sm:py-32 border-t border-default-100 overflow-hidden">
+        <div className="absolute inset-0 bg-section-gradient" />
+        
+        <div className="relative container mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
-            className="max-w-md mx-auto"
+            className="max-w-lg mx-auto"
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-10">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2">Contact</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Contact</p>
+              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
                 Get in Touch
               </h2>
-              <p className="text-default-500 mt-3 text-sm">
+              <p className="text-default-500 mt-4 text-base">
                 Questions or interested in collaborating?
               </p>
+              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
             </motion.div>
 
             {/* Contact Form */}
             <motion.div variants={fadeInUp}>
               <Card
-                className="bg-background border border-default-200 dark:border-default-100"
+                className="bg-background/80 backdrop-blur-sm border border-default-200 dark:border-default-100/50 shadow-xl"
                 shadow="none"
               >
-                <CardBody className="p-5 space-y-4">
+                <CardBody className="p-6 space-y-5">
                   <Input
                     type="text"
                     label="Name"
                     labelPlacement="outside"
                     placeholder="Your name"
                     variant="bordered"
-                    radius="md"
-                    size="sm"
+                    radius="lg"
+                    size="md"
                     value={contactForm.name}
                     onValueChange={(value) => setContactForm({ ...contactForm, name: value })}
                     classNames={{
                       label: "text-default-600 text-xs font-medium",
-                      inputWrapper: "border-default-200 dark:border-default-100",
+                      inputWrapper: "border-default-200 dark:border-default-100/50 hover:border-primary/50",
                     }}
                   />
                   <Input
@@ -1113,31 +1168,31 @@ export default function IndexPage() {
                     labelPlacement="outside"
                     placeholder="your@email.com"
                     variant="bordered"
-                    radius="md"
-                    size="sm"
+                    radius="lg"
+                    size="md"
                     value={contactForm.email}
                     onValueChange={(value) => setContactForm({ ...contactForm, email: value })}
                     classNames={{
                       label: "text-default-600 text-xs font-medium",
-                      inputWrapper: "border-default-200 dark:border-default-100",
+                      inputWrapper: "border-default-200 dark:border-default-100/50 hover:border-primary/50",
                     }}
                   />
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     <label className="text-default-600 text-xs font-medium">Message</label>
                     <textarea
                       placeholder="Your message"
                       value={contactForm.message}
                       onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                      rows={3}
-                      className="w-full px-3 py-2 rounded-lg border-2 border-default-200 dark:border-default-100 focus:border-primary focus:outline-none bg-transparent text-foreground placeholder:text-default-400 transition-colors resize-none text-sm"
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-default-200 dark:border-default-100/50 focus:border-primary focus:outline-none bg-transparent text-foreground placeholder:text-default-400 transition-colors resize-none text-sm hover:border-primary/50"
                     />
                   </div>
-                  <div className="flex gap-2 pt-1">
+                  <div className="flex gap-3 pt-2">
                     <Button
                       color="primary"
-                      radius="md"
-                      size="sm"
-                      className="flex-1 font-medium"
+                      radius="lg"
+                      size="md"
+                      className="flex-1 font-medium btn-glow shadow-lg shadow-primary/20"
                       endContent={<SendIcon size={14} />}
                       onPress={handleContactSubmit}
                       isDisabled={!contactForm.name || !contactForm.email || !contactForm.message}
@@ -1149,8 +1204,8 @@ export default function IndexPage() {
                       isExternal
                       href={`mailto:${siteConfig.email}`}
                       variant="flat"
-                      radius="md"
-                      size="sm"
+                      radius="lg"
+                      size="md"
                       className="flex-1 font-medium bg-default-100 dark:bg-default-100"
                       startContent={<EmailIcon size={14} />}
                     >
@@ -1165,34 +1220,37 @@ export default function IndexPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-default-100 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 py-10">
-          <div className="grid sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
+      <footer className="relative border-t border-default-100 bg-background overflow-hidden">
+        {/* Gradient accent */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        
+        <div className="container mx-auto px-4 sm:px-6 py-12">
+          <div className="grid sm:grid-cols-3 gap-10 max-w-4xl mx-auto">
             {/* Brand */}
             <div>
               <Link
                 href="#"
-                className="inline-block mb-2"
+                className="inline-block mb-3"
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
-                <span className="font-mono text-base font-bold text-foreground">
+                <span className="font-display text-lg font-medium text-foreground">
                   The Byte[]
                 </span>
               </Link>
-              <p className="text-xs text-default-400">
-                Software & open source.
+              <p className="text-sm text-default-500 leading-relaxed">
+                Building quality software & open source tools.
               </p>
             </div>
 
             {/* Navigation */}
             <div>
-              <h4 className="font-semibold mb-2 text-xs text-foreground uppercase tracking-wide">Navigation</h4>
-              <div className="space-y-1.5">
+              <h4 className="font-display font-medium mb-4 text-xs text-foreground uppercase tracking-widest">Navigation</h4>
+              <div className="space-y-2.5">
                 {siteConfig.navItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block text-xs text-default-500 hover:text-primary transition-colors"
+                    className="block text-sm text-default-500 hover:text-primary transition-colors"
                     onClick={(e) => {
                       e.preventDefault();
                       document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" });
@@ -1206,40 +1264,40 @@ export default function IndexPage() {
 
             {/* Connect */}
             <div>
-              <h4 className="font-semibold mb-2 text-xs text-foreground uppercase tracking-wide">Connect</h4>
-              <div className="space-y-1.5">
+              <h4 className="font-display font-medium mb-4 text-xs text-foreground uppercase tracking-widest">Connect</h4>
+              <div className="space-y-2.5">
                 <Link
                   isExternal
                   href={siteConfig.links.github}
-                  className="flex items-center gap-1.5 text-xs text-default-500 hover:text-primary transition-colors"
+                  className="flex items-center gap-2 text-sm text-default-500 hover:text-primary transition-colors"
                 >
-                  <GithubIcon size={12} />
+                  <GithubIcon size={14} />
                   GitHub
                 </Link>
                 <Link
                   isExternal
                   href={`mailto:${siteConfig.email}`}
-                  className="flex items-center gap-1.5 text-xs text-default-500 hover:text-primary transition-colors"
+                  className="flex items-center gap-2 text-sm text-default-500 hover:text-primary transition-colors"
                 >
-                  <EmailIcon size={12} />
+                  <EmailIcon size={14} />
                   Email
                 </Link>
               </div>
             </div>
           </div>
 
-          <Divider className="my-6" />
+          <div className="divider-gradient my-8" />
 
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-            <p className="text-[11px] text-default-400 font-mono">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p className="text-xs text-default-400 font-mono">
               © {new Date().getFullYear()} The Byte Array
             </p>
-            <p className="text-[11px] text-default-400">
+            <p className="text-xs text-default-400">
               Licensed under{" "}
               <Link
                 isExternal
                 href="https://www.gnu.org/licenses/gpl-3.0.html"
-                className="text-default-500 hover:text-primary transition-colors"
+                className="text-primary/80 hover:text-primary transition-colors"
               >
                 GPL-3.0
               </Link>
