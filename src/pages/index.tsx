@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
@@ -9,6 +9,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
+import { fetchGitHubRepos } from "@/lib/githubApi";
 import {
   GithubIcon,
   StarIcon,
@@ -230,6 +231,7 @@ const hy2ngFeatures = [
 const ConvertitFeaturedSection = () => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
   const [expandedReviews, setExpandedReviews] = useState<Set<number>>(new Set());
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const toggleReview = (index: number) => {
     setExpandedReviews((prev) => {
@@ -243,13 +245,24 @@ const ConvertitFeaturedSection = () => {
     });
   };
 
-  // Preload all screenshots on mount
+  // Lazy preload only current + next screenshot when section is visible
   useEffect(() => {
-    convertitScreenshots.forEach((screenshot) => {
-      const img = new Image();
-      img.src = screenshot.src;
-    });
-  }, []);
+    const el = carouselRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        const idx = currentScreenshot;
+        [idx, (idx + 1) % convertitScreenshots.length].forEach((i) => {
+          const img = new Image();
+          img.src = convertitScreenshots[i].src;
+        });
+      },
+      { rootMargin: "100px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [currentScreenshot]);
 
   const nextScreenshot = () => {
     setCurrentScreenshot((prev) => (prev + 1) % convertitScreenshots.length);
@@ -287,7 +300,7 @@ const ConvertitFeaturedSection = () => {
           {/* Main Content */}
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
             {/* Screenshots Carousel */}
-            <motion.div variants={fadeInUp} className="relative order-2 lg:order-1">
+            <motion.div ref={carouselRef} variants={fadeInUp} className="relative order-2 lg:order-1">
               <div className="relative mx-auto" style={{ maxWidth: "280px" }}>
                 {/* Pixel 9 Pro Frame */}
                 <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-zinc-700/50">
@@ -298,19 +311,13 @@ const ConvertitFeaturedSection = () => {
                       {/* Pixel 9 Pro punch-hole camera */}
                       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
                       
-                      {/* Preloaded images (hidden but cached) */}
-                      <div className="hidden">
-                        {convertitScreenshots.map((screenshot, index) => (
-                          <img key={index} src={screenshot.src} alt="" />
-                        ))}
-                      </div>
-                      
-                      {/* Screenshot Images - all rendered, visibility controlled */}
+                      {/* Screenshot Images - lazy loaded, visibility controlled */}
                       {convertitScreenshots.map((screenshot, index) => (
                         <motion.img
                           key={index}
                           src={screenshot.src}
                           alt={screenshot.alt}
+                          loading="lazy"
                           className="absolute inset-0 w-full h-full object-cover"
                           initial={false}
                           animate={{ 
@@ -371,6 +378,7 @@ const ConvertitFeaturedSection = () => {
                 <img 
                   src="/images/convertit/c_pro.png" 
                   alt="Convertit Pro App Icon" 
+                  loading="lazy"
                   className="w-14 h-14 rounded-2xl shadow-lg"
                 />
                 <div>
@@ -445,6 +453,7 @@ const ConvertitFeaturedSection = () => {
                       <img 
                         src={review.avatar} 
                         alt={review.name}
+                        loading="lazy"
                         className="w-11 h-11 rounded-full object-cover ring-2 ring-default-100 dark:ring-default-200"
                         referrerPolicy="no-referrer"
                       />
@@ -482,14 +491,25 @@ const ConvertitFeaturedSection = () => {
 // Hy2NG Featured App Section Component
 const FeaturedAppSection = () => {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  // Preload all screenshots on mount
   useEffect(() => {
-    hy2ngScreenshots.forEach((screenshot) => {
-      const img = new Image();
-      img.src = screenshot.src;
-    });
-  }, []);
+    const el = carouselRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        const idx = currentScreenshot;
+        [idx, (idx + 1) % hy2ngScreenshots.length].forEach((i) => {
+          const img = new Image();
+          img.src = hy2ngScreenshots[i].src;
+        });
+      },
+      { rootMargin: "100px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [currentScreenshot]);
 
   const nextScreenshot = () => {
     setCurrentScreenshot((prev) => (prev + 1) % hy2ngScreenshots.length);
@@ -527,7 +547,7 @@ const FeaturedAppSection = () => {
           {/* Main Content */}
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
             {/* Screenshots Carousel */}
-            <motion.div variants={fadeInUp} className="relative order-2 lg:order-1">
+            <motion.div ref={carouselRef} variants={fadeInUp} className="relative order-2 lg:order-1">
               <div className="relative mx-auto" style={{ maxWidth: "280px" }}>
                 {/* Pixel 9 Pro Frame */}
                 <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-zinc-700/50">
@@ -538,19 +558,13 @@ const FeaturedAppSection = () => {
                       {/* Pixel 9 Pro punch-hole camera */}
                       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
                       
-                      {/* Preloaded images (hidden but cached) */}
-                      <div className="hidden">
-                        {hy2ngScreenshots.map((screenshot, index) => (
-                          <img key={index} src={screenshot.src} alt="" />
-                        ))}
-                      </div>
-                      
-                      {/* Screenshot Images - all rendered, visibility controlled */}
+                      {/* Screenshot Images - lazy loaded, visibility controlled */}
                       {hy2ngScreenshots.map((screenshot, index) => (
                         <motion.img
                           key={index}
                           src={screenshot.src}
                           alt={screenshot.alt}
+                          loading="lazy"
                           className="absolute inset-0 w-full h-full object-cover"
                           initial={false}
                           animate={{ 
@@ -611,6 +625,7 @@ const FeaturedAppSection = () => {
                 <img 
                   src="/images/hy2ng/hy2ng.png" 
                   alt="Hy2NG App Icon" 
+                  loading="lazy"
                   className="w-14 h-14 rounded-2xl shadow-lg"
                 />
                 <div>
@@ -671,7 +686,8 @@ export default function IndexPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -683,17 +699,15 @@ export default function IndexPage() {
     fetchRepos();
   }, []);
 
-  const fetchRepos = async () => {
+  const fetchRepos = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(siteConfig.githubApi.repos);
-      if (!response.ok) throw new Error("Failed to fetch repositories");
-      const data = await response.json();
-      const filteredRepos = data
-        .filter((repo: GitHubRepo) => !repo.fork)
+      setError(null);
+      const { repos: data } = await fetchGitHubRepos(siteConfig.githubApi.repos);
+      const filteredRepos = (data as GitHubRepo[])
+        .filter((repo) => !repo.fork)
         .sort(
-          (a: GitHubRepo, b: GitHubRepo) =>
-            b.stargazers_count - a.stargazers_count,
+          (a, b) => b.stargazers_count - a.stargazers_count,
         );
       setRepos(filteredRepos);
     } catch (err) {
@@ -701,13 +715,17 @@ export default function IndexPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleContactSubmit = () => {
+  const handleContactSubmit = useCallback(() => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     const subject = encodeURIComponent(`Message from ${contactForm.name}`);
     const body = encodeURIComponent(`Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`);
     window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
-  };
+    // Reset after 2s to allow retry if mailto was cancelled
+    setTimeout(() => setIsSubmitting(false), 2000);
+  }, [contactForm.name, contactForm.email, contactForm.message, isSubmitting]);
 
   const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
 
@@ -1194,9 +1212,9 @@ export default function IndexPage() {
                       className="flex-1 font-medium btn-glow shadow-lg shadow-primary/20"
                       endContent={<SendIcon size={14} />}
                       onPress={handleContactSubmit}
-                      isDisabled={!contactForm.name || !contactForm.email || !contactForm.message}
+                      isDisabled={!contactForm.name || !contactForm.email || !contactForm.message || isSubmitting}
                     >
-                      Send Message
+                      {isSubmitting ? "Opening..." : "Send Message"}
                     </Button>
                     <Button
                       as={Link}
