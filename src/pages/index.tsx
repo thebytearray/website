@@ -1242,7 +1242,7 @@ export default function IndexPage() {
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         
         <div className="container mx-auto px-4 sm:px-6 py-12">
-          <div className="grid sm:grid-cols-3 gap-10 max-w-4xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-5xl mx-auto">
             {/* Brand */}
             <div>
               <Link
@@ -1298,6 +1298,25 @@ export default function IndexPage() {
                 >
                   <EmailIcon size={14} />
                   Email
+                </Link>
+              </div>
+            </div>
+
+            {/* Privacy */}
+            <div>
+              <h4 className="font-display font-medium mb-4 text-xs text-foreground uppercase tracking-widest">Privacy</h4>
+              <div className="space-y-2.5">
+                <Link
+                  href="/hy2ng-privacy"
+                  className="block text-sm text-default-500 hover:text-primary transition-colors"
+                >
+                  Hy2NG Privacy Policy
+                </Link>
+                <Link
+                  href="/convertit-privacy"
+                  className="block text-sm text-default-500 hover:text-primary transition-colors"
+                >
+                  Convertit Pro Privacy Policy
                 </Link>
               </div>
             </div>
