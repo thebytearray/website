@@ -14,7 +14,7 @@ export default {
       fontFamily: {
         sans: ['"Poppins"', 'system-ui', '-apple-system', 'sans-serif'],
         display: ['"Poppins"', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"Poppins"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

@@ -3,17 +3,19 @@ import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
 import { Avatar } from "@heroui/avatar";
-import { Input } from "@heroui/input";
+import { Input, Textarea } from "@heroui/input";
 import { Spinner } from "@heroui/spinner";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import { Navbar } from "@/components/navbar";
+import { FeaturedAppSection } from "@/components/FeaturedAppSection";
+import { PageLayout } from "@/layouts/PageLayout";
+import { SectionHeader } from "@/components/SectionHeader";
 import { siteConfig } from "@/config/site";
+import { fadeIn, fadeInUp, staggerContainer } from "@/lib/animations";
 import { fetchGitHubRepos } from "@/lib/githubApi";
 import {
   GithubIcon,
   StarIcon,
-  StarFilledIcon,
   ForkIcon,
   ExternalLinkIcon,
   EmailIcon,
@@ -24,9 +26,6 @@ import {
   QrCodeIcon,
   ServerIcon,
   AppsIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PlayStoreIcon,
   MusicIcon,
   VideoIcon,
   TagIcon,
@@ -45,35 +44,6 @@ interface GitHubRepo {
   topics: string[];
   fork: boolean;
 }
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }
-  },
-};
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1,
-    transition: { duration: 0.4 }
-  },
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.1,
-    },
-  },
-};
 
 // Typewriter hook
 const useTypewriter = (text: string, speed: number = 35, delay: number = 0) => {
@@ -227,460 +197,6 @@ const hy2ngFeatures = [
   { icon: ShieldIcon, title: "Privacy First", desc: "No ads, no tracking, all data stays on device" },
 ];
 
-// Convertit Featured Section Component
-const ConvertitFeaturedSection = () => {
-  const [currentScreenshot, setCurrentScreenshot] = useState(0);
-  const [expandedReviews, setExpandedReviews] = useState<Set<number>>(new Set());
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  const toggleReview = (index: number) => {
-    setExpandedReviews((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
-      }
-      return newSet;
-    });
-  };
-
-  // Lazy preload only current + next screenshot when section is visible
-  useEffect(() => {
-    const el = carouselRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        const idx = currentScreenshot;
-        [idx, (idx + 1) % convertitScreenshots.length].forEach((i) => {
-          const img = new Image();
-          img.src = convertitScreenshots[i].src;
-        });
-      },
-      { rootMargin: "100px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [currentScreenshot]);
-
-  const nextScreenshot = () => {
-    setCurrentScreenshot((prev) => (prev + 1) % convertitScreenshots.length);
-  };
-
-  const prevScreenshot = () => {
-    setCurrentScreenshot((prev) => (prev - 1 + convertitScreenshots.length) % convertitScreenshots.length);
-  };
-
-  return (
-    <section id="convertit" className="relative py-24 sm:py-32 bg-default-50/50 dark:bg-default-50/20 border-t border-default-100 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid opacity-30" />
-      
-      <div className="relative container mx-auto px-4 sm:px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={staggerContainer}
-        >
-          {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Featured App</p>
-            <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
-              Convertit Pro
-            </h2>
-            <p className="text-default-500 mt-4 max-w-xl mx-auto text-base leading-relaxed">
-              A powerful offline media toolkit for Android. Convert audio &amp; video,
-              edit metadata, and clean EXIF data with complete privacy.
-            </p>
-            <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
-          </motion.div>
-
-          {/* Main Content */}
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
-            {/* Screenshots Carousel */}
-            <motion.div ref={carouselRef} variants={fadeInUp} className="relative order-2 lg:order-1">
-              <div className="relative mx-auto" style={{ maxWidth: "280px" }}>
-                {/* Pixel 9 Pro Frame */}
-                <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-zinc-700/50">
-                  {/* Inner bezel */}
-                  <div className="bg-[#0d0d0d] rounded-[2.6rem] p-[6px]">
-                    {/* Screen */}
-                    <div className="relative rounded-[2.2rem] overflow-hidden bg-black aspect-[9/20]">
-                      {/* Pixel 9 Pro punch-hole camera */}
-                      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
-                      
-                      {/* Screenshot Images - lazy loaded, visibility controlled */}
-                      {convertitScreenshots.map((screenshot, index) => (
-                        <motion.img
-                          key={index}
-                          src={screenshot.src}
-                          alt={screenshot.alt}
-                          loading="lazy"
-                          className="absolute inset-0 w-full h-full object-cover"
-                          initial={false}
-                          animate={{ 
-                            opacity: index === currentScreenshot ? 1 : 0,
-                            scale: index === currentScreenshot ? 1 : 1.02
-                          }}
-                          transition={{ duration: 0.25, ease: "easeOut" }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Side buttons - Volume */}
-                  <div className="absolute left-[-2px] top-28 w-[3px] h-8 bg-zinc-700 rounded-l-sm" />
-                  <div className="absolute left-[-2px] top-40 w-[3px] h-12 bg-zinc-700 rounded-l-sm" />
-                  {/* Power button */}
-                  <div className="absolute right-[-2px] top-32 w-[3px] h-10 bg-zinc-700 rounded-r-sm" />
-                </div>
-
-                {/* Navigation Arrows */}
-                <button
-                  onClick={prevScreenshot}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
-                  aria-label="Previous screenshot"
-                >
-                  <ChevronLeftIcon size={16} />
-                </button>
-                <button
-                  onClick={nextScreenshot}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
-                  aria-label="Next screenshot"
-                >
-                  <ChevronRightIcon size={16} />
-                </button>
-
-                {/* Dots Indicator */}
-                <div className="flex justify-center gap-1.5 mt-6">
-                  {convertitScreenshots.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentScreenshot(index)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        index === currentScreenshot
-                          ? "bg-primary w-6"
-                          : "bg-default-300 dark:bg-default-200 hover:bg-default-400"
-                      }`}
-                      aria-label={`Go to screenshot ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* App Info */}
-            <motion.div variants={fadeInUp} className="order-1 lg:order-2 space-y-8">
-              {/* App Badge */}
-              <div className="flex items-center gap-3">
-                <img 
-                  src="/images/convertit/c_pro.png" 
-                  alt="Convertit Pro App Icon" 
-                  loading="lazy"
-                  className="w-14 h-14 rounded-2xl shadow-lg"
-                />
-                <div>
-                  <h3 className="font-medium text-lg text-foreground">Convertit Pro</h3>
-                  <p className="text-xs text-default-500 font-mono">Media Toolkit</p>
-                </div>
-              </div>
-
-              {/* Features Grid */}
-              <div className="grid sm:grid-cols-2 gap-3">
-                {convertitFeatures.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="feature-card p-4 rounded-xl border border-default-200 dark:border-default-100/50 bg-background/80 hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/5"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
-                      <feature.icon size={18} className="text-primary" />
-                    </div>
-                    <h4 className="font-medium text-sm text-foreground mb-1">{feature.title}</h4>
-                    <p className="text-xs text-default-500 leading-relaxed">{feature.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Download Button */}
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  as={Link}
-                  isExternal
-                  href="https://play.google.com/store/apps/details?id=org.thebytearray.convertit"
-                  color="primary"
-                  size="lg"
-                  radius="lg"
-                  className="font-medium btn-glow shadow-lg shadow-primary/20"
-                  startContent={<PlayStoreIcon size={18} />}
-                >
-                  Get on Google Play
-                </Button>
-              </div>
-
-              {/* Contact */}
-              <p className="text-xs text-default-400">
-                Questions or feedback?{" "}
-                <Link href="mailto:contact@thebytearray.org" className="text-primary hover:underline">
-                  contact@thebytearray.org
-                </Link>
-              </p>
-            </motion.div>
-          </div>
-
-          {/* User Reviews */}
-          <motion.div variants={fadeInUp} className="mt-24">
-            <div className="text-center mb-12">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Reviews</p>
-              <h3 className="text-xl sm:text-2xl font-display font-medium text-foreground">
-                What Users Say
-              </h3>
-            </div>
-            
-            <div className="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
-              {convertitReviews.map((review, index) => {
-                const isExpanded = expandedReviews.has(index);
-                const isLongReview = review.comment.length > 150;
-                
-                return (
-                  <motion.div
-                    key={index}
-                    variants={fadeInUp}
-                    className="p-5 rounded-2xl border border-default-200 dark:border-default-100/50 bg-background/80 backdrop-blur-sm hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
-                  >
-                    <div className="flex items-start gap-3 mb-4">
-                      <img 
-                        src={review.avatar} 
-                        alt={review.name}
-                        loading="lazy"
-                        className="w-11 h-11 rounded-full object-cover ring-2 ring-default-100 dark:ring-default-200"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm text-foreground truncate">{review.name}</h4>
-                        <div className="flex gap-0.5 mt-1">
-                          {Array.from({ length: review.stars }).map((_, i) => (
-                            <StarFilledIcon key={i} size={14} className="text-amber-400 drop-shadow-sm" />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <p className={`text-sm text-default-500 leading-relaxed italic ${!isExpanded && isLongReview ? "line-clamp-3" : ""}`}>
-                      "{review.comment}"
-                    </p>
-                    {isLongReview && (
-                      <button
-                        onClick={() => toggleReview(index)}
-                        className="mt-3 text-xs text-primary hover:text-primary/80 font-medium transition-colors"
-                      >
-                        {isExpanded ? "← Show less" : "Read more →"}
-                      </button>
-                    )}
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-// Hy2NG Featured App Section Component
-const FeaturedAppSection = () => {
-  const [currentScreenshot, setCurrentScreenshot] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = carouselRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-        const idx = currentScreenshot;
-        [idx, (idx + 1) % hy2ngScreenshots.length].forEach((i) => {
-          const img = new Image();
-          img.src = hy2ngScreenshots[i].src;
-        });
-      },
-      { rootMargin: "100px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [currentScreenshot]);
-
-  const nextScreenshot = () => {
-    setCurrentScreenshot((prev) => (prev + 1) % hy2ngScreenshots.length);
-  };
-
-  const prevScreenshot = () => {
-    setCurrentScreenshot((prev) => (prev - 1 + hy2ngScreenshots.length) % hy2ngScreenshots.length);
-  };
-
-  return (
-    <section id="featured-app" className="relative py-24 sm:py-32 bg-default-50/50 dark:bg-default-50/20 border-t border-default-100 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid opacity-30" />
-      
-      <div className="relative container mx-auto px-4 sm:px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={staggerContainer}
-        >
-          {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Featured App</p>
-            <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
-              Hy2NG
-            </h2>
-            <p className="text-default-500 mt-4 max-w-xl mx-auto text-base leading-relaxed">
-              A powerful Hysteria2 VPN client for Android with built-in server setup wizard.
-              Connect to Hysteria2 servers with ease.
-            </p>
-            <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
-          </motion.div>
-
-          {/* Main Content */}
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
-            {/* Screenshots Carousel */}
-            <motion.div ref={carouselRef} variants={fadeInUp} className="relative order-2 lg:order-1">
-              <div className="relative mx-auto" style={{ maxWidth: "280px" }}>
-                {/* Pixel 9 Pro Frame */}
-                <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-zinc-700/50">
-                  {/* Inner bezel */}
-                  <div className="bg-[#0d0d0d] rounded-[2.6rem] p-[6px]">
-                    {/* Screen */}
-                    <div className="relative rounded-[2.2rem] overflow-hidden bg-black aspect-[9/20]">
-                      {/* Pixel 9 Pro punch-hole camera */}
-                      <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
-                      
-                      {/* Screenshot Images - lazy loaded, visibility controlled */}
-                      {hy2ngScreenshots.map((screenshot, index) => (
-                        <motion.img
-                          key={index}
-                          src={screenshot.src}
-                          alt={screenshot.alt}
-                          loading="lazy"
-                          className="absolute inset-0 w-full h-full object-cover"
-                          initial={false}
-                          animate={{ 
-                            opacity: index === currentScreenshot ? 1 : 0,
-                            scale: index === currentScreenshot ? 1 : 1.02
-                          }}
-                          transition={{ duration: 0.25, ease: "easeOut" }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Side buttons - Volume */}
-                  <div className="absolute left-[-2px] top-28 w-[3px] h-8 bg-zinc-700 rounded-l-sm" />
-                  <div className="absolute left-[-2px] top-40 w-[3px] h-12 bg-zinc-700 rounded-l-sm" />
-                  {/* Power button */}
-                  <div className="absolute right-[-2px] top-32 w-[3px] h-10 bg-zinc-700 rounded-r-sm" />
-                </div>
-
-                {/* Navigation Arrows */}
-                <button
-                  onClick={prevScreenshot}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
-                  aria-label="Previous screenshot"
-                >
-                  <ChevronLeftIcon size={16} />
-                </button>
-                <button
-                  onClick={nextScreenshot}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 rounded-full bg-background border border-default-200 dark:border-default-100 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
-                  aria-label="Next screenshot"
-                >
-                  <ChevronRightIcon size={16} />
-                </button>
-
-                {/* Dots Indicator */}
-                <div className="flex justify-center gap-1.5 mt-6">
-                  {hy2ngScreenshots.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentScreenshot(index)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        index === currentScreenshot
-                          ? "bg-primary w-6"
-                          : "bg-default-300 dark:bg-default-200 hover:bg-default-400"
-                      }`}
-                      aria-label={`Go to screenshot ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* App Info */}
-            <motion.div variants={fadeInUp} className="order-1 lg:order-2 space-y-8">
-              {/* App Badge */}
-              <div className="flex items-center gap-3">
-                <img 
-                  src="/images/hy2ng/hy2ng.png" 
-                  alt="Hy2NG App Icon" 
-                  loading="lazy"
-                  className="w-14 h-14 rounded-2xl shadow-lg"
-                />
-                <div>
-                  <h3 className="font-medium text-lg text-foreground">Hy2NG</h3>
-                  <p className="text-xs text-default-500 font-mono">Hysteria2 Client</p>
-                </div>
-              </div>
-
-              {/* Features Grid */}
-              <div className="grid sm:grid-cols-2 gap-3">
-                {hy2ngFeatures.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="feature-card p-4 rounded-xl border border-default-200 dark:border-default-100/50 bg-background/80 hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/5"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
-                      <feature.icon size={18} className="text-primary" />
-                    </div>
-                    <h4 className="font-medium text-sm text-foreground mb-1">{feature.title}</h4>
-                    <p className="text-xs text-default-500 leading-relaxed">{feature.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Download Button */}
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  as={Link}
-                  isExternal
-                  href="https://play.google.com/store/apps/details?id=org.thebytearray.hy2.ng"
-                  color="primary"
-                  size="lg"
-                  radius="lg"
-                  className="font-medium btn-glow shadow-lg shadow-primary/20"
-                  startContent={<PlayStoreIcon size={18} />}
-                >
-                  Get on Google Play
-                </Button>
-              </div>
-
-              {/* Contact */}
-              <p className="text-xs text-default-400">
-                Questions or feedback?{" "}
-                <Link href="mailto:contact@thebytearray.org" className="text-primary hover:underline">
-                  contact@thebytearray.org
-                </Link>
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
 export default function IndexPage() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -730,9 +246,7 @@ export default function IndexPage() {
   const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
 
   return (
-    <div className="relative flex flex-col min-h-screen bg-background">
-      <Navbar />
-
+    <PageLayout>
       {/* Hero Section */}
       <section 
         ref={heroRef}
@@ -882,12 +396,8 @@ export default function IndexPage() {
             variants={staggerContainer}
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-16">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">About</p>
-              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
-                The Byte Array
-              </h2>
-              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
+            <motion.div variants={fadeInUp}>
+              <SectionHeader label="About" title="The Byte Array" />
             </motion.div>
 
             {/* Content Grid */}
@@ -930,10 +440,31 @@ export default function IndexPage() {
       </section>
 
       {/* Featured App Section - Convertit */}
-      <ConvertitFeaturedSection />
+      <FeaturedAppSection
+        id="convertit"
+        appName="Convertit Pro"
+        subtitle="Media Toolkit"
+        description="A powerful offline media toolkit for Android. Convert audio & video, edit metadata, and clean EXIF data with complete privacy."
+        iconSrc="/images/convertit/c_pro.png"
+        iconAlt="Convertit Pro App Icon"
+        screenshots={convertitScreenshots}
+        features={convertitFeatures}
+        reviews={convertitReviews}
+        playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.convertit"
+      />
 
       {/* Featured App Section - Hy2NG */}
-      <FeaturedAppSection />
+      <FeaturedAppSection
+        id="featured-app"
+        appName="Hy2NG"
+        subtitle="Hysteria2 Client"
+        description="A powerful Hysteria2 VPN client for Android with built-in server setup wizard. Connect to Hysteria2 servers with ease."
+        iconSrc="/images/hy2ng/hy2ng.png"
+        iconAlt="Hy2NG App Icon"
+        screenshots={hy2ngScreenshots}
+        features={hy2ngFeatures}
+        playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.hy2.ng"
+      />
 
       {/* Projects Section */}
       <section id="projects" className="relative py-24 sm:py-32 border-t border-default-100 overflow-hidden">
@@ -948,15 +479,14 @@ export default function IndexPage() {
             variants={staggerContainer}
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-14">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Projects</p>
-              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
-                Our Open-Source Work
-              </h2>
-              <p className="text-default-500 mt-4 max-w-md mx-auto text-base">
-                Public repositories and open source projects
-              </p>
-              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
+            <motion.div variants={fadeInUp}>
+              <SectionHeader
+                label="Projects"
+                title="Our Open-Source Work"
+                description="Public repositories and open source projects"
+                descriptionMaxWidth="max-w-md"
+                className="mb-14"
+              />
             </motion.div>
 
             {/* Projects Grid */}
@@ -1076,12 +606,8 @@ export default function IndexPage() {
             className="max-w-3xl mx-auto"
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-14">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Team</p>
-              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
-                Contributors
-              </h2>
-              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
+            <motion.div variants={fadeInUp}>
+              <SectionHeader label="Team" title="Contributors" className="mb-14" />
             </motion.div>
 
             {/* Team Member */}
@@ -1146,15 +672,14 @@ export default function IndexPage() {
             className="max-w-lg mx-auto"
           >
             {/* Section Header */}
-            <motion.div variants={fadeInUp} className="text-center mb-12">
-              <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">Contact</p>
-              <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
-                Get in Touch
-              </h2>
-              <p className="text-default-500 mt-4 text-base">
-                Questions or interested in collaborating?
-              </p>
-              <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
+            <motion.div variants={fadeInUp}>
+              <SectionHeader
+                label="Contact"
+                title="Get in Touch"
+                description="Questions or interested in collaborating?"
+                descriptionMaxWidth="max-w-none"
+                className="mb-12"
+              />
             </motion.div>
 
             {/* Contact Form */}
@@ -1194,16 +719,22 @@ export default function IndexPage() {
                       inputWrapper: "border-default-200 dark:border-default-100/50 hover:border-primary/50",
                     }}
                   />
-                  <div className="space-y-2">
-                    <label className="text-default-600 text-xs font-medium">Message</label>
-                    <textarea
-                      placeholder="Your message"
-                      value={contactForm.message}
-                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                      rows={4}
-                      className="w-full px-4 py-3 rounded-xl border-2 border-default-200 dark:border-default-100/50 focus:border-primary focus:outline-none bg-transparent text-foreground placeholder:text-default-400 transition-colors resize-none text-sm hover:border-primary/50"
-                    />
-                  </div>
+                  <Textarea
+                    label="Message"
+                    labelPlacement="outside"
+                    placeholder="Your message"
+                    variant="bordered"
+                    radius="lg"
+                    size="md"
+                    minRows={4}
+                    disableAutosize
+                    value={contactForm.message}
+                    onValueChange={(value) => setContactForm({ ...contactForm, message: value })}
+                    classNames={{
+                      label: "text-default-600 text-xs font-medium",
+                      inputWrapper: "border-default-200 dark:border-default-100/50 hover:border-primary/50",
+                    }}
+                  />
                   <div className="flex gap-3 pt-2">
                     <Button
                       color="primary"
@@ -1235,112 +766,6 @@ export default function IndexPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="relative border-t border-default-100 bg-background overflow-hidden">
-        {/* Gradient accent */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-        
-        <div className="container mx-auto px-4 sm:px-6 py-12">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-5xl mx-auto">
-            {/* Brand */}
-            <div>
-              <Link
-                href="#"
-                className="inline-block mb-3"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
-                <span className="font-display text-lg font-medium text-foreground">
-                  The Byte[]
-                </span>
-              </Link>
-              <p className="text-sm text-default-500 leading-relaxed">
-                Building quality software & open source tools.
-              </p>
-            </div>
-
-            {/* Navigation */}
-            <div>
-              <h4 className="font-display font-medium mb-4 text-xs text-foreground uppercase tracking-widest">Navigation</h4>
-              <div className="space-y-2.5">
-                {siteConfig.navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="block text-sm text-default-500 hover:text-primary transition-colors"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Connect */}
-            <div>
-              <h4 className="font-display font-medium mb-4 text-xs text-foreground uppercase tracking-widest">Connect</h4>
-              <div className="space-y-2.5">
-                <Link
-                  isExternal
-                  href={siteConfig.links.github}
-                  className="flex items-center gap-2 text-sm text-default-500 hover:text-primary transition-colors"
-                >
-                  <GithubIcon size={14} />
-                  GitHub
-                </Link>
-                <Link
-                  isExternal
-                  href={`mailto:${siteConfig.email}`}
-                  className="flex items-center gap-2 text-sm text-default-500 hover:text-primary transition-colors"
-                >
-                  <EmailIcon size={14} />
-                  Email
-                </Link>
-              </div>
-            </div>
-
-            {/* Privacy */}
-            <div>
-              <h4 className="font-display font-medium mb-4 text-xs text-foreground uppercase tracking-widest">Privacy</h4>
-              <div className="space-y-2.5">
-                <Link
-                  href="/hy2ng-privacy"
-                  className="block text-sm text-default-500 hover:text-primary transition-colors"
-                >
-                  Hy2NG Privacy Policy
-                </Link>
-                <Link
-                  href="/convertit-privacy"
-                  className="block text-sm text-default-500 hover:text-primary transition-colors"
-                >
-                  Convertit Pro Privacy Policy
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="divider-gradient my-8" />
-
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-xs text-default-400 font-mono">
-              © {new Date().getFullYear()} The Byte Array
-            </p>
-            <p className="text-xs text-default-400">
-              Licensed under{" "}
-              <Link
-                isExternal
-                href="https://www.gnu.org/licenses/gpl-3.0.html"
-                className="text-primary/80 hover:text-primary transition-colors"
-              >
-                GPL-3.0
-              </Link>
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </PageLayout>
   );
 }

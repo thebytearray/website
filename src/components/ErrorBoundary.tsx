@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { Button } from "@heroui/button";
 
 interface Props {
   children: ReactNode;
@@ -44,13 +45,14 @@ export class ErrorBoundary extends Component<Props, State> {
               We encountered an unexpected error. Please refresh the page to try
               again.
             </p>
-            <button
-              type="button"
-              onClick={() => this.setState({ hasError: false, error: null })}
-              className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
+            <Button
+              color="primary"
+              size="sm"
+              radius="lg"
+              onPress={() => this.setState({ hasError: false, error: null })}
             >
               Try again
-            </button>
+            </Button>
           </div>
         </div>
       );

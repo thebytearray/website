@@ -18,7 +18,7 @@ body {
 }
 
 .font-mono {
-  font-family: "Poppins", system-ui, -apple-system, sans-serif;
+  font-family: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
 }
 
 /* Custom Scrollbar */

@@ -3,37 +3,16 @@ import { Card, CardBody } from "@heroui/card";
 import { Divider } from "@heroui/divider";
 import { motion } from "framer-motion";
 
-import { Navbar } from "@/components/navbar";
+import { PageLayout } from "@/layouts/PageLayout";
 import { siteConfig } from "@/config/site";
 import { EmailIcon } from "@/components/icons";
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
-  },
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-};
+import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function Hy2ngPrivacyPage() {
   const lastUpdated = "November 30, 2025";
 
   return (
-    <div className="relative flex flex-col min-h-screen bg-background">
-      <Navbar />
-
+    <PageLayout footerVariant="minimal">
       {/* Header */}
       <section className="relative pt-24 pb-12 border-b border-default-100">
         <div className="absolute inset-0 bg-hero-gradient opacity-50" />
@@ -297,27 +276,6 @@ export default function Hy2ngPrivacyPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-default-100 bg-background mt-auto">
-        <div className="container mx-auto px-4 sm:px-6 py-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
-            <p className="text-[11px] text-default-400 font-mono">
-              © {new Date().getFullYear()} The Byte Array
-            </p>
-            <p className="text-[11px] text-default-400">
-              Licensed under{" "}
-              <Link
-                isExternal
-                href="https://www.gnu.org/licenses/gpl-3.0.html"
-                className="text-default-500 hover:text-primary transition-colors"
-              >
-                GPL-3.0
-              </Link>
-            </p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </PageLayout>
   );
 }

@@ -5,41 +5,14 @@ export const siteConfig = {
   description: "Building software that actually works. We build tools, libraries, and applications with care.",
   email: "contact@thebytearray.org",
   navItems: [
-    {
-      label: "About",
-      href: "#about",
-    },
-    {
-      label: "Projects",
-      href: "#projects",
-    },
-    {
-      label: "Team",
-      href: "#team",
-    },
-    {
-      label: "Contact",
-      href: "#contact",
-    },
+    { label: "About", href: "#about" },
+    { label: "Projects", href: "#projects" },
+    { label: "Team", href: "#team" },
+    { label: "Contact", href: "#contact" },
   ],
-  navMenuItems: [
-    {
-      label: "About",
-      href: "#about",
-    },
-    {
-      label: "Projects",
-      href: "#projects",
-    },
-    {
-      label: "Team",
-      href: "#team",
-    },
-    {
-      label: "Contact",
-      href: "#contact",
-    },
-  ],
+  get navMenuItems() {
+    return this.navItems;
+  },
   links: {
     github: "https://github.com/thebytearray",
   },
