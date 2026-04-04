@@ -8,4 +8,6 @@ LICENSE
 *.log
 .vscode
 .cursor
+.next
+coverage
 

@@ -1,8 +1,47 @@
-services:
-  web:
-    build: .
-    ports:
-      - "8098:8098"
+name: ${COMPOSE_PROJECT_NAME:-thebytearray}
 
+services:
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "80"
     restart: unless-stopped
 
+  edge:
+    build:
+      context: .
+      dockerfile: Dockerfile.edge
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - letsencrypt:/etc/letsencrypt
+      - certbot-www:/var/www/certbot
+    depends_on:
+      site:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1/ >/dev/null"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
+
+  updater:
+    build:
+      context: .
+      dockerfile: Dockerfile.updater
+    environment:
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME:-thebytearray}
+      UPDATE_CRON: ${UPDATE_CRON:-}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/project
+    restart: unless-stopped
+
+volumes:
+  letsencrypt:
+  certbot-www:

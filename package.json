@@ -9,7 +9,9 @@
     "lint": "eslint --fix",
     "preview": "vite preview",
     "deploy": "./scripts/deploy.sh",
-    "deploy:no-pull": "./scripts/deploy.sh --no-pull"
+    "deploy:no-pull": "./scripts/deploy.sh --no-pull",
+    "update": "./scripts/update.sh",
+    "update:no-pull": "./scripts/deploy.sh --no-pull"
   },
   "dependencies": {
     "@heroui/avatar": "^2.2.22",
