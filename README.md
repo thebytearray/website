@@ -31,4 +31,4 @@ If HTTPS does not come up, check DNS and port 80, then `docker compose logs edge
 
 ## License
 
-GNU General Public License v3.0 — see LICENSE.
+GNU General Public License v3.0
