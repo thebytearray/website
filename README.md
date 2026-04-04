@@ -45,4 +45,4 @@ After changing nginx config, rebuild edge: `docker compose up -d --build edge`.
 
 ## License
 
-GNU General Public License v3.0 — see LICENSE.
+GNU General Public License v3.0
