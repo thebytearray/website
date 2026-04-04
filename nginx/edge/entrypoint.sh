@@ -14,14 +14,15 @@ nginx -g "daemon on;"
 sleep 2
 
 if [ ! -f "$CERT_PATH" ]; then
-  certbot certonly \
+  if ! certbot certonly \
     --webroot -w /var/www/certbot \
     -d thebytearray.org -d www.thebytearray.org \
     --email contact@thebytearray.org \
     --agree-tos \
     --non-interactive \
-    --rsa-key-size 4096 \
-    || true
+    --rsa-key-size 4096; then
+    echo "certbot failed — check logs above; then: docker compose restart edge" >&2
+  fi
 fi
 
 if [ -f "$CERT_PATH" ]; then
