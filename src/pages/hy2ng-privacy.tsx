@@ -14,7 +14,7 @@ export default function Hy2ngPrivacyPage() {
   return (
     <PageLayout footerVariant="minimal">
       {/* Header */}
-      <section className="relative pt-24 pb-12 border-b border-default-100">
+      <section className="relative pt-24 pb-12 border-b border-foreground/[0.06]">
         <div className="absolute inset-0 bg-hero-gradient opacity-50" />
         <div className="absolute inset-0 bg-dots opacity-20" />
 
@@ -27,25 +27,25 @@ export default function Hy2ngPrivacyPage() {
           >
             <motion.p
               variants={fadeInUp}
-              className="text-xs font-mono text-primary uppercase tracking-widest mb-3"
+              className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] mb-4 font-medium"
             >
               Legal
             </motion.p>
             <motion.h1
               variants={fadeInUp}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+              className="text-3xl sm:text-4xl lg:text-5xl font-display text-foreground tracking-tight leading-[1.1] mb-4"
             >
               Privacy Policy
             </motion.h1>
             <motion.p
               variants={fadeInUp}
-              className="text-lg text-default-500 mb-2"
+              className="text-lg text-foreground/55 mb-2"
             >
               Hy2NG : Client &amp; Server Setup
             </motion.p>
             <motion.p
               variants={fadeInUp}
-              className="text-sm text-default-400 font-mono"
+              className="text-sm text-foreground/40 font-mono"
             >
               Last updated: {lastUpdated}
             </motion.p>
@@ -65,11 +65,11 @@ export default function Hy2ngPrivacyPage() {
             {/* Introduction */}
             <motion.div variants={fadeInUp}>
               <Card
-                className="bg-primary/5 border border-primary/20"
+                className="bg-foreground/[0.02] border border-foreground/[0.06]"
                 shadow="none"
               >
                 <CardBody className="p-5">
-                  <p className="text-default-600 leading-relaxed">
+                  <p className="text-foreground/55 leading-relaxed">
                     <strong className="text-foreground">In short:</strong> We
                     do not collect any data. Everything stays on your device.
                   </p>
@@ -79,18 +79,17 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Section: About This App */}
             <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 About This App
               </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   Hy2NG is a <strong className="text-foreground">third-party client app</strong> for
                   the{" "}
                   <Link
                     isExternal
                     href="https://v2.hysteria.network"
-                    className="text-primary hover:underline"
+                    className="text-foreground/55 hover:text-foreground underline underline-offset-2"
                   >
                     Hysteria2 protocol
                   </Link>
@@ -108,11 +107,10 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Section: No Data Collection */}
             <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 We Don&apos;t Collect Any Data
               </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   Hy2NG does not collect, transmit, or store any personal
                   information on our servers. We have no analytics, no
@@ -128,18 +126,17 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Section: What's Stored on Your Device */}
             <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 What&apos;s Stored on Your Device
               </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>The app saves the following locally:</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>VPN server configurations you add</li>
                   <li>App settings (theme, DNS, MTU)</li>
                   <li>Per-app proxy preferences</li>
                 </ul>
-                <p className="text-sm text-default-500 mt-3">
+                <p className="text-sm text-foreground/45 mt-3">
                   This data is deleted when you uninstall the app.
                 </p>
               </div>
@@ -147,11 +144,10 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Section: Network Connections */}
             <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 Network Connections
               </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   The app only connects to VPN servers that <strong className="text-foreground">you</strong> configure.
                   We don&apos;t operate any servers and have no visibility into your
@@ -166,11 +162,10 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Section: Google Play */}
             <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 Google Play Services
               </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   This app is distributed through Google Play. Google may
                   collect certain data as part of their standard Play Store
@@ -182,7 +177,7 @@ export default function Hy2ngPrivacyPage() {
                   <Link
                     isExternal
                     href="https://policies.google.com/privacy"
-                    className="text-primary hover:underline"
+                    className="text-foreground/55 hover:text-foreground underline underline-offset-2"
                   >
                     Google&apos;s Privacy Policy
                   </Link>
@@ -193,11 +188,10 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Section: Permissions */}
             <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 App Permissions
               </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>Here are the permissions the app requires and why:</p>
                 <ul className="list-disc pl-5 space-y-3">
                   <li>
@@ -237,24 +231,23 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Section: Contact */}
             <motion.div variants={fadeInUp} className="space-y-4">
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 Contact
               </h2>
-              <div className="pl-4 space-y-3 text-default-600 leading-relaxed">
+              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>Questions? Reach out:</p>
                 <div className="flex items-center gap-2 mt-2">
-                  <EmailIcon size={16} className="text-primary" />
+                  <EmailIcon size={16} className="text-foreground/55" />
                   <Link
                     isExternal
                     href={`mailto:${siteConfig.email}`}
-                    className="text-primary hover:underline"
+                    className="text-foreground/55 hover:text-foreground underline underline-offset-2"
                   >
                     {siteConfig.email}
                   </Link>
                 </div>
-                <div className="mt-6 pt-4 border-t border-default-100">
-                  <p className="text-sm text-default-500">
+                <div className="mt-6 pt-4 border-t border-foreground/[0.06]">
+                  <p className="text-sm text-foreground/45">
                     <strong className="text-foreground">The Byte Array LTD</strong>
                   </p>
                 </div>
@@ -263,11 +256,11 @@ export default function Hy2ngPrivacyPage() {
 
             {/* Back to Home */}
             <motion.div variants={fadeInUp} className="pt-8">
-              <Divider className="mb-8" />
+              <Divider className="mb-8 bg-foreground/[0.06]" />
               <div className="text-center">
                 <Link
                   href="/"
-                  className="text-sm text-default-500 hover:text-primary transition-colors"
+                  className="text-sm text-foreground/55 hover:text-foreground transition-colors"
                 >
                   ← Back to The Byte Array
                 </Link>

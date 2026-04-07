@@ -9,12 +9,11 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@heroui/navbar";
-import { link as linkStyles } from "@heroui/theme";
-import clsx from "clsx";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { siteConfig } from "@/config/site";
+import { LogoMark } from "@/components/LogoMark";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon } from "@/components/icons";
 
@@ -26,15 +25,12 @@ export const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
-    
     if (isHomePage) {
-      // On home page, scroll to section
       const element = document.querySelector(href);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // On other pages, navigate to home with hash
       navigate("/" + href);
     }
   };
@@ -54,34 +50,28 @@ export const Navbar = () => {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       classNames={{
-        base: "bg-background/80 backdrop-blur-xl border-b border-default-100/50 shadow-sm",
+        base: "bg-background/80 backdrop-blur-xl border-b border-foreground/[0.06]",
         wrapper: "px-4 sm:px-6",
       }}
     >
-      {/* Logo */}
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-2 max-w-fit">
           <Link
-            className="flex justify-start items-center gap-2 cursor-pointer group"
+            aria-label="The Byte Array home"
+            className="flex justify-start items-center cursor-pointer group"
             color="foreground"
             onClick={handleLogoClick}
           >
-            <span className="font-display text-lg font-medium text-foreground group-hover:text-primary transition-colors">
-              The Byte[]
-            </span>
+            <LogoMark className="text-base sm:text-lg" />
           </Link>
         </NavbarBrand>
       </NavbarContent>
 
-      {/* Desktop Navigation */}
-      <NavbarContent className="hidden md:flex gap-1" justify="center">
+      <NavbarContent className="hidden md:flex gap-0" justify="center">
         {siteConfig.navItems.map((item) => (
           <NavbarItem key={item.href}>
             <Link
-              className={clsx(
-                linkStyles({ color: "foreground" }),
-                "cursor-pointer text-sm text-default-500 hover:text-foreground px-4 py-2 rounded-lg hover:bg-default-100/80 transition-all duration-200",
-              )}
+              className="cursor-pointer text-[13px] text-foreground/55 hover:text-foreground px-4 py-2 rounded-lg transition-colors duration-150"
               color="foreground"
               onClick={() => handleNavClick(item.href)}
             >
@@ -91,22 +81,19 @@ export const Navbar = () => {
         ))}
       </NavbarContent>
 
-      {/* Desktop Actions */}
       <NavbarContent
         className="hidden md:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="flex gap-3 items-center">
+        <NavbarItem className="flex gap-2 items-center">
           <ThemeSwitch />
           <Button
             isExternal
             as={Link}
-            className="font-medium text-xs px-4 shadow-sm"
-            color="primary"
+            className="font-medium text-xs bg-foreground text-background btn-hover"
             href={siteConfig.links.github}
-            radius="lg"
+            radius="full"
             size="sm"
-            variant="flat"
             startContent={<GithubIcon size={14} />}
           >
             GitHub
@@ -114,22 +101,20 @@ export const Navbar = () => {
         </NavbarItem>
       </NavbarContent>
 
-      {/* Mobile Menu Toggle */}
       <NavbarContent className="md:hidden basis-1 pl-4" justify="end">
         <ThemeSwitch />
-        <NavbarMenuToggle 
+        <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="text-foreground"
         />
       </NavbarContent>
 
-      {/* Mobile Menu */}
       <NavbarMenu className="pt-6 bg-background/98 backdrop-blur-xl">
-        <div className="mx-4 mt-2 flex flex-col gap-2">
+        <div className="mx-4 mt-2 flex flex-col gap-1">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item.label}-${index}`}>
               <Link
-                className="w-full text-base py-3 px-4 rounded-xl text-default-600 hover:bg-default-100 hover:text-foreground transition-all cursor-pointer font-medium"
+                className="w-full text-sm py-3 px-4 rounded-xl text-foreground/55 hover:bg-foreground/[0.04] hover:text-foreground transition-colors cursor-pointer font-medium"
                 color="foreground"
                 onClick={() => handleNavClick(item.href)}
               >
@@ -137,17 +122,14 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))}
-          
-          <NavbarMenuItem className="mt-4 pt-4 border-t border-default-100">
+          <NavbarMenuItem className="mt-4 pt-4 border-t border-foreground/[0.06]">
             <Button
               isExternal
               as={Link}
-              className="w-full font-medium text-sm"
-              color="primary"
+              className="w-full font-medium text-sm bg-foreground text-background"
               href={siteConfig.links.github}
-              radius="lg"
+              radius="full"
               size="md"
-              variant="flat"
               startContent={<GithubIcon size={16} />}
             >
               GitHub

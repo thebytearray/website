@@ -3,6 +3,7 @@ import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { motion } from "framer-motion";
 
+import { AppReviewsSection } from "@/components/AppReviewsSection";
 import { SectionHeader } from "@/components/SectionHeader";
 import { siteConfig } from "@/config/site";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
@@ -10,7 +11,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   PlayStoreIcon,
-  StarFilledIcon,
 } from "@/components/icons";
 
 export interface FeaturedAppFeature {
@@ -52,20 +52,7 @@ export function FeaturedAppSection({
   playStoreUrl,
 }: FeaturedAppSectionProps) {
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
-  const [expandedReviews, setExpandedReviews] = useState<Set<number>>(new Set());
   const carouselRef = useRef<HTMLDivElement>(null);
-
-  const toggleReview = (index: number) => {
-    setExpandedReviews((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
-      }
-      return newSet;
-    });
-  };
 
   useEffect(() => {
     const el = carouselRef.current;
@@ -96,9 +83,9 @@ export function FeaturedAppSection({
   return (
     <section
       id={id}
-      className="relative py-24 sm:py-32 bg-default-50/50 dark:bg-default-50/20 border-t border-default-100 overflow-hidden"
+      className="relative py-28 sm:py-36 border-t border-foreground/[0.06] overflow-hidden"
     >
-      <div className="absolute inset-0 bg-grid opacity-30" />
+      <div className="absolute inset-0 bg-dots opacity-40" />
 
       <div className="relative container mx-auto px-4 sm:px-6">
         <motion.div
@@ -115,7 +102,7 @@ export function FeaturedAppSection({
             />
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center max-w-6xl mx-auto">
             {/* Screenshots Carousel */}
             <motion.div
               ref={carouselRef}
@@ -123,7 +110,7 @@ export function FeaturedAppSection({
               className="relative order-2 lg:order-1"
             >
               <div className="relative mx-auto" style={{ maxWidth: "280px" }}>
-                <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-zinc-700/50">
+                <div className="relative bg-[#1a1a1a] rounded-[2.8rem] p-[3px] shadow-2xl ring-1 ring-white/5">
                   <div className="bg-[#0d0d0d] rounded-[2.6rem] p-[6px]">
                     <div className="relative rounded-[2.2rem] overflow-hidden bg-black aspect-[9/20]">
                       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[10px] h-[10px] bg-[#0a0a0a] rounded-full z-10 ring-1 ring-zinc-800" />
@@ -139,7 +126,7 @@ export function FeaturedAppSection({
                             opacity: index === currentScreenshot ? 1 : 0,
                             scale: index === currentScreenshot ? 1 : 1.02,
                           }}
-                          transition={{ duration: 0.25, ease: "easeOut" }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
                         />
                       ))}
                     </div>
@@ -154,7 +141,7 @@ export function FeaturedAppSection({
                   variant="flat"
                   size="sm"
                   radius="full"
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 min-w-8 border border-default-200 dark:border-default-100 hover:border-primary hover:text-primary"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-8 h-8 min-w-8 bg-foreground/[0.06] border border-foreground/[0.08] hover:bg-foreground/[0.1] text-foreground/55"
                   aria-label="Previous screenshot"
                   onPress={prevScreenshot}
                 >
@@ -165,7 +152,7 @@ export function FeaturedAppSection({
                   variant="flat"
                   size="sm"
                   radius="full"
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 min-w-8 border border-default-200 dark:border-default-100 hover:border-primary hover:text-primary"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-8 h-8 min-w-8 bg-foreground/[0.06] border border-foreground/[0.08] hover:bg-foreground/[0.1] text-foreground/55"
                   aria-label="Next screenshot"
                   onPress={nextScreenshot}
                 >
@@ -174,19 +161,15 @@ export function FeaturedAppSection({
 
                 <div className="flex justify-center gap-1.5 mt-6">
                   {screenshots.map((_, index) => (
-                    <Button
+                    <button
                       key={index}
-                      isIconOnly
-                      variant="flat"
-                      size="sm"
-                      radius="full"
-                      className={`w-2 h-2 min-w-2 min-h-2 p-0 transition-all ${
+                      className={`h-1.5 rounded-full transition-all duration-200 ${
                         index === currentScreenshot
-                          ? "bg-primary w-6 min-w-6"
-                          : "bg-default-300 dark:bg-default-200 hover:bg-default-400"
+                          ? "bg-foreground w-6"
+                          : "bg-foreground/20 w-1.5 hover:bg-foreground/35"
                       }`}
                       aria-label={`Go to screenshot ${index + 1}`}
-                      onPress={() => setCurrentScreenshot(index)}
+                      onClick={() => setCurrentScreenshot(index)}
                     />
                   ))}
                 </div>
@@ -198,16 +181,16 @@ export function FeaturedAppSection({
               variants={fadeInUp}
               className="order-1 lg:order-2 space-y-8"
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 <img
                   src={iconSrc}
                   alt={iconAlt}
                   loading="lazy"
-                  className="w-14 h-14 rounded-2xl shadow-lg"
+                  className="w-16 h-16 rounded-2xl shadow-lg"
                 />
                 <div>
-                  <h3 className="font-medium text-lg text-foreground">{appName}</h3>
-                  <p className="text-xs text-default-500 font-mono">{subtitle}</p>
+                  <h3 className="font-display text-2xl text-foreground italic">{appName}</h3>
+                  <p className="text-sm text-foreground/40 font-mono">{subtitle}</p>
                 </div>
               </div>
 
@@ -215,15 +198,15 @@ export function FeaturedAppSection({
                 {features.map((feature, index) => (
                   <div
                     key={index}
-                    className="feature-card p-4 rounded-xl border border-default-200 dark:border-default-100/50 bg-background/80 hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/5"
+                    className="feature-card p-4 rounded-xl border border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.12] transition-all duration-200 group"
                   >
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
-                      <feature.icon size={18} className="text-primary" />
+                    <div className="w-9 h-9 rounded-lg bg-foreground/[0.06] flex items-center justify-center mb-3 group-hover:bg-foreground/[0.1] transition-colors">
+                      <feature.icon size={18} className="text-foreground/55" />
                     </div>
                     <h4 className="font-medium text-sm text-foreground mb-1">
                       {feature.title}
                     </h4>
-                    <p className="text-xs text-default-500 leading-relaxed">
+                    <p className="text-xs text-foreground/40 leading-relaxed">
                       {feature.desc}
                     </p>
                   </div>
@@ -235,21 +218,20 @@ export function FeaturedAppSection({
                   as={Link}
                   isExternal
                   href={playStoreUrl}
-                  color="primary"
+                  className="font-medium bg-foreground text-background btn-hover"
                   size="lg"
-                  radius="lg"
-                  className="font-medium btn-glow shadow-lg shadow-primary/20"
+                  radius="full"
                   startContent={<PlayStoreIcon size={18} />}
                 >
                   Get on Google Play
                 </Button>
               </div>
 
-              <p className="text-xs text-default-400">
+              <p className="text-xs text-foreground/40">
                 Questions or feedback?{" "}
                 <Link
                   href={`mailto:${siteConfig.email}`}
-                  className="text-primary hover:underline"
+                  className="text-foreground/55 hover:text-foreground transition-colors text-xs underline underline-offset-2"
                 >
                   {siteConfig.email}
                 </Link>
@@ -257,69 +239,8 @@ export function FeaturedAppSection({
             </motion.div>
           </div>
 
-          {/* User Reviews */}
           {reviews && reviews.length > 0 && (
-            <motion.div variants={fadeInUp} className="mt-24">
-              <SectionHeader
-                label="Reviews"
-                title="What Users Say"
-                className="mb-12"
-              />
-              <div className="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
-                {reviews.map((review, index) => {
-                  const isExpanded = expandedReviews.has(index);
-                  const isLongReview = review.comment.length > 150;
-                  return (
-                    <motion.div
-                      key={index}
-                      variants={fadeInUp}
-                      className="p-5 rounded-2xl border border-default-200 dark:border-default-100/50 bg-background/80 backdrop-blur-sm hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
-                    >
-                      <div className="flex items-start gap-3 mb-4">
-                        <img
-                          src={review.avatar}
-                          alt={review.name}
-                          loading="lazy"
-                          className="w-11 h-11 rounded-full object-cover ring-2 ring-default-100 dark:ring-default-200"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-sm text-foreground truncate">
-                            {review.name}
-                          </h4>
-                          <div className="flex gap-0.5 mt-1">
-                            {Array.from({ length: review.stars }).map((_, i) => (
-                              <StarFilledIcon
-                                key={i}
-                                size={14}
-                                className="text-amber-400 drop-shadow-sm"
-                              />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      <p
-                        className={`text-sm text-default-500 leading-relaxed italic ${
-                          !isExpanded && isLongReview ? "line-clamp-3" : ""
-                        }`}
-                      >
-                        &quot;{review.comment}&quot;
-                      </p>
-                      {isLongReview && (
-                        <Button
-                          variant="light"
-                          size="sm"
-                          className="mt-3 text-xs text-primary hover:text-primary/80 font-medium min-w-0 h-auto p-0"
-                          onPress={() => toggleReview(index)}
-                        >
-                          {isExpanded ? "← Show less" : "Read more →"}
-                        </Button>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
+            <AppReviewsSection reviews={reviews} appName={appName} />
           )}
         </motion.div>
       </div>

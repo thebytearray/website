@@ -2,9 +2,7 @@ interface SectionHeaderProps {
   label: string;
   title: string;
   description?: string;
-  /** Max width class for description, e.g. "max-w-xl" or "max-w-md" */
   descriptionMaxWidth?: string;
-  /** Override bottom margin, e.g. "mb-12" or "mb-14" */
   className?: string;
 }
 
@@ -17,20 +15,19 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={`text-center ${className}`}>
-      <p className="text-xs font-mono text-primary uppercase tracking-widest mb-3">
+      <p className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.25em] mb-4 font-medium">
         {label}
       </p>
-      <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground">
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display text-foreground tracking-tight leading-[1.1]">
         {title}
       </h2>
       {description && (
         <p
-          className={`text-default-500 mt-4 mx-auto text-base leading-relaxed ${descriptionMaxWidth}`}
+          className={`text-foreground/55 mt-5 mx-auto text-base sm:text-lg leading-relaxed ${descriptionMaxWidth}`}
         >
           {description}
         </p>
       )}
-      <div className="w-16 h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50 mx-auto mt-6 rounded-full" />
     </div>
   );
 }
