@@ -1,7 +1,5 @@
-
-
 const CACHE_KEY = "github_repos_cache";
-const CACHE_TTL_MS = 60 * 60 * 1000; 
+const CACHE_TTL_MS = 60 * 60 * 1000;
 
 interface CacheEntry<T> {
   data: T;
@@ -11,9 +9,11 @@ interface CacheEntry<T> {
 function getCachedRepos(): unknown[] | null {
   try {
     const cached = sessionStorage.getItem(CACHE_KEY);
+
     if (!cached) return null;
 
     const { data, timestamp }: CacheEntry<unknown[]> = JSON.parse(cached);
+
     if (Date.now() - timestamp > CACHE_TTL_MS) return null;
 
     return data;
@@ -26,7 +26,7 @@ function setCachedRepos(data: unknown[]): void {
   try {
     sessionStorage.setItem(
       CACHE_KEY,
-      JSON.stringify({ data, timestamp: Date.now() })
+      JSON.stringify({ data, timestamp: Date.now() }),
     );
   } catch {
     // Storage full or unavailable - continue without cache
@@ -40,10 +40,7 @@ function sleep(ms: number): Promise<void> {
 /**
  * Fetch with exponential backoff retry for transient failures.
  */
-async function fetchWithRetry(
-  url: string,
-  maxRetries = 3
-): Promise<Response> {
+async function fetchWithRetry(url: string, maxRetries = 3): Promise<Response> {
   let lastError: Error | null = null;
 
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
@@ -54,10 +51,13 @@ async function fetchWithRetry(
 
       // Handle rate limiting - don't retry, return error
       if (response.status === 403) {
-        const rateLimitRemaining = response.headers.get("x-ratelimit-remaining");
+        const rateLimitRemaining = response.headers.get(
+          "x-ratelimit-remaining",
+        );
+
         if (rateLimitRemaining === "0") {
           throw new Error(
-            "GitHub API rate limit exceeded. Please try again later."
+            "GitHub API rate limit exceeded. Please try again later.",
           );
         }
       }
@@ -65,11 +65,14 @@ async function fetchWithRetry(
       if (response.status === 429) {
         const retryAfter = response.headers.get("retry-after");
         const waitMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : 60000;
+
         if (attempt < maxRetries) {
           await sleep(waitMs);
           continue;
         }
-        throw new Error("GitHub API rate limit exceeded. Please try again later.");
+        throw new Error(
+          "GitHub API rate limit exceeded. Please try again later.",
+        );
       }
 
       return response;
@@ -77,6 +80,7 @@ async function fetchWithRetry(
       lastError = err instanceof Error ? err : new Error(String(err));
       if (attempt < maxRetries) {
         const backoffMs = Math.min(1000 * 2 ** attempt, 8000);
+
         await sleep(backoffMs);
       } else {
         throw lastError;
@@ -88,23 +92,27 @@ async function fetchWithRetry(
 }
 
 export async function fetchGitHubRepos(
-  url: string
+  url: string,
 ): Promise<{ repos: unknown[]; fromCache: boolean }> {
   const cached = getCachedRepos();
+
   if (cached) {
     return { repos: cached, fromCache: true };
   }
 
   const response = await fetchWithRetry(url);
+
   if (!response.ok) {
     throw new Error(`Failed to fetch repositories: ${response.statusText}`);
   }
 
   const data = await response.json();
+
   if (!Array.isArray(data)) {
     throw new Error("Invalid API response");
   }
 
   setCachedRepos(data);
+
   return { repos: data, fromCache: false };
 }

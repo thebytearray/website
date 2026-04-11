@@ -4,6 +4,7 @@ import { Divider } from "@heroui/divider";
 import { motion } from "framer-motion";
 
 import { PageLayout } from "@/layouts/PageLayout";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { siteConfig } from "@/config/site";
 import { EmailIcon } from "@/components/icons";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
@@ -20,32 +21,41 @@ export default function Hy2ngPrivacyPage() {
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6">
           <motion.div
-            initial="hidden"
             animate="visible"
+            className="max-w-3xl mx-auto"
+            initial="hidden"
             variants={staggerContainer}
-            className="max-w-3xl mx-auto text-center"
           >
+            <motion.div variants={fadeInUp}>
+              <Breadcrumbs
+                items={[
+                  { label: "Home", href: "/" },
+                  { label: "Hy2NG", href: "/#featured-app" },
+                  { label: "Privacy Policy" },
+                ]}
+              />
+            </motion.div>
             <motion.p
+              className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] mb-3 font-medium"
               variants={fadeInUp}
-              className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] mb-4 font-medium"
             >
               Legal
             </motion.p>
             <motion.h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-display text-foreground tracking-tight leading-[1.1] mb-3"
               variants={fadeInUp}
-              className="text-3xl sm:text-4xl lg:text-5xl font-display text-foreground tracking-tight leading-[1.1] mb-4"
             >
               Privacy Policy
             </motion.h1>
             <motion.p
+              className="text-base text-foreground/55 mb-1"
               variants={fadeInUp}
-              className="text-lg text-foreground/55 mb-2"
             >
               Hy2NG : Client &amp; Server Setup
             </motion.p>
             <motion.p
+              className="text-xs text-foreground/40 font-mono"
               variants={fadeInUp}
-              className="text-sm text-foreground/40 font-mono"
             >
               Last updated: {lastUpdated}
             </motion.p>
@@ -57,10 +67,10 @@ export default function Hy2ngPrivacyPage() {
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
-            initial="hidden"
             animate="visible"
-            variants={staggerContainer}
             className="max-w-3xl mx-auto space-y-8"
+            initial="hidden"
+            variants={staggerContainer}
           >
             {/* Introduction */}
             <motion.div variants={fadeInUp}>
@@ -70,26 +80,29 @@ export default function Hy2ngPrivacyPage() {
               >
                 <CardBody className="p-5">
                   <p className="text-foreground/55 leading-relaxed">
-                    <strong className="text-foreground">In short:</strong> We
-                    do not collect any data. Everything stays on your device.
+                    <strong className="text-foreground">In short:</strong> We do
+                    not collect any data. Everything stays on your device.
                   </p>
                 </CardBody>
               </Card>
             </motion.div>
 
             {/* Section: About This App */}
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 About This App
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  Hy2NG is a <strong className="text-foreground">third-party client app</strong> for
-                  the{" "}
+                  Hy2NG is a{" "}
+                  <strong className="text-foreground">
+                    third-party client app
+                  </strong>{" "}
+                  for the{" "}
                   <Link
                     isExternal
-                    href="https://v2.hysteria.network"
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
+                    href="https://v2.hysteria.network"
                   >
                     Hysteria2 protocol
                   </Link>
@@ -97,7 +110,9 @@ export default function Hy2ngPrivacyPage() {
                   helps you set up your own server.
                 </p>
                 <p>
-                  <strong className="text-foreground">We do not provide any VPN servers or configurations.</strong>{" "}
+                  <strong className="text-foreground">
+                    We do not provide any VPN servers or configurations.
+                  </strong>{" "}
                   You need to use your own server or obtain configurations from
                   a trusted source. The app is simply a tool to connect to and
                   manage Hysteria2 servers.
@@ -106,26 +121,25 @@ export default function Hy2ngPrivacyPage() {
             </motion.div>
 
             {/* Section: No Data Collection */}
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 We Don&apos;t Collect Any Data
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   Hy2NG does not collect, transmit, or store any personal
-                  information on our servers. We have no analytics, no
-                  tracking, and no way to see how you use the app.
+                  information on our servers. We have no analytics, no tracking,
+                  and no way to see how you use the app.
                 </p>
                 <p>
-                  All your data (VPN configurations, settings, and
-                  preferences) is stored locally on your device and never
-                  leaves it.
+                  All your data (VPN configurations, settings, and preferences)
+                  is stored locally on your device and never leaves it.
                 </p>
               </div>
             </motion.div>
 
             {/* Section: What's Stored on Your Device */}
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 What&apos;s Stored on Your Device
               </h2>
@@ -143,15 +157,16 @@ export default function Hy2ngPrivacyPage() {
             </motion.div>
 
             {/* Section: Network Connections */}
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 Network Connections
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  The app only connects to VPN servers that <strong className="text-foreground">you</strong> configure.
-                  We don&apos;t operate any servers and have no visibility into your
-                  traffic.
+                  The app only connects to VPN servers that{" "}
+                  <strong className="text-foreground">you</strong> configure. We
+                  don&apos;t operate any servers and have no visibility into
+                  your traffic.
                 </p>
                 <p>
                   If you use the server setup wizard, the app connects to your
@@ -161,7 +176,7 @@ export default function Hy2ngPrivacyPage() {
             </motion.div>
 
             {/* Section: Google Play */}
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 Google Play Services
               </h2>
@@ -176,8 +191,8 @@ export default function Hy2ngPrivacyPage() {
                   details on what Google collects, please see{" "}
                   <Link
                     isExternal
-                    href="https://policies.google.com/privacy"
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
+                    href="https://policies.google.com/privacy"
                   >
                     Google&apos;s Privacy Policy
                   </Link>
@@ -187,7 +202,7 @@ export default function Hy2ngPrivacyPage() {
             </motion.div>
 
             {/* Section: Permissions */}
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 App Permissions
               </h2>
@@ -196,32 +211,40 @@ export default function Hy2ngPrivacyPage() {
                 <ul className="list-disc pl-5 space-y-3">
                   <li>
                     <strong className="text-foreground">VPN Service:</strong>{" "}
-                    Required to create a secure VPN tunnel on your device. Android
-                    will show a system prompt asking for your permission before
-                    connecting.
+                    Required to create a secure VPN tunnel on your device.
+                    Android will show a system prompt asking for your permission
+                    before connecting.
                   </li>
                   <li>
                     <strong className="text-foreground">Internet:</strong>{" "}
-                    Required to connect to the VPN servers you configure in the app.
+                    Required to connect to the VPN servers you configure in the
+                    app.
                   </li>
                   <li>
-                    <strong className="text-foreground">Foreground Service:</strong>{" "}
-                    Allows the VPN to run reliably in the background while you use
-                    other apps.
+                    <strong className="text-foreground">
+                      Foreground Service:
+                    </strong>{" "}
+                    Allows the VPN to run reliably in the background while you
+                    use other apps.
                   </li>
                   <li>
                     <strong className="text-foreground">Notifications:</strong>{" "}
-                    Used to display the VPN connection status in your notification
-                    bar so you always know when you&apos;re connected.
+                    Used to display the VPN connection status in your
+                    notification bar so you always know when you&apos;re
+                    connected.
                   </li>
                   <li>
-                    <strong className="text-foreground">Query All Packages:</strong>{" "}
-                    Used for the per-app proxy feature. This lets you choose which
-                    apps should use the VPN and which should bypass it. The app list
-                    stays on your device and is not sent anywhere.
+                    <strong className="text-foreground">
+                      Query All Packages:
+                    </strong>{" "}
+                    Used for the per-app proxy feature. This lets you choose
+                    which apps should use the VPN and which should bypass it.
+                    The app list stays on your device and is not sent anywhere.
                   </li>
                   <li>
-                    <strong className="text-foreground">Camera (Optional):</strong>{" "}
+                    <strong className="text-foreground">
+                      Camera (Optional):
+                    </strong>{" "}
                     Only requested if you choose to scan a QR code to import a
                     configuration. Not required for normal use.
                   </li>
@@ -230,37 +253,39 @@ export default function Hy2ngPrivacyPage() {
             </motion.div>
 
             {/* Section: Contact */}
-            <motion.div variants={fadeInUp} className="space-y-4">
+            <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
                 Contact
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>Questions? Reach out:</p>
                 <div className="flex items-center gap-2 mt-2">
-                  <EmailIcon size={16} className="text-foreground/55" />
+                  <EmailIcon className="text-foreground/55" size={16} />
                   <Link
                     isExternal
-                    href={`mailto:${siteConfig.email}`}
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
+                    href={`mailto:${siteConfig.email}`}
                   >
                     {siteConfig.email}
                   </Link>
                 </div>
                 <div className="mt-6 pt-4 border-t border-foreground/[0.06]">
                   <p className="text-sm text-foreground/45">
-                    <strong className="text-foreground">The Byte Array LTD</strong>
+                    <strong className="text-foreground">
+                      The Byte Array LTD
+                    </strong>
                   </p>
                 </div>
               </div>
             </motion.div>
 
             {/* Back to Home */}
-            <motion.div variants={fadeInUp} className="pt-8">
+            <motion.div className="pt-8" variants={fadeInUp}>
               <Divider className="mb-8 bg-foreground/[0.06]" />
               <div className="text-center">
                 <Link
-                  href="/"
                   className="text-sm text-foreground/55 hover:text-foreground transition-colors"
+                  href="/"
                 >
                   ← Back to The Byte Array
                 </Link>

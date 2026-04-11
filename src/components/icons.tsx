@@ -15,21 +15,21 @@ export const Logo: React.FC<IconSvgProps> = ({
     {...props}
   >
     <rect
-      x="2"
-      y="6"
-      width="28"
+      fill="none"
       height="20"
       rx="3"
       stroke="currentColor"
       strokeWidth="2"
-      fill="none"
+      width="28"
+      x="2"
+      y="6"
     />
-    <rect x="8" y="11" width="4" height="4" fill="currentColor" rx="0.5" />
-    <rect x="14" y="11" width="4" height="4" fill="currentColor" rx="0.5" />
-    <rect x="20" y="11" width="4" height="4" fill="currentColor" rx="0.5" />
-    <rect x="8" y="17" width="4" height="4" fill="currentColor" rx="0.5" />
-    <rect x="14" y="17" width="4" height="4" fill="currentColor" rx="0.5" />
-    <rect x="20" y="17" width="4" height="4" fill="currentColor" rx="0.5" />
+    <rect fill="currentColor" height="4" rx="0.5" width="4" x="8" y="11" />
+    <rect fill="currentColor" height="4" rx="0.5" width="4" x="14" y="11" />
+    <rect fill="currentColor" height="4" rx="0.5" width="4" x="20" y="11" />
+    <rect fill="currentColor" height="4" rx="0.5" width="4" x="8" y="17" />
+    <rect fill="currentColor" height="4" rx="0.5" width="4" x="14" y="17" />
+    <rect fill="currentColor" height="4" rx="0.5" width="4" x="20" y="17" />
   </svg>
 );
 
@@ -128,14 +128,14 @@ export const StarIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -149,14 +149,14 @@ export const ForkIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <circle cx="12" cy="18" r="3" />
@@ -174,19 +174,19 @@ export const ExternalLinkIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
     <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
+    <line x1="10" x2="21" y1="14" y2="3" />
   </svg>
 );
 
@@ -197,17 +197,17 @@ export const EmailIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <rect height="16" rx="2" width="20" x="2" y="4" />
     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
   </svg>
 );
@@ -219,17 +219,17 @@ export const SendIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <line x1="22" y1="2" x2="11" y2="13" />
+    <line x1="22" x2="11" y1="2" y2="13" />
     <polygon points="22 2 15 22 11 13 2 9 22 2" />
   </svg>
 );
@@ -241,14 +241,14 @@ export const CodeIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <polyline points="16 18 22 12 16 6" />
@@ -263,14 +263,14 @@ export const UsersIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -287,14 +287,14 @@ export const HeartIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -308,18 +308,18 @@ export const TerminalIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <polyline points="4 17 10 11 4 5" />
-    <line x1="12" y1="19" x2="20" y2="19" />
+    <line x1="12" x2="20" y1="19" y2="19" />
   </svg>
 );
 
@@ -330,17 +330,17 @@ export const ArrowRightIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <line x1="5" y1="12" x2="19" y2="12" />
+    <line x1="5" x2="19" y1="12" y2="12" />
     <polyline points="12 5 19 12 12 19" />
   </svg>
 );
@@ -352,10 +352,10 @@ export const AndroidIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
+    fill="currentColor"
     height={size || height}
     viewBox="0 0 24 24"
     width={size || width}
-    fill="currentColor"
     {...props}
   >
     <path d="M17.523 15.341c-.5 0-.908-.406-.908-.906s.408-.908.908-.908c.502 0 .908.408.908.908s-.406.906-.908.906zm-11.046 0c-.502 0-.908-.406-.908-.906s.406-.908.908-.908c.5 0 .908.408.908.908s-.408.906-.908.906zm11.4-6.247l1.988-3.442a.414.414 0 00-.152-.566.414.414 0 00-.566.152l-2.014 3.486C15.549 8.012 13.835 7.58 12 7.58c-1.835 0-3.549.432-5.133 1.144L4.853 5.238a.414.414 0 00-.566-.152.414.414 0 00-.152.566l1.988 3.442C2.688 11.106.5 14.674.5 18.798h23c0-4.124-2.188-7.692-5.623-9.704z" />
@@ -369,14 +369,14 @@ export const ShieldIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -391,19 +391,19 @@ export const QrCodeIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <rect x="3" y="3" width="5" height="5" rx="1" />
-    <rect x="16" y="3" width="5" height="5" rx="1" />
-    <rect x="3" y="16" width="5" height="5" rx="1" />
+    <rect height="5" rx="1" width="5" x="3" y="3" />
+    <rect height="5" rx="1" width="5" x="16" y="3" />
+    <rect height="5" rx="1" width="5" x="3" y="16" />
     <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
     <path d="M21 21v.01" />
     <path d="M12 7v3a2 2 0 0 1-2 2H7" />
@@ -423,20 +423,20 @@ export const ServerIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-    <line x1="6" y1="6" x2="6.01" y2="6" />
-    <line x1="6" y1="18" x2="6.01" y2="18" />
+    <rect height="8" rx="2" ry="2" width="20" x="2" y="2" />
+    <rect height="8" rx="2" ry="2" width="20" x="2" y="14" />
+    <line x1="6" x2="6.01" y1="6" y2="6" />
+    <line x1="6" x2="6.01" y1="18" y2="18" />
   </svg>
 );
 
@@ -447,14 +447,14 @@ export const ZapIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -468,20 +468,20 @@ export const AppsIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <rect x="3" y="3" width="7" height="7" rx="1" />
-    <rect x="14" y="3" width="7" height="7" rx="1" />
-    <rect x="14" y="14" width="7" height="7" rx="1" />
-    <rect x="3" y="14" width="7" height="7" rx="1" />
+    <rect height="7" rx="1" width="7" x="3" y="3" />
+    <rect height="7" rx="1" width="7" x="14" y="3" />
+    <rect height="7" rx="1" width="7" x="14" y="14" />
+    <rect height="7" rx="1" width="7" x="3" y="14" />
   </svg>
 );
 
@@ -492,19 +492,19 @@ export const DownloadIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
     <polyline points="7 10 12 15 17 10" />
-    <line x1="12" y1="15" x2="12" y2="3" />
+    <line x1="12" x2="12" y1="15" y2="3" />
   </svg>
 );
 
@@ -515,14 +515,14 @@ export const ChevronLeftIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <polyline points="15 18 9 12 15 6" />
@@ -536,14 +536,14 @@ export const ChevronRightIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <polyline points="9 18 15 12 9 6" />
@@ -557,10 +557,10 @@ export const PlayStoreIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
+    fill="currentColor"
     height={size || height}
     viewBox="0 0 24 24"
     width={size || width}
-    fill="currentColor"
     {...props}
   >
     <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 9.99l-2.302 2.302-8.634-8.634z" />
@@ -574,14 +574,14 @@ export const MusicIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="M9 18V5l12-2v13" />
@@ -597,18 +597,18 @@ export const VideoIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="m22 8-6 4 6 4V8Z" />
-    <rect x="2" y="6" width="14" height="12" rx="2" ry="2" />
+    <rect height="12" rx="2" ry="2" width="14" x="2" y="6" />
   </svg>
 );
 
@@ -619,14 +619,14 @@ export const TagIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
     <path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z" />
@@ -641,17 +641,17 @@ export const ImageIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+    <rect height="18" rx="2" ry="2" width="18" x="3" y="3" />
     <circle cx="9" cy="9" r="2" />
     <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
   </svg>
@@ -664,23 +664,23 @@ export const WifiOffIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
-    height={size || height}
-    viewBox="0 0 24 24"
-    width={size || width}
     fill="none"
+    height={size || height}
     stroke="currentColor"
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
     {...props}
   >
-    <line x1="2" y1="2" x2="22" y2="22" />
+    <line x1="2" x2="22" y1="2" y2="22" />
     <path d="M8.5 16.5a5 5 0 0 1 7 0" />
     <path d="M2 8.82a15 15 0 0 1 4.17-2.65" />
     <path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76" />
     <path d="M16.85 11.25a10 10 0 0 1 2.22 1.68" />
     <path d="M5 13a10 10 0 0 1 5.24-2.76" />
-    <line x1="12" y1="20" x2="12.01" y2="20" />
+    <line x1="12" x2="12.01" y1="20" y2="20" />
   </svg>
 );
 
@@ -691,13 +691,79 @@ export const StarFilledIcon: React.FC<IconSvgProps> = ({
   ...props
 }) => (
   <svg
+    fill="currentColor"
     height={size || height}
     viewBox="0 0 24 24"
     width={size || width}
-    fill="currentColor"
     {...props}
   >
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+
+export const ArrowUpIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    fill="none"
+    height={size || height}
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
+    {...props}
+  >
+    <line x1="12" x2="12" y1="19" y2="5" />
+    <polyline points="5 12 12 5 19 12" />
+  </svg>
+);
+
+export const SystemIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    fill="none"
+    height={size || height}
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
+    {...props}
+  >
+    <rect height="14" rx="2" ry="2" width="20" x="2" y="3" />
+    <line x1="8" x2="16" y1="21" y2="21" />
+    <line x1="12" x2="12" y1="17" y2="21" />
+  </svg>
+);
+
+export const CheckIcon: React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => (
+  <svg
+    fill="none"
+    height={size || height}
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size || width}
+    {...props}
+  >
+    <polyline points="20 6 9 17 4 12" />
   </svg>
 );
 

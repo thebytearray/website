@@ -1,9 +1,9 @@
+import type { FeaturedAppReview } from "@/components/FeaturedAppSection";
+
 import { motion } from "framer-motion";
 
 import { fadeInUp } from "@/lib/animations";
 import { StarFilledIcon, StarIcon } from "@/components/icons";
-
-import type { FeaturedAppReview } from "@/components/FeaturedAppSection";
 
 export interface AppReviewsSectionProps {
   reviews: FeaturedAppReview[];
@@ -14,26 +14,27 @@ const STAR_SIZE = 12;
 
 function ReviewStars({ count }: { count: number }) {
   const filled = Math.min(5, Math.max(0, Math.round(count)));
+
   return (
     <div
+      aria-label={`${filled} out of 5 stars`}
       className="flex gap-px items-center"
       role="img"
-      aria-label={`${filled} out of 5 stars`}
     >
       {Array.from({ length: 5 }, (_, i) =>
         i < filled ? (
           <StarFilledIcon
             key={i}
-            size={STAR_SIZE}
-            className="text-amber-500 dark:text-amber-400 shrink-0"
             aria-hidden
+            className="text-amber-500 dark:text-amber-400 shrink-0"
+            size={STAR_SIZE}
           />
         ) : (
           <StarIcon
             key={i}
-            size={STAR_SIZE}
-            className="text-foreground/18 shrink-0"
             aria-hidden
+            className="text-foreground/18 shrink-0"
+            size={STAR_SIZE}
           />
         ),
       )}
@@ -41,11 +42,17 @@ function ReviewStars({ count }: { count: number }) {
   );
 }
 
-export function AppReviewsSection({ reviews, appName }: AppReviewsSectionProps) {
+export function AppReviewsSection({
+  reviews,
+  appName,
+}: AppReviewsSectionProps) {
   if (!reviews.length) return null;
 
   return (
-    <motion.div variants={fadeInUp} className="mt-16 sm:mt-20 max-w-5xl mx-auto">
+    <motion.div
+      className="mt-16 sm:mt-20 max-w-5xl mx-auto"
+      variants={fadeInUp}
+    >
       <div className="text-center mb-2">
         <p className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.22em] mb-1.5 font-medium">
           Reviews
@@ -67,16 +74,18 @@ export function AppReviewsSection({ reviews, appName }: AppReviewsSectionProps) 
           >
             <div className="flex items-start gap-2.5 mb-2 shrink-0">
               <img
-                src={review.avatar}
                 alt={review.name}
-                width={36}
+                className="w-9 h-9 rounded-full object-cover ring-1 ring-foreground/[0.06]"
                 height={36}
                 loading="lazy"
-                className="w-9 h-9 rounded-full object-cover ring-1 ring-foreground/[0.06]"
                 referrerPolicy="no-referrer"
+                src={review.avatar}
+                width={36}
               />
               <div className="min-w-0 flex-1">
-                <p className="font-medium text-sm text-foreground truncate">{review.name}</p>
+                <p className="font-medium text-sm text-foreground truncate">
+                  {review.name}
+                </p>
                 <div className="mt-0.5">
                   <ReviewStars count={review.stars} />
                 </div>

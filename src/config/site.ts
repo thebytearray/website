@@ -28,6 +28,7 @@ export const siteConfig = {
     },
   },
   githubApi: {
-    repos: "https://api.github.com/users/thebytearray/repos?sort=updated&per_page=100",
+    repos:
+      "https://api.github.com/users/thebytearray/repos?sort=updated&per_page=100",
   },
 };

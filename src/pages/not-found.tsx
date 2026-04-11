@@ -13,11 +13,12 @@ export default function NotFoundPage() {
           Page not found
         </h1>
         <p className="text-foreground/55 text-base max-w-md mb-10 leading-relaxed">
-          That URL does not exist or has moved. Check the address or return to the homepage.
+          That URL does not exist or has moved. Check the address or return to
+          the homepage.
         </p>
         <Link
-          to="/"
           className="inline-flex items-center justify-center rounded-full bg-foreground text-background px-8 py-3 text-sm font-medium btn-hover"
+          to="/"
         >
           Back to home
         </Link>

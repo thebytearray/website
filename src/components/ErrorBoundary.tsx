@@ -47,8 +47,8 @@ export class ErrorBoundary extends Component<Props, State> {
             </p>
             <Button
               color="primary"
-              size="sm"
               radius="lg"
+              size="sm"
               onPress={() => this.setState({ hasError: false, error: null })}
             >
               Try again

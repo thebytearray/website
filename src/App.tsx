@@ -17,10 +17,10 @@ function App() {
       }
     >
       <Routes>
-        <Route path="/" element={<IndexPage />} />
-        <Route path="/hy2ng-privacy" element={<Hy2ngPrivacyPage />} />
-        <Route path="/convertit-privacy" element={<ConvertitPrivacyPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route element={<IndexPage />} path="/" />
+        <Route element={<Hy2ngPrivacyPage />} path="/hy2ng-privacy" />
+        <Route element={<ConvertitPrivacyPage />} path="/convertit-privacy" />
+        <Route element={<NotFoundPage />} path="*" />
       </Routes>
     </Suspense>
   );

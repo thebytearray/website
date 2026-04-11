@@ -48,20 +48,59 @@ interface GitHubRepo {
 
 // App data
 const convertitScreenshots = [
-  { src: "/images/convertit/Screenshot_20251211_065244.png", alt: "Home screen with features" },
-  { src: "/images/convertit/Screenshot_20251211_065315.png", alt: "Audio conversion" },
-  { src: "/images/convertit/Screenshot_20251211_065357.png", alt: "Format selection" },
-  { src: "/images/convertit/Screenshot_20251211_065428.png", alt: "Conversion progress" },
-  { src: "/images/convertit/Screenshot_20251211_065436.png", alt: "Conversion complete" },
+  {
+    src: "/images/convertit/Screenshot_20251211_065244.png",
+    alt: "Home screen with features",
+  },
+  {
+    src: "/images/convertit/Screenshot_20251211_065315.png",
+    alt: "Audio conversion",
+  },
+  {
+    src: "/images/convertit/Screenshot_20251211_065357.png",
+    alt: "Format selection",
+  },
+  {
+    src: "/images/convertit/Screenshot_20251211_065428.png",
+    alt: "Conversion progress",
+  },
+  {
+    src: "/images/convertit/Screenshot_20251211_065436.png",
+    alt: "Conversion complete",
+  },
 ];
 
 const convertitFeatures = [
-  { icon: MusicIcon, title: "Audio Conversion", desc: "Convert between MP3, FLAC, WAV, AAC, OGG, and more" },
-  { icon: VideoIcon, title: "Video Conversion", desc: "Transform video files to various formats" },
-  { icon: TagIcon, title: "Metadata Editor", desc: "Edit audio tags and metadata with ease" },
-  { icon: ImageIcon, title: "EXIF Cleaner", desc: "Remove EXIF data from images and videos" },
-  { icon: WifiOffIcon, title: "100% Offline", desc: "All processing happens locally on your device" },
-  { icon: ShieldIcon, title: "Privacy First", desc: "No data collection, no tracking, no ads" },
+  {
+    icon: MusicIcon,
+    title: "Audio Conversion",
+    desc: "Convert between MP3, FLAC, WAV, AAC, OGG, and more",
+  },
+  {
+    icon: VideoIcon,
+    title: "Video Conversion",
+    desc: "Transform video files to various formats",
+  },
+  {
+    icon: TagIcon,
+    title: "Metadata Editor",
+    desc: "Edit audio tags and metadata with ease",
+  },
+  {
+    icon: ImageIcon,
+    title: "EXIF Cleaner",
+    desc: "Remove EXIF data from images and videos",
+  },
+  {
+    icon: WifiOffIcon,
+    title: "100% Offline",
+    desc: "All processing happens locally on your device",
+  },
+  {
+    icon: ShieldIcon,
+    title: "Privacy First",
+    desc: "No data collection, no tracking, no ads",
+  },
 ];
 
 const convertitReviews = [
@@ -98,26 +137,60 @@ const convertitReviews = [
 ];
 
 const hy2ngScreenshots = [
-  { src: "/images/hy2ng/Screenshot_20251201_041544.png", alt: "Configurations list" },
-  { src: "/images/hy2ng/Screenshot_20251201_041639.png", alt: "Add configuration" },
-  { src: "/images/hy2ng/Screenshot_20251201_041720.png", alt: "QR code sharing" },
-  { src: "/images/hy2ng/Screenshot_20251201_041741.png", alt: "Server setup wizard" },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041544.png",
+    alt: "Configurations list",
+  },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041639.png",
+    alt: "Add configuration",
+  },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041720.png",
+    alt: "QR code sharing",
+  },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041741.png",
+    alt: "Server setup wizard",
+  },
   { src: "/images/hy2ng/Screenshot_20251201_041802.png", alt: "Per-app proxy" },
 ];
 
 const hy2ngFeatures = [
-  { icon: ServerIcon, title: "Server Setup Wizard", desc: "Configure your own VPS with built-in setup guide" },
-  { icon: QrCodeIcon, title: "QR Code Import", desc: "Import configs via QR code or clipboard" },
-  { icon: AppsIcon, title: "Per-App Proxy", desc: "Choose which apps use the VPN connection" },
-  { icon: ShieldIcon, title: "Privacy First", desc: "No ads, no tracking, all data stays on device" },
+  {
+    icon: ServerIcon,
+    title: "Server Setup Wizard",
+    desc: "Configure your own VPS with built-in setup guide",
+  },
+  {
+    icon: QrCodeIcon,
+    title: "QR Code Import",
+    desc: "Import configs via QR code or clipboard",
+  },
+  {
+    icon: AppsIcon,
+    title: "Per-App Proxy",
+    desc: "Choose which apps use the VPN connection",
+  },
+  {
+    icon: ShieldIcon,
+    title: "Privacy First",
+    desc: "No ads, no tracking, all data stays on device",
+  },
 ];
 
 export default function IndexPage() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
     fetchRepos();
@@ -127,10 +200,13 @@ export default function IndexPage() {
     try {
       setLoading(true);
       setError(null);
-      const { repos: data } = await fetchGitHubRepos(siteConfig.githubApi.repos);
+      const { repos: data } = await fetchGitHubRepos(
+        siteConfig.githubApi.repos,
+      );
       const filteredRepos = (data as GitHubRepo[])
         .filter((repo) => !repo.fork)
         .sort((a, b) => b.stargazers_count - a.stargazers_count);
+
       setRepos(filteredRepos);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load projects");
@@ -139,16 +215,34 @@ export default function IndexPage() {
     }
   }, []);
 
+  const languages = Array.from(
+    new Set(repos.map((repo) => repo.language).filter(Boolean)),
+  ).sort();
+
+  const filteredRepos = selectedLanguage
+    ? repos.filter((repo) => repo.language === selectedLanguage)
+    : repos;
+
   const handleContactSubmit = useCallback(() => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     const subject = encodeURIComponent(`Message from ${contactForm.name}`);
-    const body = encodeURIComponent(`Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`);
+    const body = encodeURIComponent(
+      `Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`,
+    );
+
     window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
-    setTimeout(() => setIsSubmitting(false), 2000);
+    setFormSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setContactForm({ name: "", email: "", message: "" });
+    }, 3000);
   }, [contactForm.name, contactForm.email, contactForm.message, isSubmitting]);
 
-  const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+  const totalStars = repos.reduce(
+    (sum, repo) => sum + repo.stargazers_count,
+    0,
+  );
 
   return (
     <PageLayout>
@@ -158,51 +252,53 @@ export default function IndexPage() {
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 py-24 sm:py-32 md:py-36 min-h-[70vh] flex flex-col justify-center">
           <motion.div
-            initial="hidden"
             animate="visible"
-            variants={staggerContainer}
             className="max-w-2xl mx-auto text-center"
+            initial="hidden"
+            variants={staggerContainer}
           >
             <motion.h1
-              variants={fadeInUp}
               className="text-4xl sm:text-5xl md:text-6xl font-display text-foreground tracking-tight leading-[1.08] mb-6"
+              variants={fadeInUp}
             >
               Software that works
             </motion.h1>
 
             <motion.p
-              variants={fadeInUp}
               className="text-base sm:text-lg text-foreground/55 max-w-xl mx-auto mb-10 leading-relaxed"
+              variants={fadeInUp}
             >
-              Privacy-friendly tools, libraries, and products. Open source where it helps the
-              community; clear policies everywhere else.
+              Privacy-friendly tools, libraries, and products. Open source where
+              it helps the community; clear policies everywhere else.
             </motion.p>
 
             <motion.div
-              variants={fadeInUp}
               className="flex flex-col sm:flex-row gap-3 justify-center"
+              variants={fadeInUp}
             >
               <Button
-                as={Link}
                 isExternal
-                href={siteConfig.links.github}
-                size="lg"
-                radius="full"
+                as={Link}
                 className="font-medium bg-foreground text-background btn-hover px-8"
                 endContent={<ArrowRightIcon size={16} />}
+                href={siteConfig.links.github}
+                radius="full"
+                size="lg"
               >
                 View Projects
               </Button>
               <Button
                 as={Link}
-                href="#contact"
-                variant="bordered"
-                size="lg"
-                radius="full"
                 className="font-medium border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] px-8"
+                href="#contact"
+                radius="full"
+                size="lg"
+                variant="bordered"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                  document
+                    .querySelector("#contact")
+                    ?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 Get in Touch
@@ -210,8 +306,8 @@ export default function IndexPage() {
             </motion.div>
 
             <motion.div
-              variants={fadeInUp}
               className="flex flex-wrap justify-center gap-10 sm:gap-12 mt-14 pt-8 border-t border-foreground/[0.06] max-w-lg mx-auto"
+              variants={fadeInUp}
             >
               <div className="text-center">
                 <div className="text-2xl sm:text-3xl font-semibold text-foreground font-mono stat-number tracking-tight">
@@ -243,24 +339,30 @@ export default function IndexPage() {
       </section>
 
       {/* ======== ABOUT ======== */}
-      <section id="about" className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden">
+      <section
+        className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        id="about"
+      >
         <div className="relative container mx-auto px-4 sm:px-6">
           <motion.div
             className="max-w-5xl mx-auto"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
+            viewport={{ once: true, margin: "-80px" }}
+            whileInView="visible"
           >
             <motion.p
-              variants={fadeInUp}
               className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium mb-10 text-center lg:text-left"
+              variants={fadeInUp}
             >
               {aboutContent.label}
             </motion.p>
 
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-              <motion.div variants={fadeInUp} className="text-center lg:text-left">
+              <motion.div
+                className="text-center lg:text-left"
+                variants={fadeInUp}
+              >
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-foreground tracking-tight leading-[1.1] mb-5">
                   {aboutContent.headline}
                 </h2>
@@ -279,14 +381,19 @@ export default function IndexPage() {
                       <h3 className="font-medium text-foreground text-base sm:text-lg mt-2 mb-2 tracking-tight">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-foreground/55 leading-relaxed">{item.desc}</p>
+                      <p className="text-sm text-foreground/55 leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
                   ))}
                 </div>
               </motion.div>
             </div>
 
-            <motion.div variants={fadeInUp} className="mt-14 lg:mt-16 max-w-3xl lg:max-w-none">
+            <motion.div
+              className="mt-14 lg:mt-16 max-w-3xl lg:max-w-none"
+              variants={fadeInUp}
+            >
               <p className="text-foreground/55 leading-relaxed text-base lg:text-lg text-left">
                 {aboutContent.mission}
               </p>
@@ -297,150 +404,213 @@ export default function IndexPage() {
 
       {/* ======== FEATURED APPS ======== */}
       <FeaturedAppSection
-        id="convertit"
         appName="Convertit Pro"
-        subtitle="Media Toolkit"
         description="A powerful offline media toolkit for Android. Convert audio and video, edit metadata, and clean EXIF data with complete privacy."
-        iconSrc="/images/convertit/c_pro.png"
-        iconAlt="Convertit Pro App Icon"
-        screenshots={convertitScreenshots}
         features={convertitFeatures}
-        reviews={convertitReviews}
+        iconAlt="Convertit Pro App Icon"
+        iconSrc="/images/convertit/c_pro.png"
+        id="convertit"
         playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.convertit"
+        privacyUrl="/convertit-privacy"
+        reviews={convertitReviews}
+        screenshots={convertitScreenshots}
+        subtitle="Media Toolkit"
       />
 
       <FeaturedAppSection
-        id="featured-app"
         appName="Hy2NG"
-        subtitle="Hysteria2 Client"
         description="A powerful Hysteria2 VPN client for Android with a built-in server setup wizard. Connect to Hysteria2 servers with ease."
-        iconSrc="/images/hy2ng/hy2ng.png"
-        iconAlt="Hy2NG App Icon"
-        screenshots={hy2ngScreenshots}
         features={hy2ngFeatures}
+        iconAlt="Hy2NG App Icon"
+        iconSrc="/images/hy2ng/hy2ng.png"
+        id="featured-app"
         playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.hy2.ng"
+        privacyUrl="/hy2ng-privacy"
+        screenshots={hy2ngScreenshots}
+        subtitle="Hysteria2 Client"
       />
 
       {/* ======== PROJECTS ======== */}
-      <section id="projects" className="relative py-28 sm:py-36 border-t border-foreground/[0.06] overflow-hidden">
+      <section
+        className="relative py-28 sm:py-36 border-t border-foreground/[0.06] overflow-hidden"
+        id="projects"
+      >
         <div className="absolute inset-0 bg-section-gradient" />
 
         <div className="relative container mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
+            viewport={{ once: true, margin: "-80px" }}
+            whileInView="visible"
           >
             <motion.div variants={fadeInUp}>
               <SectionHeader
-                label="Projects"
-                title="Open Source"
+                className="mb-10"
                 description="Public repositories and community-driven projects"
                 descriptionMaxWidth="max-w-md"
-                className="mb-16"
+                label="Projects"
+                title="Open Source"
               />
             </motion.div>
 
             {loading ? (
               <div className="flex justify-center py-20">
-                <Spinner size="lg" color="default" />
+                <Spinner color="default" size="lg" />
               </div>
             ) : error ? (
-              <motion.div variants={fadeInUp} className="text-center py-20">
+              <motion.div className="text-center py-20" variants={fadeInUp}>
                 <p className="text-foreground/55 mb-4">{error}</p>
                 <Button
-                  variant="bordered"
-                  size="sm"
-                  radius="full"
                   className="border-foreground/[0.12] text-foreground/55"
+                  radius="full"
+                  size="sm"
+                  variant="bordered"
                   onPress={fetchRepos}
                 >
                   Retry
                 </Button>
               </motion.div>
             ) : repos.length === 0 ? (
-              <motion.div variants={fadeInUp} className="text-center py-20">
+              <motion.div className="text-center py-20" variants={fadeInUp}>
                 <p className="text-foreground/55">No repositories found.</p>
               </motion.div>
             ) : (
-              <motion.div
-                variants={staggerContainer}
-                className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
-              >
-                {repos.map((repo) => (
-                  <motion.div key={repo.id} variants={fadeInUp}>
-                    <Card
-                      as={Link}
-                      isExternal
-                      href={repo.html_url}
-                      className="h-full bg-foreground/[0.02] border border-foreground/[0.06] group card-hover"
-                      shadow="none"
-                      isPressable
+              <>
+                {languages.length > 1 && (
+                  <motion.div
+                    className="flex flex-wrap justify-center gap-2 mb-8"
+                    variants={fadeInUp}
+                  >
+                    <Button
+                      className={`text-xs ${
+                        selectedLanguage === null
+                          ? "bg-foreground text-background"
+                          : "border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
+                      }`}
+                      radius="full"
+                      size="sm"
+                      variant={selectedLanguage === null ? "solid" : "bordered"}
+                      onPress={() => setSelectedLanguage(null)}
                     >
-                      <CardHeader className="flex justify-between items-start pb-0">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-foreground/[0.06] flex items-center justify-center">
-                            <GithubIcon size={15} className="text-foreground/40" />
-                          </div>
-                          <h3 className="font-medium text-foreground group-hover:opacity-70 transition-opacity font-mono text-sm">
-                            {repo.name}
-                          </h3>
-                        </div>
-                        <ExternalLinkIcon
-                          size={13}
-                          className="text-foreground/20 group-hover:text-foreground/40 transition-colors"
+                      All ({repos.length})
+                    </Button>
+                    {languages.map((lang) => (
+                      <Button
+                        key={lang}
+                        className={`text-xs ${
+                          selectedLanguage === lang
+                            ? "bg-foreground text-background"
+                            : "border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
+                        }`}
+                        radius="full"
+                        size="sm"
+                        variant={
+                          selectedLanguage === lang ? "solid" : "bordered"
+                        }
+                        onPress={() => setSelectedLanguage(lang)}
+                      >
+                        <span
+                          className="w-2 h-2 rounded-full mr-1.5"
+                          style={{
+                            backgroundColor: languageColors[lang!] || "#71717a",
+                          }}
                         />
-                      </CardHeader>
-                      <CardBody className="py-2.5">
-                        <p className="text-sm text-foreground/55 line-clamp-2">
-                          {repo.description || "No description"}
-                        </p>
-                      </CardBody>
-                      <CardFooter className="pt-0 gap-3">
-                        {repo.language && (
-                          <div className="flex items-center gap-1.5">
-                            <span
-                              className="w-2.5 h-2.5 rounded-full"
-                              style={{
-                                backgroundColor: languageColors[repo.language] || "#71717a",
-                              }}
+                        {lang} (
+                        {repos.filter((r) => r.language === lang).length})
+                      </Button>
+                    ))}
+                  </motion.div>
+                )}
+
+                <motion.div
+                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                  variants={staggerContainer}
+                >
+                  {filteredRepos.map((repo) => (
+                    <motion.div key={repo.id} variants={fadeInUp}>
+                      <Card
+                        isExternal
+                        isPressable
+                        as={Link}
+                        className="h-full bg-foreground/[0.02] border border-foreground/[0.06] group card-hover"
+                        href={repo.html_url}
+                        shadow="none"
+                      >
+                        <CardHeader className="flex justify-between items-start pb-0">
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-8 h-8 rounded-lg bg-foreground/[0.06] flex items-center justify-center">
+                              <GithubIcon
+                                className="text-foreground/40"
+                                size={15}
+                              />
+                            </div>
+                            <h3 className="font-medium text-foreground group-hover:opacity-70 transition-opacity font-mono text-sm">
+                              {repo.name}
+                            </h3>
+                          </div>
+                          <ExternalLinkIcon
+                            className="text-foreground/20 group-hover:text-foreground/40 transition-colors"
+                            size={13}
+                          />
+                        </CardHeader>
+                        <CardBody className="py-2.5">
+                          <p className="text-sm text-foreground/55 line-clamp-2">
+                            {repo.description || "No description"}
+                          </p>
+                        </CardBody>
+                        <CardFooter className="pt-0 gap-3">
+                          {repo.language && (
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="w-2.5 h-2.5 rounded-full"
+                                style={{
+                                  backgroundColor:
+                                    languageColors[repo.language] || "#71717a",
+                                }}
+                              />
+                              <span className="text-xs text-foreground/40 font-mono">
+                                {repo.language}
+                              </span>
+                            </div>
+                          )}
+                          <div className="flex items-center gap-1">
+                            <StarIcon
+                              className="text-foreground/30"
+                              size={12}
                             />
                             <span className="text-xs text-foreground/40 font-mono">
-                              {repo.language}
+                              {repo.stargazers_count}
                             </span>
                           </div>
-                        )}
-                        <div className="flex items-center gap-1">
-                          <StarIcon size={12} className="text-foreground/30" />
-                          <span className="text-xs text-foreground/40 font-mono">
-                            {repo.stargazers_count}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <ForkIcon size={12} className="text-foreground/30" />
-                          <span className="text-xs text-foreground/40 font-mono">
-                            {repo.forks_count}
-                          </span>
-                        </div>
-                      </CardFooter>
-                    </Card>
-                  </motion.div>
-                ))}
-              </motion.div>
+                          <div className="flex items-center gap-1">
+                            <ForkIcon
+                              className="text-foreground/30"
+                              size={12}
+                            />
+                            <span className="text-xs text-foreground/40 font-mono">
+                              {repo.forks_count}
+                            </span>
+                          </div>
+                        </CardFooter>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </>
             )}
 
-            {repos.length > 0 && (
-              <motion.div variants={fadeIn} className="text-center mt-10">
+            {repos.length > 0 && !loading && (
+              <motion.div className="text-center mt-10" variants={fadeIn}>
                 <Button
-                  as={Link}
                   isExternal
-                  href={siteConfig.links.github}
-                  variant="bordered"
-                  radius="full"
-                  size="sm"
+                  as={Link}
                   className="font-medium border-foreground/[0.12] hover:border-foreground/25 text-foreground/55"
                   endContent={<ExternalLinkIcon size={12} />}
+                  href={siteConfig.links.github}
+                  radius="full"
+                  size="sm"
+                  variant="bordered"
                 >
                   View All on GitHub
                 </Button>
@@ -451,24 +621,31 @@ export default function IndexPage() {
       </section>
 
       {/* ======== TEAM ======== */}
-      <section id="team" className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden">
+      <section
+        className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        id="team"
+      >
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
+            viewport={{ once: true, margin: "-80px" }}
+            whileInView="visible"
           >
             <motion.div variants={fadeInUp}>
-              <SectionHeader label="Team" title="Contributors" className="mb-12" />
+              <SectionHeader
+                className="mb-12"
+                label="Team"
+                title="Contributors"
+              />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
               <div className="rounded-[28px] border border-foreground/[0.08] bg-foreground/[0.03] p-8 sm:p-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-10">
                 <div className="flex justify-center md:justify-start shrink-0">
                   <Avatar
-                    src={siteConfig.team.founder.avatar}
                     className="w-28 h-28 sm:w-32 sm:h-32 ring-4 ring-background"
+                    src={siteConfig.team.founder.avatar}
                   />
                 </div>
 
@@ -484,12 +661,12 @@ export default function IndexPage() {
                   </p>
                   <div className="mt-6 flex justify-center md:justify-start">
                     <Button
-                      as={Link}
                       isExternal
+                      as={Link}
+                      className="font-medium bg-foreground text-background btn-hover"
                       href={siteConfig.team.founder.github}
                       radius="full"
                       size="md"
-                      className="font-medium bg-foreground text-background btn-hover"
                       startContent={<GithubIcon size={16} />}
                     >
                       @{siteConfig.team.founder.username}
@@ -503,18 +680,24 @@ export default function IndexPage() {
       </section>
 
       {/* ======== CONTACT ======== */}
-      <section id="contact" className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden">
+      <section
+        className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        id="contact"
+      >
         <div className="absolute inset-0 bg-section-gradient" />
 
         <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-80px" }}
-            variants={staggerContainer}
             className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start"
+            initial="hidden"
+            variants={staggerContainer}
+            viewport={{ once: true, margin: "-80px" }}
+            whileInView="visible"
           >
-            <motion.div variants={fadeInUp} className="lg:col-span-5 space-y-6 text-center lg:text-left">
+            <motion.div
+              className="lg:col-span-5 space-y-6 text-center lg:text-left"
+              variants={fadeInUp}
+            >
               <p className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium">
                 Contact
               </p>
@@ -522,103 +705,119 @@ export default function IndexPage() {
                 Get in touch
               </h2>
               <p className="text-lg text-foreground/55 leading-relaxed">
-                Questions or interested in collaborating? Send a message or email us directly.
+                Questions or interested in collaborating? Send a message or
+                email us directly.
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
                 <Button
-                  as={Link}
                   isExternal
+                  as={Link}
+                  className="font-medium border-foreground/[0.12] bg-foreground/[0.04] hover:bg-foreground/[0.07] text-foreground/80"
                   href={`mailto:${siteConfig.email}`}
-                  variant="bordered"
                   radius="full"
                   size="md"
-                  className="font-medium border-foreground/[0.12] bg-foreground/[0.04] hover:bg-foreground/[0.07] text-foreground/80"
                   startContent={<EmailIcon size={16} />}
+                  variant="bordered"
                 >
                   {siteConfig.email}
                 </Button>
               </div>
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="lg:col-span-7 w-full">
+            <motion.div className="lg:col-span-7 w-full" variants={fadeInUp}>
               <Card
                 className="rounded-[28px] bg-foreground/[0.02] border border-foreground/[0.08]"
                 shadow="none"
               >
                 <CardBody className="p-6 sm:p-8 space-y-5">
                   <Input
-                    type="text"
+                    classNames={{
+                      label: "text-foreground/55 text-xs font-medium",
+                      inputWrapper:
+                        "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
+                    }}
                     label="Name"
                     labelPlacement="outside"
                     placeholder="Your name"
-                    variant="bordered"
                     radius="lg"
                     size="md"
+                    type="text"
                     value={contactForm.name}
-                    onValueChange={(value) => setContactForm({ ...contactForm, name: value })}
+                    variant="bordered"
+                    onValueChange={(value) =>
+                      setContactForm({ ...contactForm, name: value })
+                    }
+                  />
+                  <Input
                     classNames={{
                       label: "text-foreground/55 text-xs font-medium",
                       inputWrapper:
                         "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
                     }}
-                  />
-                  <Input
-                    type="email"
                     label="Email"
                     labelPlacement="outside"
                     placeholder="your@email.com"
-                    variant="bordered"
                     radius="lg"
                     size="md"
+                    type="email"
                     value={contactForm.email}
-                    onValueChange={(value) => setContactForm({ ...contactForm, email: value })}
-                    classNames={{
-                      label: "text-foreground/55 text-xs font-medium",
-                      inputWrapper:
-                        "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
-                    }}
+                    variant="bordered"
+                    onValueChange={(value) =>
+                      setContactForm({ ...contactForm, email: value })
+                    }
                   />
                   <Textarea
-                    label="Message"
-                    labelPlacement="outside"
-                    placeholder="Your message"
-                    variant="bordered"
-                    radius="lg"
-                    size="md"
-                    minRows={4}
                     disableAutosize
-                    value={contactForm.message}
-                    onValueChange={(value) => setContactForm({ ...contactForm, message: value })}
                     classNames={{
                       label: "text-foreground/55 text-xs font-medium",
                       inputWrapper:
                         "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
                     }}
+                    label="Message"
+                    labelPlacement="outside"
+                    minRows={4}
+                    placeholder="Your message"
+                    radius="lg"
+                    size="md"
+                    value={contactForm.message}
+                    variant="bordered"
+                    onValueChange={(value) =>
+                      setContactForm({ ...contactForm, message: value })
+                    }
                   />
-                  <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  {formSubmitted ? (
+                    <div className="flex flex-col items-center justify-center py-6 text-center">
+                      <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mb-3">
+                        <SendIcon
+                          className="text-green-600 dark:text-green-400"
+                          size={20}
+                        />
+                      </div>
+                      <p className="font-medium text-foreground">
+                        Your email app should open now
+                      </p>
+                      <p className="text-sm text-foreground/55 mt-1">
+                        Send the pre-filled email to complete your message
+                      </p>
+                    </div>
+                  ) : (
                     <Button
-                      radius="full"
-                      size="md"
-                      className="sm:flex-1 font-medium bg-foreground text-background btn-hover"
+                      className="w-full font-medium bg-foreground text-background btn-hover"
                       endContent={<SendIcon size={14} />}
-                      onPress={handleContactSubmit}
-                      isDisabled={!contactForm.name || !contactForm.email || !contactForm.message || isSubmitting}
-                    >
-                      {isSubmitting ? "Opening..." : "Send message"}
-                    </Button>
-                    <Button
-                      as={Link}
-                      isExternal
-                      href={`mailto:${siteConfig.email}`}
-                      variant="bordered"
+                      isDisabled={
+                        !contactForm.name ||
+                        !contactForm.email ||
+                        !contactForm.message ||
+                        isSubmitting
+                      }
+                      isLoading={isSubmitting}
                       radius="full"
-                      size="md"
-                      className="sm:flex-1 font-medium border-foreground/[0.12] hover:border-foreground/25 text-foreground/55"
-                      startContent={<EmailIcon size={14} />}
+                      size="lg"
+                      onPress={handleContactSubmit}
                     >
-                      Open email app
+                      Open email app to send message
                     </Button>
-                  </div>
+                  )}
                 </CardBody>
               </Card>
             </motion.div>
