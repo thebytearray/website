@@ -15,13 +15,13 @@
 
 ## About
 
-This is the official website for **The Byte Array** — a privacy-focused software company building developer tools, libraries, and products that respect your data.
+This is the official website for **The Byte Array** - a privacy-focused software company building developer tools, libraries, and products that respect your data.
 
 We believe in:
 
-- **Open source** — All our projects are publicly auditable
-- **Privacy by design** — Your data stays on your device
-- **Transparency** — No hidden trackers or analytics
+- **Open source** - All our projects are publicly auditable
+- **Privacy by design** - Your data stays on your device
+- **Transparency** - No hidden trackers or analytics
 
 Visit our website at [thebytearray.org](https://thebytearray.org).
 
@@ -31,9 +31,9 @@ Visit our website at [thebytearray.org](https://thebytearray.org).
 
 Our portfolio includes:
 
-- **Hy2NG** — A privacy-focused HTTP(S) proxy
-- **ConvertIt** — Offline media converter for Android
-- **Developer libraries** — Open source tools for developers
+- **Hy2NG** - A privacy-focused HTTP(S) proxy
+- **ConvertIt** - Offline media converter for Android
+- **Developer libraries** - Open source tools for developers
 
 Check out our [GitHub organization](https://github.com/thebytearray) for all our projects.
 
@@ -144,7 +144,7 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
 ```bash
 make up        # Start containers
 make down      # Stop containers
-make logs      # View logs
+make logs       # View logs
 make clean     # Remove containers and volumes
 make buildx    # Build multi-platform image
 ```
@@ -218,17 +218,17 @@ We use GitHub Actions for continuous integration and deployment.
 
 ### CI Pipeline
 
-1. **Lint** — ESLint code quality checks
-2. **TypeScript** — TypeScript compilation
-3. **Build** — Production build verification
-4. **Test** — Unit tests (if any)
-5. **Docker Build** — Verify Docker image builds
+1. **Lint** - ESLint code quality checks
+2. **TypeScript** - TypeScript compilation
+3. **Build** - Production build verification
+4. **Test** - Unit tests (if any)
+5. **Docker Build** - Verify Docker image builds
 
 ### CD Pipeline
 
-1. **Build & Push** — Build Docker image and push to registry
-2. **Deploy** — SSH to server and pull new image
-3. **Notify** — Status notification
+1. **Build and Push** - Build Docker image and push to registry
+2. **Deploy** - SSH to server and pull new image
+3. **Notify** - Status notification
 
 ### Required Secrets
 
@@ -297,7 +297,7 @@ Our nginx configuration includes:
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 ---
 
