@@ -1,47 +1,61 @@
 name: ${COMPOSE_PROJECT_NAME:-thebytearray}
 
 services:
-  site:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - NODE_ENV=${NODE_ENV:-production}
+    image: thebytearray/website:${IMAGE_TAG:-latest}
+    container_name: ${COMPOSE_PROJECT_NAME:-thebytearray}_app
     expose:
       - "80"
-    restart: unless-stopped
-
-  edge:
-    build:
-      context: .
-      dockerfile: Dockerfile.edge
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-    volumes:
-      - letsencrypt:/etc/letsencrypt
-      - certbot-www:/var/www/certbot
-    depends_on:
-      site:
-        condition: service_healthy
+      - "443"
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1/ >/dev/null"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://127.0.0.1/health.html > /dev/null || exit 1",
+        ]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 120s
+      start_period: 10s
+    networks:
+      - web
 
-  updater:
-    build:
-      context: .
-      dockerfile: Dockerfile.updater
-    environment:
-      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME:-thebytearray}
-      UPDATE_CRON: ${UPDATE_CRON:-}
+  # Nginx reverse proxy (optional - for local HTTPS testing)
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: ${COMPOSE_PROJECT_NAME:-thebytearray}_nginx
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - .:/project
+      - ./nginx/container/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/container/security.conf:/etc/nginx/conf.d/security.conf:ro
+      - app_dist:/usr/share/nginx/html:ro
+      - nginx_cache:/var/cache/nginx
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      app:
+        condition: service_healthy
     restart: unless-stopped
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
 
 volumes:
-  letsencrypt:
-  certbot-www:
+  app_dist:
+    driver: local
+  nginx_cache:
+    driver: local
+  nginx_logs:
+    driver: local

@@ -1,0 +1,27 @@
+# Production compose override
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+services:
+  app:
+    build:
+      args:
+        - NODE_ENV=production
+    image: thebytearray/website:latest
+    restart: always
+
+  nginx:
+    restart: always
+    volumes:
+      - ./nginx/container/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/container/security.conf:/etc/nginx/conf.d/security.conf:ro
+      - nginx_ssl:/etc/nginx/ssl:ro
+    profiles:
+      - with-ssl
+
+networks:
+  web:
+    driver: bridge
+
+volumes:
+  nginx_ssl:
+    driver: local

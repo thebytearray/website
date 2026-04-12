@@ -8,6 +8,7 @@ export const siteConfig = {
   navItems: [
     { label: "About", href: "#about" },
     { label: "Projects", href: "#projects" },
+    { label: "Blog", href: "/blog" },
     { label: "Team", href: "#team" },
     { label: "Contact", href: "#contact" },
   ],
