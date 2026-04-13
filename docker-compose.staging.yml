@@ -11,11 +11,7 @@ services:
     environment:
       - NODE_ENV=staging
 
-  nginx:
-    container_name: ${COMPOSE_PROJECT_NAME:-thebytearray}_nginx_staging
+  edge:
+    container_name: ${COMPOSE_PROJECT_NAME:-thebytearray}_edge_staging
     ports:
       - "8080:80"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.staging.rule=Host(`${STAGING_HOST:-staging.thebytearray.org}`)"
-      - "traefik.http.routers.staging.entrypoints=web"

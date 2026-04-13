@@ -15,9 +15,8 @@ services:
       - ./content:/app/content:ro
     command: npm run dev -- --host 0.0.0.0
     ports:
-      - "5173:5173"
-      - "3000:3000"
+      - "127.0.0.1:5173:5173"
 
-  nginx:
-    ports:
-      - "8080:80"
+  edge:
+    profiles:
+      - with-edge
