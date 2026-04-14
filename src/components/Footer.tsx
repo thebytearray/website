@@ -152,6 +152,9 @@ export function Footer({ variant = "full" }: FooterProps) {
                 <Link className={linkClass} href="/convertit-privacy">
                   Convertit Privacy
                 </Link>
+                <Link className={linkClass} href="/openloader-privacy">
+                  OpenLoader Privacy
+                </Link>
                 <Link
                   isExternal
                   className={linkClass}
