@@ -71,9 +71,13 @@ export const Navbar = () => {
 
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
+    // In-app routes (e.g. /blog), not same-page #sections
+    if (href.startsWith("/")) {
+      navigate(href);
+      return;
+    }
     if (isHomePage) {
       const element = document.querySelector(href);
-
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -91,8 +95,15 @@ export const Navbar = () => {
   };
 
   const navItemClass = (href: string) => {
-    const sectionId = href.replace("#", "");
-    const isActive = activeSection === sectionId;
+    let isActive = false;
+    if (href.startsWith("/")) {
+      isActive =
+        location.pathname === href ||
+        location.pathname.startsWith(`${href}/`);
+    } else {
+      const sectionId = href.replace("#", "");
+      isActive = activeSection === sectionId;
+    }
 
     return `cursor-pointer text-[13px] px-4 py-2 rounded-lg transition-all duration-200 ${
       isActive
@@ -175,26 +186,28 @@ export const Navbar = () => {
 
         <NavbarMenu className="pt-6 bg-background/98 backdrop-blur-xl">
           <div className="mx-4 mt-2 flex flex-col gap-1">
-            {siteConfig.navMenuItems.map((item, index) => (
-              <NavbarMenuItem key={`${item.label}-${index}`}>
-                <Link
-                  aria-current={
-                    activeSection === item.href.replace("#", "")
-                      ? "page"
-                      : undefined
-                  }
-                  className={`w-full text-sm py-3 px-4 rounded-xl transition-colors cursor-pointer font-medium ${
-                    activeSection === item.href.replace("#", "")
-                      ? "bg-foreground/[0.06] text-foreground"
-                      : "text-foreground/55 hover:bg-foreground/[0.04] hover:text-foreground"
-                  }`}
-                  color="foreground"
-                  onClick={() => handleNavClick(item.href)}
-                >
-                  {item.label}
-                </Link>
-              </NavbarMenuItem>
-            ))}
+            {siteConfig.navMenuItems.map((item, index) => {
+              const menuActive = item.href.startsWith("/")
+                ? location.pathname === item.href ||
+                  location.pathname.startsWith(`${item.href}/`)
+                : activeSection === item.href.replace("#", "");
+              return (
+                <NavbarMenuItem key={`${item.label}-${index}`}>
+                  <Link
+                    aria-current={menuActive ? "page" : undefined}
+                    className={`w-full text-sm py-3 px-4 rounded-xl transition-colors cursor-pointer font-medium ${
+                      menuActive
+                        ? "bg-foreground/[0.06] text-foreground"
+                        : "text-foreground/55 hover:bg-foreground/[0.04] hover:text-foreground"
+                    }`}
+                    color="foreground"
+                    onClick={() => handleNavClick(item.href)}
+                  >
+                    {item.label}
+                  </Link>
+                </NavbarMenuItem>
+              );
+            })}
             <NavbarMenuItem className="mt-4 pt-4 border-t border-foreground/[0.06]">
               <Button
                 isExternal

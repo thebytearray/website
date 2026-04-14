@@ -10,11 +10,10 @@ import { EmailIcon } from "@/components/icons";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function ConvertitPrivacyPage() {
-  const lastUpdated = "December 21, 2025";
+  const lastUpdated = "April 14, 2026";
 
   return (
     <PageLayout footerVariant="minimal">
-      {/* Header */}
       <section className="relative pt-24 pb-12 border-b border-foreground/[0.06]">
         <div className="absolute inset-0 bg-hero-gradient opacity-50" />
         <div className="absolute inset-0 bg-dots opacity-20" />
@@ -51,7 +50,7 @@ export default function ConvertitPrivacyPage() {
               className="text-base text-foreground/55 mb-1"
               variants={fadeInUp}
             >
-              Convertit : Media Toolkit
+              Convertit media toolkit for Android
             </motion.p>
             <motion.p
               className="text-xs text-foreground/40 font-mono"
@@ -63,7 +62,6 @@ export default function ConvertitPrivacyPage() {
         </div>
       </section>
 
-      {/* Content */}
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6">
           <motion.div
@@ -72,34 +70,36 @@ export default function ConvertitPrivacyPage() {
             initial="hidden"
             variants={staggerContainer}
           >
-            {/* Introduction */}
             <motion.div variants={fadeInUp}>
               <Card
                 className="bg-foreground/[0.02] border border-foreground/[0.06]"
                 shadow="none"
               >
-                <CardBody className="p-5">
-                  <p className="text-foreground/55 leading-relaxed">
-                    <strong className="text-foreground">In short:</strong> We do
-                    not collect any data. ConvertIt works entirely offline and
-                    everything stays on your device.
+                <CardBody className="px-4 py-3">
+                  <p className="text-sm text-foreground/55 leading-snug">
+                    <strong className="text-foreground">Summary.</strong> We do
+                    not collect any data. Everything stays on your device.
+                    Because the app is distributed through Google Play, Google
+                    may collect purchase-related information under their own
+                    policies.
                   </p>
                 </CardBody>
               </Card>
             </motion.div>
 
-            {/* Section: About This App */}
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                About This App
+                What Convertit is
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  Convertit is an{" "}
-                  <strong className="text-foreground">
-                    ad-free media toolkit
-                  </strong>{" "}
-                  app built with Kotlin and Jetpack Compose. It is powered by{" "}
+                  Convertit is an ad-free app for working with audio and video on
+                  your phone. You can convert between common formats, edit tags and
+                  metadata, and strip embedded data from files when you want a
+                  cleaner copy.
+                </p>
+                <p>
+                  Processing uses well-known open tools such as{" "}
                   <Link
                     isExternal
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
@@ -123,165 +123,123 @@ export default function ConvertitPrivacyPage() {
                   >
                     Exiv2
                   </Link>
-                  .
-                </p>
-                <p>
-                  The app allows you to convert audio and video files between
-                  various formats (FLAC, MP3, WAV, AAC, OGG, M4A, and more) and
-                  edit metadata/tags. All processing happens locally on your
-                  device.
+                  . All of that runs on your device.
                 </p>
               </div>
             </motion.div>
 
-            {/* Section: No Data Collection */}
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                We Don&apos;t Collect Any Data
+                What we do not collect
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  ConvertIt does not collect, transmit, or store any personal
-                  information on external servers. We have no analytics, no
-                  tracking, and no way to see how you use the app.
+                  We do not run analytics inside the app, we do not sell your
+                  information, and we do not upload your media or settings to our
+                  own servers. There is no account system in Convertit that sends
+                  your identity back to us.
                 </p>
                 <p>
-                  <strong className="text-foreground">
-                    The app works completely offline.
-                  </strong>{" "}
-                  It does not require an internet connection to function and
-                  never sends any data over the network.
+                  The app is built to work fully offline for its core features.
+                  It does not need the internet to convert files or edit metadata,
+                  and it does not send your files anywhere for processing.
                 </p>
               </div>
             </motion.div>
 
-            {/* Section: What's Stored on Your Device */}
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                What&apos;s Stored on Your Device
+                What stays on your device
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
-                <p>The app stores the following locally on your device:</p>
+                <p>Examples include:</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    Converted audio and video files (saved to your chosen
-                    location)
+                    Output files where you choose to save them, plus any copies
+                    you keep in your gallery or folders
                   </li>
                   <li>
-                    App preferences and settings (theme, output format
-                    preferences)
+                    App settings such as theme and format choices you pick inside
+                    the app
                   </li>
                   <li>
-                    Temporary files during conversion (automatically cleaned up)
+                    Short-lived temp files while a job runs. The app cleans these
+                    up when it can
                   </li>
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
-                  All data is stored locally and is removed when you uninstall
-                  the app (except for converted files you&apos;ve saved to your
-                  device storage).
+                  Uninstalling removes the app&apos;s data. Files you already
+                  exported to your storage stay where you put them until you
+                  delete them yourself.
                 </p>
               </div>
             </motion.div>
 
-            {/* Section: No Network Activity */}
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                No Network Activity
+                Google Play and purchases
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  ConvertIt does not make any network requests. The app does not
-                  connect to the internet for any purpose. All file conversions
-                  and metadata editing happen entirely on your device using
-                  local processing.
-                </p>
-                <p>
-                  <strong className="text-foreground">
-                    Your files never leave your device.
-                  </strong>{" "}
-                  We cannot access, view, or retrieve any of your media files.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Section: Google Play */}
-            <motion.div className="space-y-4" variants={fadeInUp}>
-              <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                Google Play Services
-              </h2>
-              <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
-                <p>
-                  Convertit is distributed exclusively through Google Play.
-                  Google may collect certain data as part of their standard Play
-                  Store services, including purchase verification and app
-                  licensing.
-                </p>
-                <p>
-                  The app uses Google Play Billing for in-app purchases. This
-                  involves Google&apos;s SDKs which may collect data necessary
-                  for processing transactions and verifying purchases.
-                </p>
-                <p>
-                  This data collection is handled by Google, not by us. For
-                  details on what Google collects, please see{" "}
+                  Convertit is available through Google Play. When you buy or
+                  subscribe inside the app, Google runs billing and may keep
+                  records that match how they always handle Play purchases. That
+                  happens under{" "}
                   <Link
                     isExternal
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
                     href="https://policies.google.com/privacy"
                   >
-                    Google&apos;s Privacy Policy
+                    Google&apos;s privacy policy
                   </Link>
-                  .
+                  , not ours. We do not receive your full card number from Google.
+                </p>
+                <p>
+                  Google may also collect routine store data when you install or
+                  update the app. We do not control that side of the experience.
                 </p>
               </div>
             </motion.div>
 
-            {/* Section: Permissions */}
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                App Permissions
+                Permissions in plain words
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
-                <p>Here are the permissions the app requires and why:</p>
-                <ul className="list-disc pl-5 space-y-3">
+                <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    <strong className="text-foreground">
-                      Storage Access (Read/Write):
-                    </strong>{" "}
-                    Required to read your media files for conversion and save
-                    the converted output files. On Android 13+, this is limited
-                    to audio files only (READ_MEDIA_AUDIO).
+                    <strong className="text-foreground">Files and media.</strong>{" "}
+                    So the app can read the clips and tracks you pick and write
+                    new files where you want them. On newer Android versions the
+                    scope follows what the system allows for audio (and video when
+                    applicable).
                   </li>
                   <li>
-                    <strong className="text-foreground">Notifications:</strong>{" "}
-                    Used to display conversion progress and notify you when
-                    conversions are complete, especially when the app is running
-                    in the background.
+                    <strong className="text-foreground">Notifications.</strong>{" "}
+                    Optional progress and completion messages, including when work
+                    runs in the background.
                   </li>
                   <li>
                     <strong className="text-foreground">
-                      Foreground Service:
+                      Running in the background.
                     </strong>{" "}
-                    Allows conversions to continue running reliably when you
-                    switch to other apps. This ensures your conversions complete
-                    even if the app is in the background.
+                    So a long conversion can finish even if you switch to another
+                    app.
                   </li>
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
-                  We only request permissions that are strictly necessary for
-                  the app to function. No permission is used to collect or
-                  transmit your data.
+                  We only ask for what the features need. None of this is used to
+                  ship your files to us.
                 </p>
               </div>
             </motion.div>
 
-            {/* Section: Contact */}
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                Contact
+                Questions
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
-                <p>Questions about this privacy policy? Reach out:</p>
+                <p>If something is unclear, write to us:</p>
                 <div className="flex items-center gap-2 mt-2">
                   <EmailIcon className="text-foreground/55" size={16} />
                   <Link
@@ -302,7 +260,6 @@ export default function ConvertitPrivacyPage() {
               </div>
             </motion.div>
 
-            {/* Back to Home */}
             <motion.div className="pt-8" variants={fadeInUp}>
               <Divider className="mb-8 bg-foreground/[0.06]" />
               <div className="text-center">
