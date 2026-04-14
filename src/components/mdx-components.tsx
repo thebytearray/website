@@ -113,6 +113,41 @@ function Image({ src, alt, ...props }: any) {
   );
 }
 
+function Table({ children, ...props }: any) {
+  return (
+    <div className="overflow-x-auto my-6 not-prose">
+      <table
+        className="w-full text-sm border-collapse border border-zinc-300 dark:border-zinc-600 rounded-lg overflow-hidden"
+        {...props}
+      >
+        {children}
+      </table>
+    </div>
+  );
+}
+
+function Th({ children, ...props }: any) {
+  return (
+    <th
+      className="border-b border-zinc-300 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-800 px-4 py-3 text-left font-semibold text-zinc-900 dark:text-zinc-100"
+      {...props}
+    >
+      {children}
+    </th>
+  );
+}
+
+function Td({ children, ...props }: any) {
+  return (
+    <td
+      className="border-b border-zinc-200 dark:border-zinc-700 px-4 py-3 text-zinc-700 dark:text-zinc-300"
+      {...props}
+    >
+      {children}
+    </td>
+  );
+}
+
 export const mdxComponents = {
   h1: (props: any) => <Heading level={1} {...props} />,
   h2: (props: any) => <Heading level={2} {...props} />,
@@ -127,6 +162,12 @@ export const mdxComponents = {
   ol: OrderedList,
   img: Image,
   hr: Divider,
+  table: Table,
+  thead: (props: any) => <thead {...props} />,
+  tbody: (props: any) => <tbody {...props} />,
+  tr: (props: any) => <tr {...props} />,
+  th: Th,
+  td: Td,
 };
 
 export function MDXContent({ content: Content }: { content: any }) {
