@@ -51,7 +51,7 @@ export default function OpenLoaderPrivacyPage() {
               className="text-base text-foreground/55 mb-1"
               variants={fadeInUp}
             >
-              OpenLoader : APK Installer
+              OpenLoader — developer utility for Android
             </motion.p>
             <motion.p
               className="text-xs text-foreground/40 font-mono"
@@ -97,16 +97,17 @@ export default function OpenLoaderPrivacyPage() {
                 <p>
                   OpenLoader is a{" "}
                   <strong className="text-foreground">
-                    free developer tool
-                  </strong>{" "}
-                  designed to help Android developers easily install and test their
-                  APK files on multiple devices. It simplifies the process of
-                  sideloading APKs for development and testing purposes.
+                    free utility for Android developers
+                  </strong>
+                  . It helps you deploy build outputs to physical devices and
+                  emulators while you develop, debug, and validate your apps—typical
+                  tasks in Android Studio–based workflows and on-device QA.
                 </p>
                 <p>
-                  The app is built for developers who need to quickly deploy their
-                  applications across different Android devices without going through
-                  the Play Store during the development phase.
+                  Use it to push packages you build locally to test hardware, iterate
+                  on UI and performance, and confirm behavior before release. It is
+                  intended for engineering and testing workflows, not for
+                  distributing software to end users.
                 </p>
               </div>
             </motion.div>
@@ -141,8 +142,8 @@ export default function OpenLoaderPrivacyPage() {
                 <p>The app stores the following locally on your device:</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    APK files you choose to install (handled temporarily during
-                    the installation process)
+                    Build artifacts you select for deployment (handled temporarily
+                    during installation to a target device)
                   </li>
                   <li>
                     App preferences and settings (theme, default install options)
@@ -154,8 +155,8 @@ export default function OpenLoaderPrivacyPage() {
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
                   All data is stored locally and is removed when you uninstall
-                  the app. APK files are only used for installation and are not
-                  retained after successful installation.
+                  the app. Build artifacts are only used for the install step and
+                  are not retained after a successful deployment where applicable.
                 </p>
               </div>
             </motion.div>
@@ -168,16 +169,16 @@ export default function OpenLoaderPrivacyPage() {
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   OpenLoader does not make any network requests. The app does not
-                  connect to the internet for any purpose. All APK installations
-                  and device connections happen entirely on your local network
-                  or through direct device connections.
+                  connect to the internet for any purpose. Package installs and
+                  device connections you initiate happen on your local network or
+                  through direct device links (for example USB debugging).
                 </p>
                 <p>
                   <strong className="text-foreground">
-                    Your APK files never leave your device network.
+                    Your project files stay under your control.
                   </strong>{" "}
-                  We cannot access, view, or retrieve any of your development
-                  files or applications.
+                  We cannot access, view, or retrieve your source code, build
+                  outputs, or applications.
                 </p>
               </div>
             </motion.div>
@@ -221,37 +222,31 @@ export default function OpenLoaderPrivacyPage() {
                     <strong className="text-foreground">
                       Storage Access (Read/Write):
                     </strong>{" "}
-                    Required to access APK files from your device storage for
-                    installation on target devices.
+                    Lets you pick build outputs from storage when you deploy to a
+                    test device.
                   </li>
                   <li>
                     <strong className="text-foreground">
-                      Install Unknown Apps:
+                      Install packages / “Unknown sources” (as labeled by Android):
                     </strong>{" "}
-                    Required to install APK files on connected devices. This is
-                    a system permission that Android requires for sideloading
-                    applications.
+                    Required so the system can install packages you supply for
+                    on-device testing. Android shows this for installs that are not
+                    coming from the same channels as consumer store updates; that
+                    is normal for developer and QA workflows.
                   </li>
                   <li>
                     <strong className="text-foreground">
-                      Network/Local Network:
+                      Network / Local Network:
                     </strong>{" "}
-                    Required to discover and connect to other Android devices on
-                    your local network for wireless APK installation.
+                    Used to reach development devices on your LAN (for example
+                    wireless debugging or ADB-over-network style setups).
                   </li>
                   <li>
                     <strong className="text-foreground">
-                      USB Debugging (Optional):
+                      USB debugging (when applicable):
                     </strong>{" "}
-                    Required when connecting to devices via ADB over USB for
-                    direct installation.
-                  </li>
-                  <li>
-                    <strong className="text-foreground">
-                      Bluetooth (Optional):
-                    </strong>{" "}
-                    Used for device discovery and connection when installing APKs
-                    via Bluetooth pairing.
+                    Supports direct connection to hardware you authorize for
+                    development, consistent with standard Android tooling.
                   </li>
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
@@ -269,9 +264,9 @@ export default function OpenLoaderPrivacyPage() {
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  OpenLoader is a free app developed for the developer community.
-                  The app is designed to be transparent and trustworthy. All APK
-                  handling is done locally on your devices.
+                  OpenLoader is developed for the Android developer community. It
+                  is designed to be transparent: deployment and validation steps
+                  run locally on hardware you control.
                 </p>
               </div>
             </motion.div>
