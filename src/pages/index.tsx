@@ -32,6 +32,11 @@ import {
   TagIcon,
   ImageIcon,
   WifiOffIcon,
+  DownloadIcon,
+  AndroidIcon,
+  TerminalIcon,
+  ZapIcon,
+  SystemIcon,
 } from "@/components/icons";
 
 interface GitHubRepo {
@@ -47,6 +52,58 @@ interface GitHubRepo {
 }
 
 // App data
+const openloaderScreenshots = [
+  {
+    src: "/images/openloader/1.png",
+    alt: "OpenLoader home screen",
+  },
+  {
+    src: "/images/openloader/2.png",
+    alt: "Install queue and progress",
+  },
+  {
+    src: "/images/openloader/3.png",
+    alt: "Wireless debugging and device connection",
+  },
+  {
+    src: "/images/openloader/4.png",
+    alt: "Settings and install options",
+  },
+];
+
+const openloaderFeatures = [
+  {
+    icon: DownloadIcon,
+    title: "Sideload APKs",
+    desc: "Install APK files you provide outside the store flow, including several in one queue",
+  },
+  {
+    icon: AndroidIcon,
+    title: "Faster on many devices",
+    desc: "Sideload and push debug builds to several phones or tablets without repeating every step",
+  },
+  {
+    icon: TerminalIcon,
+    title: "Wireless ADB",
+    desc: "Connect and deploy over the network on Android 11 and newer",
+  },
+  {
+    icon: ZapIcon,
+    title: "Pairing helpers",
+    desc: "Flows and checks for wireless debugging and pairing where supported",
+  },
+  {
+    icon: SystemIcon,
+    title: "Optional Shizuku",
+    desc: "Use a privileged install path when you grant Shizuku access",
+  },
+  {
+    icon: ShieldIcon,
+    title: "Privacy first",
+    desc: "No analytics or cloud account; history and preferences stay on your device",
+  },
+];
+
 const convertitScreenshots = [
   {
     src: "/images/convertit/Screenshot_20251211_065244.png",
@@ -403,6 +460,19 @@ export default function IndexPage() {
       </section>
 
       {/* ======== FEATURED APPS ======== */}
+      <FeaturedAppSection
+        appName="OpenLoader"
+        description="Sideload APKs you already have on devices you own, including several in one go. Built with Android developers in mind: queue installs, push to multiple devices over wireless ADB, optional Shizuku for privileged installs, Material You UI. Open source under GPL-3.0."
+        features={openloaderFeatures}
+        iconAlt="OpenLoader app icon"
+        iconSrc="/images/openloader/icon.png"
+        id="openloader"
+        playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.app.android.openloader"
+        privacyUrl="/openloader-privacy"
+        screenshots={openloaderScreenshots}
+        subtitle="Sideload APK installs"
+      />
+
       <FeaturedAppSection
         appName="Convertit Pro"
         description="A powerful offline media toolkit for Android. Convert audio and video, edit metadata, and clean EXIF data with complete privacy."

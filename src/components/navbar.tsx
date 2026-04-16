@@ -38,6 +38,7 @@ export const Navbar = () => {
 
       const sections = [
         "about",
+        "openloader",
         "convertit",
         "featured-app",
         "projects",

@@ -77,6 +77,13 @@ export function Footer({ variant = "full" }: FooterProps) {
               <nav aria-label="Products" className="flex flex-col">
                 <Link
                   className={linkClass}
+                  href="#openloader"
+                  onClick={(e) => goToHash(e, "#openloader")}
+                >
+                  OpenLoader
+                </Link>
+                <Link
+                  className={linkClass}
                   href="#convertit"
                   onClick={(e) => goToHash(e, "#convertit")}
                 >
