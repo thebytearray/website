@@ -10,7 +10,7 @@ import { EmailIcon } from "@/components/icons";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function OpenLoaderPrivacyPage() {
-  const lastUpdated = "April 15, 2026";
+  const lastUpdated = "April 17, 2026";
 
   return (
     <PageLayout footerVariant="minimal">
@@ -51,7 +51,7 @@ export default function OpenLoaderPrivacyPage() {
               className="text-base text-foreground/55 mb-1"
               variants={fadeInUp}
             >
-              OpenLoader — developer utility for Android
+              OpenLoader: install debug APKs faster across multiple devices
             </motion.p>
             <motion.p
               className="text-xs text-foreground/40 font-mono"
@@ -81,8 +81,10 @@ export default function OpenLoaderPrivacyPage() {
                 <CardBody className="p-5">
                   <p className="text-foreground/55 leading-relaxed">
                     <strong className="text-foreground">In short:</strong> We do
-                    not collect any data. OpenLoader works entirely offline and
-                    everything stays on your device.
+                    not collect any data. Your choices, APKs, and settings stay on
+                    your device or between your devices as part of workflows you
+                    start (for example wireless ADB). We do not receive your
+                    content or usage.
                   </p>
                 </CardBody>
               </Card>
@@ -97,17 +99,23 @@ export default function OpenLoaderPrivacyPage() {
                 <p>
                   OpenLoader is a{" "}
                   <strong className="text-foreground">
-                    free utility for Android developers
+                    free developer utility for Android
+                  </strong>{" "}
+                  aimed at teams and individuals who need to{" "}
+                  <strong className="text-foreground">
+                    install debug and test APKs quickly on more than one device
                   </strong>
-                  . It helps you deploy build outputs to physical devices and
-                  emulators while you develop, debug, and validate your apps—typical
-                  tasks in Android Studio–based workflows and on-device QA.
+                  . It supports an install queue (several packages in sequence),
+                  wireless ADB (Android 11+), and optional Shizuku for a privileged
+                  install path when you grant access, so you spend less time
+                  repeating manual install steps during bring-up, QA, and on-device
+                  iteration.
                 </p>
                 <p>
-                  Use it to push packages you build locally to test hardware, iterate
-                  on UI and performance, and confirm behavior before release. It is
-                  intended for engineering and testing workflows, not for
-                  distributing software to end users.
+                  You are responsible for complying with licenses, policies, and laws
+                  that apply to the software you deploy. OpenLoader is tooling for
+                  hardware you use in development; it does not distribute
+                  third-party apps on your behalf.
                 </p>
               </div>
             </motion.div>
@@ -120,15 +128,17 @@ export default function OpenLoaderPrivacyPage() {
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   OpenLoader does not collect, transmit, or store any personal
-                  information on external servers. We have no analytics, no
-                  tracking, and no way to see how you use the app.
+                  information on The Byte Array&apos;s servers. We have no
+                  analytics, no tracking, and no way to see how you use the app.
                 </p>
                 <p>
                   <strong className="text-foreground">
-                    The app works completely offline.
+                    We do not receive your usage or your APKs.
                   </strong>{" "}
-                  It does not require an internet connection to function and
-                  never sends any data over the network.
+                  Core install and preference flows work without any account or
+                  cloud service from us. Network capability may be used only for
+                  device-side features you use (see below), not to upload your
+                  content to us.
                 </p>
               </div>
             </motion.div>
@@ -142,8 +152,8 @@ export default function OpenLoaderPrivacyPage() {
                 <p>The app stores the following locally on your device:</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    Build artifacts you select for deployment (handled temporarily
-                    during installation to a target device)
+                    APKs you choose (staged temporarily in app storage for install
+                    or push to another device where applicable)
                   </li>
                   <li>
                     App preferences and settings (theme, default install options)
@@ -154,31 +164,32 @@ export default function OpenLoaderPrivacyPage() {
                   </li>
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
-                  All data is stored locally and is removed when you uninstall
-                  the app. Build artifacts are only used for the install step and
+                  All data is stored locally and is removed when you uninstall the
+                  app. Staged files are only used for install and related steps and
                   are not retained after a successful deployment where applicable.
                 </p>
               </div>
             </motion.div>
 
-            {/* Section: No Network Activity */}
+            {/* Section: Network use */}
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                No Network Activity
+                Network use
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  OpenLoader does not make any network requests. The app does not
-                  connect to the internet for any purpose. Package installs and
-                  device connections you initiate happen on your local network or
-                  through direct device links (for example USB debugging).
+                  OpenLoader does not send your personal data, APKs, or analytics to
+                  The Byte Array. When you use wireless ADB or related pairing
+                  features, the app may use the network stack to communicate with
+                  phones or tablets you connect to, typically on your LAN or tunneled
+                  to devices you authorize, not to reach our systems.
                 </p>
                 <p>
                   <strong className="text-foreground">
-                    Your project files stay under your control.
+                    Your files and installs stay under your control.
                   </strong>{" "}
-                  We cannot access, view, or retrieve your source code, build
-                  outputs, or applications.
+                  We cannot access, view, or retrieve your APKs or install history from
+                  your device.
                 </p>
               </div>
             </motion.div>
@@ -216,43 +227,91 @@ export default function OpenLoaderPrivacyPage() {
                 App Permissions
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
-                <p>Here are the permissions the app requires and why:</p>
+                <p>
+                  Declared Android permissions (names as in the system) and how we use
+                  them:
+                </p>
                 <ul className="list-disc pl-5 space-y-3">
                   <li>
                     <strong className="text-foreground">
-                      Storage Access (Read/Write):
+                      <code className="text-xs font-mono">INTERNET</code>:
                     </strong>{" "}
-                    Lets you pick build outputs from storage when you deploy to a
-                    test device.
+                    Lets OpenLoader open TCP connections for wireless ADB to devices
+                    you pair and authorize. This is device-to-device tooling you
+                    start, not traffic to our servers.
                   </li>
                   <li>
                     <strong className="text-foreground">
-                      Install packages / “Unknown sources” (as labeled by Android):
+                      <code className="text-xs font-mono">
+                        ACCESS_WIFI_STATE
+                      </code>
+                      :
                     </strong>{" "}
-                    Required so the system can install packages you supply for
-                    on-device testing. Android shows this for installs that are not
-                    coming from the same channels as consumer store updates; that
-                    is normal for developer and QA workflows.
+                    Used so wireless debugging and discovery flows can read Wi‑Fi
+                    connection state where the OS requires it.
                   </li>
                   <li>
                     <strong className="text-foreground">
-                      Network / Local Network:
+                      <code className="text-xs font-mono">
+                        CHANGE_WIFI_MULTICAST_STATE
+                      </code>
+                      :
                     </strong>{" "}
-                    Used to reach development devices on your LAN (for example
-                    wireless debugging or ADB-over-network style setups).
+                    Allows multicast-based discovery helpers used during wireless
+                    debugging / pairing on local networks.
                   </li>
                   <li>
                     <strong className="text-foreground">
-                      USB debugging (when applicable):
+                      <code className="text-xs font-mono">POST_NOTIFICATIONS</code>:
                     </strong>{" "}
-                    Supports direct connection to hardware you authorize for
-                    development, consistent with standard Android tooling.
+                    Optional on supported Android versions so the app can show
+                    notifications (for example during pairing or install-related
+                    foreground work) when you allow it.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">
+                      <code className="text-xs font-mono">FOREGROUND_SERVICE</code>{" "}
+                      and{" "}
+                      <code className="text-xs font-mono">
+                        FOREGROUND_SERVICE_DATA_SYNC
+                      </code>
+                      :
+                    </strong>{" "}
+                    Required so a small foreground service can run while handling
+                    pairing-related input and related foreground data-sync work in the
+                    background, as declared in the app manifest.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">
+                      APK files (system picker, not broad storage):
+                    </strong>{" "}
+                    You choose APKs with the system document picker; OpenLoader does
+                    not request blanket read/write external storage for that. Files
+                    may be copied into app-private cache briefly to install or push
+                    to another device.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">
+                      Install session / unknown sources (system UI):
+                    </strong>{" "}
+                    Installing packages you supply uses the normal Android install
+                    pipeline; the system may show install-source or &ldquo;unknown
+                    sources&rdquo; prompts depending on version and settings.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">
+                      Optional Shizuku (user-granted):
+                    </strong>{" "}
+                    If you enable the Shizuku install path, granting access is
+                    handled through Shizuku&apos;s own permission flow; OpenLoader
+                    does not add a separate privileged Android permission in the
+                    manifest for that beyond what the OS and Shizuku require.
                   </li>
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
-                  We only request permissions that are strictly necessary for
-                  the app to function as a developer tool. No permission is used
-                  to collect or transmit your data.
+                  We only use these capabilities to deliver the features you see. None
+                  of them are used to collect data for The Byte Array or to send
+                  your content to us.
                 </p>
               </div>
             </motion.div>
@@ -264,9 +323,25 @@ export default function OpenLoaderPrivacyPage() {
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  OpenLoader is developed for the Android developer community. It
-                  is designed to be transparent: deployment and validation steps
-                  run locally on hardware you control.
+                  OpenLoader is{" "}
+                  <strong className="text-foreground">open source</strong> under the{" "}
+                  <strong className="text-foreground">
+                    GNU General Public License v3.0
+                  </strong>{" "}
+                  (GPL-3.0). You can read, review, and build the source yourself.
+                </p>
+                <p>
+                  Repository:{" "}
+                  <Link
+                    isExternal
+                    className="text-foreground/55 hover:text-foreground underline underline-offset-2"
+                    href="https://github.com/thebytearray/OpenLoader"
+                  >
+                    github.com/thebytearray/OpenLoader
+                  </Link>
+                  . The full license text is included in the repository as{" "}
+                  <code className="text-xs font-mono text-foreground/70">LICENSE</code>
+                  .
                 </p>
               </div>
             </motion.div>
