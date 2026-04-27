@@ -481,7 +481,7 @@ export default function IndexPage() {
         iconSrc="/images/convertit/c_pro.png"
         id="convertit"
         playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.convertit"
-        privacyUrl="/convertit-privacy"
+        privacyUrl="/convertit-pro-privacy"
         reviews={convertitReviews}
         screenshots={convertitScreenshots}
         subtitle="Media Toolkit"

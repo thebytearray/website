@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site";
 import { EmailIcon } from "@/components/icons";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
-export default function ConvertitPrivacyPage() {
+export default function ConvertitProPrivacyPage() {
   const lastUpdated = "April 27, 2026";
 
   return (
@@ -29,7 +29,7 @@ export default function ConvertitPrivacyPage() {
               <Breadcrumbs
                 items={[
                   { label: "Home", href: "/" },
-                  { label: "Convertit" },
+                  { label: "Convertit Pro", href: "/#convertit" },
                   { label: "Privacy Policy" },
                 ]}
               />
@@ -50,7 +50,7 @@ export default function ConvertitPrivacyPage() {
               className="text-base text-foreground/55 mb-1"
               variants={fadeInUp}
             >
-              Convertit audio conversion for Android
+              Convertit Pro media toolkit for Android
             </motion.p>
             <motion.p
               className="text-xs text-foreground/40 font-mono"
@@ -78,9 +78,9 @@ export default function ConvertitPrivacyPage() {
                 <CardBody className="px-4 py-3">
                   <p className="text-sm text-foreground/55 leading-snug">
                     <strong className="text-foreground">Summary.</strong> We do
-                    not collect any data. Everything stays on your device. The app
-                    is ad-free. If you install from Google Play, Google may
-                    collect routine store-related information under their own
+                    not collect any data. Everything stays on your device.
+                    Because the app is distributed through Google Play, Google
+                    may collect purchase-related information under their own
                     policies.
                   </p>
                 </CardBody>
@@ -89,28 +89,25 @@ export default function ConvertitPrivacyPage() {
 
             <motion.div className="space-y-4" variants={fadeInUp}>
               <h2 className="text-xl font-semibold text-foreground border-l-2 border-foreground/15 pl-3">
-                What Convertit is
+                What Convertit Pro is
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  Convertit is an ad-free app for converting audio on your
-                  device—select tracks, pick an output format, and save the
-                  result where you want. It does not collect personally
-                  identifiable information, and it does not upload your media for
-                  cloud processing.{" "}
+                  Convertit Pro is the full-featured, ad-free app for working with
+                  audio and video on your phone. You can convert between common
+                  formats, edit tags and metadata, and strip embedded data from
+                  files when you want a cleaner copy. The free{" "}
                   <Link
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
-                    href="/convertit-pro-privacy"
+                    href="/convertit-privacy"
                   >
-                    Convertit Pro
+                    Convertit
                   </Link>{" "}
-                  is the expanded toolkit with more features, including working
-                  with video, rich metadata, and other tools; the same privacy
-                  expectations apply, with details on that product on its own
-                  page.
+                  app offers a smaller set of features; Pro adds the broader
+                  media toolkit and advanced options.
                 </p>
                 <p>
-                  Audio conversion is performed on your device (for example using{" "}
+                  Processing uses well-known open tools such as{" "}
                   <Link
                     isExternal
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
@@ -118,21 +115,36 @@ export default function ConvertitPrivacyPage() {
                   >
                     FFmpeg
                   </Link>
-                  ). We do not access your files for anything beyond what you
-                  start in the app.
+                  ,{" "}
+                  <Link
+                    isExternal
+                    className="text-foreground/55 hover:text-foreground underline underline-offset-2"
+                    href="https://taglib.org"
+                  >
+                    TagLib
+                  </Link>
+                  , and{" "}
+                  <Link
+                    isExternal
+                    className="text-foreground/55 hover:text-foreground underline underline-offset-2"
+                    href="https://exiv2.org"
+                  >
+                    Exiv2
+                  </Link>
+                  . All of that runs on your device.
                 </p>
                 <p>
-                  The tooling Convertit and Convertit Pro use is open source and
-                  published as{" "}
+                  The same open-source stack powers Convertit and Convertit Pro;
+                  you can review the code, build, and third-party credits in our{" "}
                   <Link
                     isExternal
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
                     href="https://github.com/thebytearray/convertit-libs"
                   >
-                    convertit-libs on GitHub
-                  </Link>
-                  , where you can inspect the code, build setup, and third-party
-                  notices.
+                    convertit-libs
+                  </Link>{" "}
+                  repository on GitHub. Artifacts are also published to Maven
+                  Central under the org.thebytearray.lib group.
                 </p>
               </div>
             </motion.div>
@@ -145,16 +157,17 @@ export default function ConvertitPrivacyPage() {
                 <p>
                   We do not run analytics inside the app, we do not sell your
                   information, and we do not upload your media or settings to our
-                  own servers. There is no account system in Convertit that sends
-                  your identity back to us.
+                  own servers. There is no account system in Convertit Pro that
+                  sends your identity back to us.
                 </p>
                 <p>
-                  The app is designed so conversion work can run without sending
-                  your files to us or to third-party services for processing.
+                  The app is built to work fully offline for its core features.
+                  It does not need the internet to convert files or edit metadata,
+                  and it does not send your files anywhere for processing.
                 </p>
                 <p>
-                  Convertit does not use any third-party services for analytics,
-                  advertising, or data collection.
+                  Convertit Pro does not use any third-party services for
+                  analytics, advertising, or data collection.
                 </p>
               </div>
             </motion.div>
@@ -167,13 +180,16 @@ export default function ConvertitPrivacyPage() {
                 <p>Examples include:</p>
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    Converted files where you save them, and any copies you keep
-                    in your folders or gallery
+                    Output files where you choose to save them, plus any copies
+                    you keep in your gallery or folders
                   </li>
-                  <li>Preferences you set inside the app, such as format choices</li>
                   <li>
-                    Short-lived temporary data while a job runs, which the app
-                    cleans up when it can
+                    App settings such as theme and format choices you pick inside
+                    the app
+                  </li>
+                  <li>
+                    Short-lived temp files while a job runs. The app cleans these
+                    up when it can
                   </li>
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
@@ -190,9 +206,10 @@ export default function ConvertitPrivacyPage() {
               </h2>
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
-                  Convertit is a free, ad-free app. If you install it from Google
-                  Play, Google may collect routine store, install, and update data
-                  as covered by{" "}
+                  Convertit Pro is available through Google Play. When you buy or
+                  subscribe inside the app, Google runs billing and may keep
+                  records that match how they always handle Play purchases. That
+                  happens under{" "}
                   <Link
                     isExternal
                     className="text-foreground/55 hover:text-foreground underline underline-offset-2"
@@ -200,21 +217,11 @@ export default function ConvertitPrivacyPage() {
                   >
                     Google&apos;s privacy policy
                   </Link>
-                  . We do not add analytics or advertising SDKs in the app for
-                  tracking your usage.
+                  , not ours. We do not receive your full card number from Google.
                 </p>
                 <p>
-                  If you purchase or subscribe to{" "}
-                  <Link
-                    className="text-foreground/55 hover:text-foreground underline underline-offset-2"
-                    href="/convertit-pro-privacy"
-                  >
-                    Convertit Pro
-                  </Link>{" "}
-                  or other paid offerings through Google Play, billing and related
-                  records are handled by Google as with any Play purchase; see the
-                  Convertit Pro privacy page for the full description. We do not
-                  receive your full card number from Google.
+                  Google may also collect routine store data when you install or
+                  update the app. We do not control that side of the experience.
                 </p>
               </div>
             </motion.div>
@@ -226,25 +233,29 @@ export default function ConvertitPrivacyPage() {
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <ul className="list-disc pl-5 space-y-2">
                   <li>
-                    <strong className="text-foreground">Storage / files.</strong>{" "}
-                    To let you pick audio files to convert and save converted
-                    output on your device. We do not use this access to read your
-                    files for any other purpose.
-                  </li>
-                  <li>
-                    <strong className="text-foreground">Foreground service.</strong>{" "}
-                    So conversion can continue while the app is in the background
-                    or the screen is off, when Android requires a foreground
-                    service for that work.
+                    <strong className="text-foreground">Files and media.</strong>{" "}
+                    So the app can read the clips and tracks you pick and write
+                    new files where you want them. On newer Android versions the
+                    scope follows what the system allows for audio (and video when
+                    applicable).
                   </li>
                   <li>
                     <strong className="text-foreground">Notifications.</strong>{" "}
-                    Optional progress or completion messages when a job is running.
+                    Optional progress and completion messages, including when work
+                    runs in the background.
+                  </li>
+                  <li>
+                    <strong className="text-foreground">
+                      Running in the background.
+                    </strong>{" "}
+                    So a long conversion can finish even if you switch to another
+                    app. This may use a foreground service where Android requires
+                    it.
                   </li>
                 </ul>
                 <p className="text-sm text-foreground/45 mt-3">
                   We only ask for what the features need. None of this is used to
-                  send your files to us.
+                  ship your files to us.
                 </p>
               </div>
             </motion.div>
@@ -256,10 +267,10 @@ export default function ConvertitPrivacyPage() {
               <div className="pl-4 space-y-3 text-foreground/55 leading-relaxed">
                 <p>
                   According to Islamic principles, music is considered haram. If
-                  you choose to use Convertit for converting music or any other
+                  you choose to use Convertit Pro for converting music or any other
                   haram content, you take full personal responsibility for such
-                  use. The developers of Convertit bear no responsibility for how
-                  the app is used.
+                  use. The developers of Convertit Pro bear no responsibility for
+                  how the app is used.
                 </p>
               </div>
             </motion.div>
