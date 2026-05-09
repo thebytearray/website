@@ -27,11 +27,6 @@ import {
   QrCodeIcon,
   ServerIcon,
   AppsIcon,
-  MusicIcon,
-  VideoIcon,
-  TagIcon,
-  ImageIcon,
-  WifiOffIcon,
   DownloadIcon,
   AndroidIcon,
   TerminalIcon,
@@ -101,95 +96,6 @@ const openloaderFeatures = [
     icon: ShieldIcon,
     title: "Privacy first",
     desc: "No analytics or cloud account; history and preferences stay on your device",
-  },
-];
-
-const convertitScreenshots = [
-  {
-    src: "/images/convertit/Screenshot_20251211_065244.png",
-    alt: "Home screen with features",
-  },
-  {
-    src: "/images/convertit/Screenshot_20251211_065315.png",
-    alt: "Audio conversion",
-  },
-  {
-    src: "/images/convertit/Screenshot_20251211_065357.png",
-    alt: "Format selection",
-  },
-  {
-    src: "/images/convertit/Screenshot_20251211_065428.png",
-    alt: "Conversion progress",
-  },
-  {
-    src: "/images/convertit/Screenshot_20251211_065436.png",
-    alt: "Conversion complete",
-  },
-];
-
-const convertitFeatures = [
-  {
-    icon: MusicIcon,
-    title: "Audio Conversion",
-    desc: "Convert between MP3, FLAC, WAV, AAC, OGG, and more",
-  },
-  {
-    icon: VideoIcon,
-    title: "Video Conversion",
-    desc: "Transform video files to various formats",
-  },
-  {
-    icon: TagIcon,
-    title: "Metadata Editor",
-    desc: "Edit audio tags and metadata with ease",
-  },
-  {
-    icon: ImageIcon,
-    title: "EXIF Cleaner",
-    desc: "Remove EXIF data from images and videos",
-  },
-  {
-    icon: WifiOffIcon,
-    title: "100% Offline",
-    desc: "All processing happens locally on your device",
-  },
-  {
-    icon: ShieldIcon,
-    title: "Privacy First",
-    desc: "No data collection, no tracking, no ads",
-  },
-];
-
-const convertitReviews = [
-  {
-    avatar:
-      "https://lh3.googleusercontent.com/a-/ALV-UjVFGgjSvjWSCq2j34MJyRqoc-uFr5gwZtRanCCSh0mL3crl2gf36g",
-    name: "Nasbo",
-    stars: 5,
-    comment:
-      "pretty good app, i can convert things easily and faster unlike where i convert through the browser (cloud convertor 💔) although no bugs at all! but i'd like to see some cool improvements, like flac convertor support and UI interface i'll give this app rate 5 stars :p",
-  },
-  {
-    avatar:
-      "https://lh3.googleusercontent.com/a-/ALV-UjWFibLGguqvq7dcB0PVTG59gzTipO_F6h8HkdHas3iqyZ7NJJNA",
-    name: "Tasfiqul Farden",
-    stars: 5,
-    comment:
-      "Good UI that makes the conversion simple, hopefully more formats will be added in the future releases.",
-  },
-  {
-    avatar:
-      "https://lh3.googleusercontent.com/a-/ALV-UjWWXhOt3pA8EpT3-2PrVS2X1REithpyzA9Rtol-fhqxmBU766P-",
-    name: "Playful Cloud",
-    stars: 5,
-    comment: "Best Audio Conversion app on Playstore.",
-  },
-  {
-    avatar:
-      "https://lh3.googleusercontent.com/a/ACg8ocJtRgPW-aqv_l4lQrGTfgoWTGBY6lrFTK9mhiPm8SSbqCIJQcw=mo",
-    name: "Jitendra Nath",
-    stars: 5,
-    comment: "Amazing 🔥",
   },
 ];
 
@@ -322,7 +228,7 @@ export default function IndexPage() {
             </motion.h1>
 
             <motion.p
-              className="text-base sm:text-lg text-foreground/55 max-w-xl mx-auto mb-10 leading-relaxed"
+              className="text-base sm:text-lg text-foreground/55 max-w-lg mx-auto mb-10 leading-relaxed"
               variants={fadeInUp}
             >
               Privacy-friendly tools, libraries, and products. Open source where
@@ -471,20 +377,6 @@ export default function IndexPage() {
         privacyUrl="/openloader-privacy"
         screenshots={openloaderScreenshots}
         subtitle="Sideload APK installs"
-      />
-
-      <FeaturedAppSection
-        appName="Convertit Pro"
-        description="A powerful offline media toolkit for Android. Convert audio and video, edit metadata, and clean EXIF data with complete privacy."
-        features={convertitFeatures}
-        iconAlt="Convertit Pro App Icon"
-        iconSrc="/images/convertit/c_pro.png"
-        id="convertit"
-        playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.convertit"
-        privacyUrl="/convertit-pro-privacy"
-        reviews={convertitReviews}
-        screenshots={convertitScreenshots}
-        subtitle="Media Toolkit"
       />
 
       <FeaturedAppSection
@@ -714,7 +606,7 @@ export default function IndexPage() {
               <div className="rounded-[28px] border border-foreground/[0.08] bg-foreground/[0.03] p-8 sm:p-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-10">
                 <div className="flex justify-center md:justify-start shrink-0">
                   <Avatar
-                    className="w-28 h-28 sm:w-32 sm:h-32 ring-4 ring-background"
+                    className="w-28 h-28 sm:w-32 sm:h-32 ring-4 ring-background shadow-xl"
                     src={siteConfig.team.founder.avatar}
                   />
                 </div>

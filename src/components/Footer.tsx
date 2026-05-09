@@ -84,13 +84,6 @@ export function Footer({ variant = "full" }: FooterProps) {
                 </Link>
                 <Link
                   className={linkClass}
-                  href="#convertit"
-                  onClick={(e) => goToHash(e, "#convertit")}
-                >
-                  Convertit Pro
-                </Link>
-                <Link
-                  className={linkClass}
                   href="#featured-app"
                   onClick={(e) => goToHash(e, "#featured-app")}
                 >
@@ -155,12 +148,6 @@ export function Footer({ variant = "full" }: FooterProps) {
               <nav aria-label="Legal" className="flex flex-col">
                 <Link className={linkClass} href="/hy2ng-privacy">
                   Hy2NG Privacy
-                </Link>
-                <Link className={linkClass} href="/convertit-privacy">
-                  Convertit Privacy
-                </Link>
-                <Link className={linkClass} href="/convertit-pro-privacy">
-                  Convertit Pro Privacy
                 </Link>
                 <Link className={linkClass} href="/openloader-privacy">
                   OpenLoader Privacy
