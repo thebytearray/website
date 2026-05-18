@@ -74,10 +74,12 @@ export const Navbar = () => {
     // In-app routes (e.g. /blog), not same-page #sections
     if (href.startsWith("/")) {
       navigate(href);
+
       return;
     }
     if (isHomePage) {
       const element = document.querySelector(href);
+
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -96,12 +98,13 @@ export const Navbar = () => {
 
   const navItemClass = (href: string) => {
     let isActive = false;
+
     if (href.startsWith("/")) {
       isActive =
-        location.pathname === href ||
-        location.pathname.startsWith(`${href}/`);
+        location.pathname === href || location.pathname.startsWith(`${href}/`);
     } else {
       const sectionId = href.replace("#", "");
+
       isActive = activeSection === sectionId;
     }
 
@@ -191,6 +194,7 @@ export const Navbar = () => {
                 ? location.pathname === item.href ||
                   location.pathname.startsWith(`${item.href}/`)
                 : activeSection === item.href.replace("#", "");
+
               return (
                 <NavbarMenuItem key={`${item.label}-${index}`}>
                   <Link

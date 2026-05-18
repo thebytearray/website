@@ -79,11 +79,11 @@ export default function Hy2ngPrivacyPage() {
               >
                 <CardBody className="px-4 py-3">
                   <p className="text-sm text-foreground/55 leading-snug">
-                    <strong className="text-foreground">Summary.</strong> We do not
-                    collect any data. Everything stays on your device. Because the
-                    app is distributed through the App Store and Google Play,
-                    Apple or Google may collect purchase-related information under
-                    their own policies.
+                    <strong className="text-foreground">Summary.</strong> We do
+                    not collect any data. Everything stays on your device.
+                    Because the app is distributed through the App Store and
+                    Google Play, Apple or Google may collect purchase-related
+                    information under their own policies.
                   </p>
                 </CardBody>
               </Card>
@@ -149,8 +149,8 @@ export default function Hy2ngPrivacyPage() {
                     list never leaves your device for our purposes.
                   </li>
                   <li>
-                    On iPhone, iPad, and Mac, a small amount of shared storage so
-                    the main app and the VPN tunnel piece can use the same
+                    On iPhone, iPad, and Mac, a small amount of shared storage
+                    so the main app and the VPN tunnel piece can use the same
                     profile. It is still only on your device, not sent to us.
                   </li>
                 </ul>
@@ -181,7 +181,8 @@ export default function Hy2ngPrivacyPage() {
                     Apple&apos;s privacy overview
                   </Link>
                   . We do not receive your full payment card details from Apple,
-                  and we do not get your VPN configs or traffic from them either.
+                  and we do not get your VPN configs or traffic from them
+                  either.
                 </p>
                 <p>
                   If you install through TestFlight for testing, you might not
@@ -245,11 +246,15 @@ export default function Hy2ngPrivacyPage() {
                       So the VPN can stay connected while you use other apps.
                     </li>
                     <li>
-                      <strong className="text-foreground">Notifications.</strong>{" "}
+                      <strong className="text-foreground">
+                        Notifications.
+                      </strong>{" "}
                       So you can see when you are connected.
                     </li>
                     <li>
-                      <strong className="text-foreground">Seeing installed apps.</strong>{" "}
+                      <strong className="text-foreground">
+                        Seeing installed apps.
+                      </strong>{" "}
                       Only for choosing per-app VPN routing. It stays on the
                       device.
                     </li>
@@ -278,7 +283,9 @@ export default function Hy2ngPrivacyPage() {
                       if you scan a QR code.
                     </li>
                     <li>
-                      <strong className="text-foreground">Saving photos.</strong>{" "}
+                      <strong className="text-foreground">
+                        Saving photos.
+                      </strong>{" "}
                       Only if you save a QR image. We ask for add-only access,
                       not your whole library.
                     </li>
