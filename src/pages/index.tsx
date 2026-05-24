@@ -711,78 +711,40 @@ export default function IndexPage() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <div className="rounded-[28px] border border-foreground/[0.08] bg-foreground/[0.03] p-8 sm:p-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-10">
-                <div className="flex justify-center md:justify-start shrink-0">
-                  <Avatar
-                    className="w-28 h-28 sm:w-32 sm:h-32 ring-4 ring-background shadow-xl"
-                    src={siteConfig.team.founder.avatar}
-                  />
-                </div>
-
-                <div className="text-center md:text-left flex-1 min-w-0">
-                  <h3 className="font-display text-2xl sm:text-3xl text-foreground tracking-tight">
-                    {siteConfig.team.founder.name}
-                  </h3>
-                  <p className="inline-flex mt-3 rounded-full px-3 py-1 text-sm bg-foreground/[0.06] text-foreground/70">
-                    {siteConfig.team.founder.role}
-                  </p>
-                  <p className="text-foreground/55 text-sm sm:text-base mt-4 leading-relaxed max-w-xl md:max-w-none mx-auto md:mx-0">
-                    {siteConfig.team.founder.bio}
-                  </p>
-                  <div className="mt-6 flex justify-center md:justify-start">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {siteConfig.team.members.map((member) => (
+                  <div
+                    key={member.username}
+                    className="rounded-[28px] border border-foreground/[0.08] bg-foreground/[0.03] p-8 sm:p-10 flex flex-col items-center text-center"
+                  >
+                    <Avatar
+                      className="w-24 h-24 sm:w-28 sm:h-28 ring-4 ring-background shadow-xl"
+                      src={member.avatar}
+                    />
+                    <h3 className="font-display text-2xl sm:text-3xl text-foreground tracking-tight mt-5">
+                      {member.name}
+                    </h3>
+                    <p className="inline-flex mt-3 rounded-full px-4 py-1 text-sm bg-foreground/[0.06] text-foreground/70">
+                      {member.role}
+                    </p>
+                    <p className="text-foreground/55 text-sm sm:text-base mt-4 leading-relaxed">
+                      {member.bio}
+                    </p>
                     <Button
                       isExternal
                       as={Link}
-                      className="font-medium bg-foreground text-background btn-hover"
-                      href={siteConfig.team.founder.github}
+                      className="mt-6 font-medium bg-foreground text-background btn-hover"
+                      href={member.github}
                       radius="full"
                       size="md"
                       startContent={<GithubIcon size={16} />}
                     >
-                      @{siteConfig.team.founder.username}
+                      @{member.username}
                     </Button>
                   </div>
-                </div>
+                ))}
               </div>
             </motion.div>
-
-            {siteConfig.team.members.length > 0 && (
-              <motion.div className="mt-8" variants={fadeInUp}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {siteConfig.team.members.map((member) => (
-                    <div
-                      key={member.username}
-                      className="rounded-[20px] border border-foreground/[0.08] bg-foreground/[0.03] p-6 sm:p-8 flex flex-col items-center text-center"
-                    >
-                      <Avatar
-                        className="w-20 h-20 sm:w-24 sm:h-24 ring-4 ring-background shadow-lg"
-                        src={member.avatar}
-                      />
-                      <h3 className="font-display text-xl sm:text-2xl text-foreground tracking-tight mt-4">
-                        {member.name}
-                      </h3>
-                      <p className="inline-flex mt-2 rounded-full px-3 py-1 text-xs bg-foreground/[0.06] text-foreground/70">
-                        {member.role}
-                      </p>
-                      <p className="text-foreground/55 text-sm mt-3 leading-relaxed">
-                        {member.bio}
-                      </p>
-                      <Button
-                        isExternal
-                        as={Link}
-                        className="mt-5 font-medium bg-foreground text-background btn-hover"
-                        href={member.github}
-                        radius="full"
-                        size="sm"
-                        startContent={<GithubIcon size={14} />}
-                      >
-                        @{member.username}
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
           </motion.div>
         </div>
       </section>

@@ -19,15 +19,15 @@ export const siteConfig = {
     github: "https://github.com/thebytearray",
   },
   team: {
-    founder: {
-      username: "codewithtamim",
-      name: "Tamim",
-      role: "Founder & Lead Developer",
-      bio: "Building software and sharing what I learn along the way.",
-      github: "https://github.com/codewithtamim",
-      avatar: "https://github.com/codewithtamim.png",
-    },
     members: [
+      {
+        username: "codewithtamim",
+        name: "Tamim",
+        role: "Founder & Lead Developer",
+        bio: "Building software and sharing what I learn along the way.",
+        github: "https://github.com/codewithtamim",
+        avatar: "https://github.com/codewithtamim.png",
+      },
       {
         username: "tibi-agent",
         name: "Tibi",
@@ -37,6 +37,9 @@ export const siteConfig = {
         avatar: "https://github.com/tibi-agent.png",
       },
     ],
+    get founder() {
+      return this.members[0];
+    },
   },
   githubApi: {
     repos:
