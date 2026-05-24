@@ -315,7 +315,7 @@ export default function IndexPage() {
             variants={staggerContainer}
           >
             <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl font-display text-foreground tracking-tight leading-[1.08] mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl font-display text-foreground tracking-tight leading-[1.15] mb-6"
               variants={fadeInUp}
             >
               Software that works
