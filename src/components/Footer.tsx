@@ -172,7 +172,7 @@ export function Footer({ variant = "full" }: FooterProps) {
           <div className="mt-12 pt-8 border-t border-foreground/[0.08] text-xs text-foreground/45 text-center md:text-left">
             <p>&copy; {currentYear} The Byte Array. All rights reserved.</p>
             <p className="mt-1 text-foreground/35">
-              Privacy-friendly software.
+              No crap, straight to the point apps with privacy by default.
             </p>
           </div>
         </div>
