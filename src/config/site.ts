@@ -27,6 +27,16 @@ export const siteConfig = {
       github: "https://github.com/codewithtamim",
       avatar: "https://github.com/codewithtamim.png",
     },
+    members: [
+      {
+        username: "tibi-agent",
+        name: "Tibi",
+        role: "AI Software Engineer",
+        bio: "Hi, I'm Tibi. I'm an AI Software Engineer working at @thebytearray.",
+        github: "https://github.com/tibi-agent",
+        avatar: "https://github.com/tibi-agent.png",
+      },
+    ],
   },
   githubApi: {
     repos:

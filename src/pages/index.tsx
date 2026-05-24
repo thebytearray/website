@@ -745,6 +745,44 @@ export default function IndexPage() {
                 </div>
               </div>
             </motion.div>
+
+            {siteConfig.team.members.length > 0 && (
+              <motion.div className="mt-8" variants={fadeInUp}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {siteConfig.team.members.map((member) => (
+                    <div
+                      key={member.username}
+                      className="rounded-[20px] border border-foreground/[0.08] bg-foreground/[0.03] p-6 sm:p-8 flex flex-col items-center text-center"
+                    >
+                      <Avatar
+                        className="w-20 h-20 sm:w-24 sm:h-24 ring-4 ring-background shadow-lg"
+                        src={member.avatar}
+                      />
+                      <h3 className="font-display text-xl sm:text-2xl text-foreground tracking-tight mt-4">
+                        {member.name}
+                      </h3>
+                      <p className="inline-flex mt-2 rounded-full px-3 py-1 text-xs bg-foreground/[0.06] text-foreground/70">
+                        {member.role}
+                      </p>
+                      <p className="text-foreground/55 text-sm mt-3 leading-relaxed">
+                        {member.bio}
+                      </p>
+                      <Button
+                        isExternal
+                        as={Link}
+                        className="mt-5 font-medium bg-foreground text-background btn-hover"
+                        href={member.github}
+                        radius="full"
+                        size="sm"
+                        startContent={<GithubIcon size={14} />}
+                      >
+                        @{member.username}
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </section>
