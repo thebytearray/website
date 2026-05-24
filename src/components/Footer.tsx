@@ -29,9 +29,9 @@ function useHashNavigation() {
 }
 
 const linkClass =
-  "text-sm text-foreground/60 hover:text-foreground transition-colors py-1 block w-fit";
+  "text-sm text-foreground/60 hover:text-foreground transition-colors py-1 block";
 
-const colTitle = "text-xs font-semibold text-foreground tracking-wide mb-4";
+const colTitle = "text-xs font-semibold text-foreground tracking-wide mb-3";
 
 export function Footer({ variant = "full" }: FooterProps) {
   const currentYear = new Date().getFullYear();
@@ -60,9 +60,9 @@ export function Footer({ variant = "full" }: FooterProps) {
 
   return (
     <footer className="border-t border-foreground/[0.08] bg-background">
-      <div className="container mx-auto px-4 sm:px-6 pt-12 pb-8 lg:pt-16">
+      <div className="container mx-auto px-4 sm:px-6 pt-8 pb-6 lg:pt-10">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-10 md:mb-12">
+          <div className="mb-6 md:mb-8">
             <p className="text-base font-semibold text-foreground">
               {siteConfig.name}
             </p>
@@ -71,7 +71,7 @@ export function Footer({ variant = "full" }: FooterProps) {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 lg:gap-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
             <div>
               <p className={colTitle}>Product</p>
               <nav aria-label="Products" className="flex flex-col">
@@ -169,10 +169,10 @@ export function Footer({ variant = "full" }: FooterProps) {
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-foreground/[0.08] text-xs text-foreground/45 text-center md:text-left">
+          <div className="mt-8 pt-6 border-t border-foreground/[0.08] text-xs text-foreground/45 text-center md:text-left">
             <p>&copy; {currentYear} The Byte Array. All rights reserved.</p>
             <p className="mt-1 text-foreground/35">
-              Privacy-friendly software.
+              No crap, straight to the point apps with privacy by default.
             </p>
           </div>
         </div>

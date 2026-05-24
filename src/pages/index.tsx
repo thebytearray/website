@@ -318,15 +318,16 @@ export default function IndexPage() {
               className="text-2xl sm:text-3xl md:text-4xl font-display text-foreground tracking-tight leading-[1.15] mb-6"
               variants={fadeInUp}
             >
-              Software that works
+              No crap, straight to the point apps with privacy by default
             </motion.h1>
 
             <motion.p
               className="text-base sm:text-lg text-foreground/55 max-w-lg mx-auto mb-10 leading-relaxed"
               variants={fadeInUp}
             >
-              Privacy-friendly tools, libraries, and products. Open source where
-              it helps the community; clear policies everywhere else.
+              Tools, libraries, and products that solve real problems without
+              trading away your privacy. Open source where it helps the
+              community; clear policies everywhere else.
             </motion.p>
 
             <motion.div
@@ -711,38 +712,38 @@ export default function IndexPage() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <div className="rounded-[28px] border border-foreground/[0.08] bg-foreground/[0.03] p-8 sm:p-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-10">
-                <div className="flex justify-center md:justify-start shrink-0">
-                  <Avatar
-                    className="w-28 h-28 sm:w-32 sm:h-32 ring-4 ring-background shadow-xl"
-                    src={siteConfig.team.founder.avatar}
-                  />
-                </div>
-
-                <div className="text-center md:text-left flex-1 min-w-0">
-                  <h3 className="font-display text-2xl sm:text-3xl text-foreground tracking-tight">
-                    {siteConfig.team.founder.name}
-                  </h3>
-                  <p className="inline-flex mt-3 rounded-full px-3 py-1 text-sm bg-foreground/[0.06] text-foreground/70">
-                    {siteConfig.team.founder.role}
-                  </p>
-                  <p className="text-foreground/55 text-sm sm:text-base mt-4 leading-relaxed max-w-xl md:max-w-none mx-auto md:mx-0">
-                    {siteConfig.team.founder.bio}
-                  </p>
-                  <div className="mt-6 flex justify-center md:justify-start">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {siteConfig.team.members.map((member) => (
+                  <div
+                    key={member.username}
+                    className="rounded-2xl border border-foreground/[0.08] bg-foreground/[0.03] p-6 sm:p-8 flex flex-col items-center text-center"
+                  >
+                    <Avatar
+                      className="w-20 h-20 sm:w-24 sm:h-24 ring-4 ring-background shadow-lg"
+                      src={member.avatar}
+                    />
+                    <h3 className="font-display text-xl sm:text-2xl text-foreground tracking-tight mt-4">
+                      {member.name}
+                    </h3>
+                    <p className="inline-flex mt-2 rounded-full px-3 py-0.5 text-xs bg-foreground/[0.06] text-foreground/70">
+                      {member.role}
+                    </p>
+                    <p className="text-foreground/55 text-sm mt-3 leading-relaxed">
+                      {member.bio}
+                    </p>
                     <Button
                       isExternal
                       as={Link}
-                      className="font-medium bg-foreground text-background btn-hover"
-                      href={siteConfig.team.founder.github}
+                      className="mt-4 font-medium bg-foreground text-background btn-hover"
+                      href={member.github}
                       radius="full"
-                      size="md"
-                      startContent={<GithubIcon size={16} />}
+                      size="sm"
+                      startContent={<GithubIcon size={14} />}
                     >
-                      @{siteConfig.team.founder.username}
+                      @{member.username}
                     </Button>
                   </div>
-                </div>
+                ))}
               </div>
             </motion.div>
           </motion.div>

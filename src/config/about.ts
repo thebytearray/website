@@ -1,7 +1,7 @@
 export const aboutContent = {
   label: "About",
   headline: "The Byte Array",
-  lead: "Privacy-friendly software for developers and everyday users: tools, libraries, and products that minimize data collection and keep you in control.",
+  lead: "No crap, straight to the point apps with privacy by default. Tools, libraries, and products that keep you in control.",
   pillars: [
     {
       num: "01",

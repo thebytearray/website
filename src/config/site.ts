@@ -2,8 +2,7 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "The Byte Array",
-  description:
-    "We build privacy-friendly software: developer tools, libraries, and products that respect your data and stay transparent.",
+  description: "No crap, straight to the point apps with privacy by default.",
   email: "contact@thebytearray.org",
   navItems: [
     { label: "About", href: "#about" },
@@ -19,13 +18,26 @@ export const siteConfig = {
     github: "https://github.com/thebytearray",
   },
   team: {
-    founder: {
-      username: "codewithtamim",
-      name: "Tamim",
-      role: "Founder & Lead Developer",
-      bio: "Building software and sharing what I learn along the way.",
-      github: "https://github.com/codewithtamim",
-      avatar: "https://github.com/codewithtamim.png",
+    members: [
+      {
+        username: "codewithtamim",
+        name: "Tamim",
+        role: "Founder & Lead Developer",
+        bio: "Building software and sharing what I learn along the way.",
+        github: "https://github.com/codewithtamim",
+        avatar: "https://github.com/codewithtamim.png",
+      },
+      {
+        username: "tibi-agent",
+        name: "Tibi",
+        role: "AI Software Engineer",
+        bio: "Hi, I'm Tibi. I'm an AI Software Engineer working at @thebytearray.",
+        github: "https://github.com/tibi-agent",
+        avatar: "https://github.com/tibi-agent.png",
+      },
+    ],
+    get founder() {
+      return this.members[0];
     },
   },
   githubApi: {
