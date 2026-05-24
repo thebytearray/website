@@ -711,33 +711,33 @@ export default function IndexPage() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {siteConfig.team.members.map((member) => (
                   <div
                     key={member.username}
-                    className="rounded-[28px] border border-foreground/[0.08] bg-foreground/[0.03] p-8 sm:p-10 flex flex-col items-center text-center"
+                    className="rounded-2xl border border-foreground/[0.08] bg-foreground/[0.03] p-6 sm:p-8 flex flex-col items-center text-center"
                   >
                     <Avatar
-                      className="w-24 h-24 sm:w-28 sm:h-28 ring-4 ring-background shadow-xl"
+                      className="w-20 h-20 sm:w-24 sm:h-24 ring-4 ring-background shadow-lg"
                       src={member.avatar}
                     />
-                    <h3 className="font-display text-2xl sm:text-3xl text-foreground tracking-tight mt-5">
+                    <h3 className="font-display text-xl sm:text-2xl text-foreground tracking-tight mt-4">
                       {member.name}
                     </h3>
-                    <p className="inline-flex mt-3 rounded-full px-4 py-1 text-sm bg-foreground/[0.06] text-foreground/70">
+                    <p className="inline-flex mt-2 rounded-full px-3 py-0.5 text-xs bg-foreground/[0.06] text-foreground/70">
                       {member.role}
                     </p>
-                    <p className="text-foreground/55 text-sm sm:text-base mt-4 leading-relaxed">
+                    <p className="text-foreground/55 text-sm mt-3 leading-relaxed">
                       {member.bio}
                     </p>
                     <Button
                       isExternal
                       as={Link}
-                      className="mt-6 font-medium bg-foreground text-background btn-hover"
+                      className="mt-4 font-medium bg-foreground text-background btn-hover"
                       href={member.github}
                       radius="full"
-                      size="md"
-                      startContent={<GithubIcon size={16} />}
+                      size="sm"
+                      startContent={<GithubIcon size={14} />}
                     >
                       @{member.username}
                     </Button>
