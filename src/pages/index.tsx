@@ -318,15 +318,16 @@ export default function IndexPage() {
               className="text-4xl sm:text-5xl md:text-6xl font-display text-foreground tracking-tight leading-[1.08] mb-6"
               variants={fadeInUp}
             >
-              Software that works
+              No crap, straight to the point apps with privacy by default
             </motion.h1>
 
             <motion.p
               className="text-base sm:text-lg text-foreground/55 max-w-lg mx-auto mb-10 leading-relaxed"
               variants={fadeInUp}
             >
-              Privacy-friendly tools, libraries, and products. Open source where
-              it helps the community; clear policies everywhere else.
+              Tools, libraries, and products that solve real problems without
+              trading away your privacy. Open source where it helps the
+              community; clear policies everywhere else.
             </motion.p>
 
             <motion.div

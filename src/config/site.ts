@@ -2,8 +2,7 @@ export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
   name: "The Byte Array",
-  description:
-    "We build privacy-friendly software: developer tools, libraries, and products that respect your data and stay transparent.",
+  description: "No crap, straight to the point apps with privacy by default.",
   email: "contact@thebytearray.org",
   navItems: [
     { label: "About", href: "#about" },
