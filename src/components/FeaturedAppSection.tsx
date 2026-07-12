@@ -139,13 +139,12 @@ export function FeaturedAppSection({
                           alt={screenshot.alt}
                           animate={{
                             opacity: index === currentScreenshot ? 1 : 0,
-                            scale: index === currentScreenshot ? 1 : 1.02,
                           }}
                           className="absolute inset-0 w-full h-full object-cover"
                           initial={false}
                           loading="lazy"
                           src={screenshot.src}
-                          transition={{ duration: 0.3, ease: "easeOut" }}
+                          transition={{ duration: 0.35, ease: "easeOut" }}
                         />
                       ))}
                     </div>
@@ -188,7 +187,7 @@ export function FeaturedAppSection({
                       key={index}
                       aria-label={`Screenshot ${index + 1}`}
                       aria-selected={index === currentScreenshot}
-                      className={`h-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 ${
+                      className={`h-2 rounded-full transition-[width,background-color] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30 ${
                         index === currentScreenshot
                           ? "bg-foreground w-6"
                           : "bg-foreground/20 w-2 hover:bg-foreground/35"
@@ -227,7 +226,7 @@ export function FeaturedAppSection({
                 {features.map((feature, index) => (
                   <div
                     key={index}
-                    className="feature-card p-4 rounded-xl border border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.12] transition-all duration-200 group"
+                    className="feature-card p-4 rounded-xl border border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.12] transition-colors duration-200 group"
                   >
                     <div className="w-9 h-9 rounded-lg bg-foreground/[0.06] flex items-center justify-center mb-3 group-hover:bg-foreground/[0.1] transition-colors">
                       <feature.icon className="text-foreground/55" size={18} />

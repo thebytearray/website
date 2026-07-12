@@ -1,6 +1,7 @@
 import type { NavigateOptions } from "react-router-dom";
 
 import { HeroUIProvider } from "@heroui/system";
+import { MotionConfig } from "framer-motion";
 import { useHref, useNavigate } from "react-router-dom";
 
 declare module "@react-types/shared" {
@@ -14,7 +15,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
 
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
-      {children}
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
     </HeroUIProvider>
   );
 }

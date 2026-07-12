@@ -216,12 +216,12 @@ export default function IndexPage() {
         <div className="relative z-10 container mx-auto px-4 sm:px-6 py-24 sm:py-32 md:py-36 min-h-[70vh] flex flex-col justify-center">
           <motion.div
             animate="visible"
-            className="max-w-2xl mx-auto text-center"
+            className="max-w-3xl mx-auto text-center"
             initial="hidden"
             variants={staggerContainer}
           >
             <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl font-display text-foreground tracking-tight leading-[1.15] mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl font-display text-foreground tracking-tight leading-[1.05] mb-6"
               variants={fadeInUp}
             >
               No crap, straight to the point apps with privacy by default
@@ -275,7 +275,7 @@ export default function IndexPage() {
             >
               <div className="text-center">
                 <div className="text-2xl sm:text-3xl font-semibold text-foreground font-mono stat-number tracking-tight">
-                  {repos.length || "..."}
+                  {repos.length || "…"}
                 </div>
                 <div className="text-[11px] text-foreground/40 mt-1.5 uppercase tracking-[0.15em]">
                   Repositories
@@ -283,7 +283,7 @@ export default function IndexPage() {
               </div>
               <div className="text-center">
                 <div className="text-2xl sm:text-3xl font-semibold text-foreground font-mono stat-number tracking-tight">
-                  {totalStars || "..."}
+                  {totalStars || "…"}
                 </div>
                 <div className="text-[11px] text-foreground/40 mt-1.5 uppercase tracking-[0.15em]">
                   GitHub Stars
@@ -423,7 +423,9 @@ export default function IndexPage() {
               </div>
             ) : error ? (
               <motion.div className="text-center py-20" variants={fadeInUp}>
-                <p className="text-foreground/55 mb-4">{error}</p>
+                <p aria-live="polite" className="text-foreground/55 mb-4">
+                  {error}
+                </p>
                 <Button
                   className="border-foreground/[0.12] text-foreground/55"
                   radius="full"
@@ -694,6 +696,7 @@ export default function IndexPage() {
               >
                 <CardBody className="p-6 sm:p-8 space-y-5">
                   <Input
+                    autoComplete="name"
                     classNames={{
                       label: "text-foreground/55 text-xs font-medium",
                       inputWrapper:
@@ -701,6 +704,7 @@ export default function IndexPage() {
                     }}
                     label="Name"
                     labelPlacement="outside"
+                    name="name"
                     placeholder="Your name"
                     radius="lg"
                     size="md"
@@ -712,16 +716,20 @@ export default function IndexPage() {
                     }
                   />
                   <Input
+                    autoComplete="email"
                     classNames={{
                       label: "text-foreground/55 text-xs font-medium",
                       inputWrapper:
                         "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
                     }}
+                    inputMode="email"
                     label="Email"
                     labelPlacement="outside"
+                    name="email"
                     placeholder="your@email.com"
                     radius="lg"
                     size="md"
+                    spellCheck="false"
                     type="email"
                     value={contactForm.email}
                     variant="bordered"
@@ -749,7 +757,11 @@ export default function IndexPage() {
                     }
                   />
                   {formSubmitted ? (
-                    <div className="flex flex-col items-center justify-center py-6 text-center">
+                    <div
+                      aria-live="polite"
+                      className="flex flex-col items-center justify-center py-6 text-center"
+                      role="status"
+                    >
                       <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mb-3">
                         <SendIcon
                           className="text-green-600 dark:text-green-400"

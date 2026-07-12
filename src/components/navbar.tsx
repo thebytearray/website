@@ -108,7 +108,7 @@ export const Navbar = () => {
       isActive = activeSection === sectionId;
     }
 
-    return `cursor-pointer text-[13px] px-4 py-2 rounded-lg transition-all duration-200 ${
+    return `cursor-pointer text-[13px] px-4 py-2 rounded-lg transition-colors duration-200 ${
       isActive
         ? "text-foreground bg-foreground/[0.06] font-medium"
         : "text-foreground/55 hover:text-foreground hover:bg-foreground/[0.03]"
@@ -119,7 +119,7 @@ export const Navbar = () => {
     <>
       <div
         aria-hidden="true"
-        className="fixed top-0 left-0 h-0.5 bg-foreground z-50 transition-all duration-100"
+        className="fixed top-0 left-0 h-0.5 bg-foreground z-50 transition-[width] duration-100"
         style={{ width: `${scrollProgress}%` }}
       />
       <HeroUINavbar

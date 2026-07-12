@@ -27,9 +27,9 @@ export function BackToTop() {
         <motion.div
           animate={{ opacity: 1, scale: 1 }}
           className="fixed bottom-6 right-6 z-40"
-          exit={{ opacity: 0, scale: 0.8 }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.2 }}
+          exit={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
           <Button
             isIconOnly

@@ -35,6 +35,16 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     setIsMounted(true);
   }, [isMounted]);
 
+  // Keep the browser UI (theme-color) in sync with the active theme
+  useEffect(() => {
+    if (!isMounted) return;
+    const meta = document.querySelector('meta[name="theme-color"]');
+
+    if (meta) {
+      meta.setAttribute("content", theme === "dark" ? "#14120b" : "#f7f7f4");
+    }
+  }, [theme, isMounted]);
+
   // Prevent Hydration Mismatch
   if (!isMounted) return <div className="w-6 h-6" />;
 

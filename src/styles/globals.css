@@ -10,6 +10,20 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+/* Anchor sections sit below the sticky navbar when scrolled to */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Prevent widows in headings */
+h1, h2, h3, h4 {
+  text-wrap: balance;
 }
 
 body {
@@ -118,9 +132,20 @@ body {
 }
 
 /* ---- Button hover ---- */
-.btn-hover { transition: opacity 0.15s ease, transform 0.15s ease; }
-.btn-hover:hover { opacity: 0.88; }
-.btn-hover:active { transform: scale(0.98); }
+.btn-hover {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.15s ease;
+}
+.btn-hover:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 6px 20px -8px rgba(38, 37, 30, 0.3);
+}
+.dark .btn-hover:hover {
+  box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
+}
+.btn-hover:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+}
 
 /* ---- Stats tabular nums ---- */
 .stat-number { font-variant-numeric: tabular-nums; }
@@ -136,6 +161,9 @@ textarea { font-family: inherit; }
 
 /* ---- Reduce motion ---- */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
