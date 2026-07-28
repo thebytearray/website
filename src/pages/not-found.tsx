@@ -17,7 +17,7 @@ export default function NotFoundPage() {
           the homepage.
         </p>
         <Link
-          className="inline-flex items-center justify-center rounded-full bg-foreground text-background px-8 py-3 text-sm font-medium btn-hover"
+          className="inline-flex items-center justify-center  bg-foreground text-background px-8 py-3 text-sm font-medium btn-hover"
           to="/"
         >
           Back to home

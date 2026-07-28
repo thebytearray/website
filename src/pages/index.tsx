@@ -1,10 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
-import { Card, CardBody, CardFooter, CardHeader } from "@heroui/card";
-import { Avatar } from "@heroui/avatar";
-import { Input, Textarea } from "@heroui/input";
-import { Spinner } from "@heroui/spinner";
 import { motion } from "framer-motion";
 
 import { FeaturedAppSection } from "@/components/FeaturedAppSection";
@@ -46,100 +40,35 @@ interface GitHubRepo {
   fork: boolean;
 }
 
-// App data
 const openloaderScreenshots = [
-  {
-    src: "/images/openloader/1.png",
-    alt: "OpenLoader home screen",
-  },
-  {
-    src: "/images/openloader/2.png",
-    alt: "Install queue and progress",
-  },
-  {
-    src: "/images/openloader/3.png",
-    alt: "Wireless debugging and device connection",
-  },
-  {
-    src: "/images/openloader/4.png",
-    alt: "Settings and install options",
-  },
+  { src: "/images/openloader/1.png", alt: "OpenLoader home screen" },
+  { src: "/images/openloader/2.png", alt: "Install queue and progress" },
+  { src: "/images/openloader/3.png", alt: "Wireless debugging and device connection" },
+  { src: "/images/openloader/4.png", alt: "Settings and install options" },
 ];
 
 const openloaderFeatures = [
-  {
-    icon: DownloadIcon,
-    title: "Sideload APKs",
-    desc: "Install APK files you provide outside the store flow, including several in one queue",
-  },
-  {
-    icon: AndroidIcon,
-    title: "Faster on many devices",
-    desc: "Sideload and push debug builds to several phones or tablets without repeating every step",
-  },
-  {
-    icon: TerminalIcon,
-    title: "Wireless ADB",
-    desc: "Connect and deploy over the network on Android 11 and newer",
-  },
-  {
-    icon: ZapIcon,
-    title: "Pairing helpers",
-    desc: "Flows and checks for wireless debugging and pairing where supported",
-  },
-  {
-    icon: SystemIcon,
-    title: "Optional Shizuku",
-    desc: "Use a privileged install path when you grant Shizuku access",
-  },
-  {
-    icon: ShieldIcon,
-    title: "Privacy first",
-    desc: "No analytics or cloud account; history and preferences stay on your device",
-  },
+  { icon: DownloadIcon, title: "Sideload APKs", desc: "Install APK files you provide outside the store flow, including several in one queue" },
+  { icon: AndroidIcon, title: "Faster on many devices", desc: "Sideload and push debug builds to several phones or tablets without repeating every step" },
+  { icon: TerminalIcon, title: "Wireless ADB", desc: "Connect and deploy over the network on Android 11 and newer" },
+  { icon: ZapIcon, title: "Pairing helpers", desc: "Flows and checks for wireless debugging and pairing where supported" },
+  { icon: SystemIcon, title: "Optional Shizuku", desc: "Use a privileged install path when you grant Shizuku access" },
+  { icon: ShieldIcon, title: "Privacy first", desc: "No analytics or cloud account; history and preferences stay on your device" },
 ];
 
 const hy2ngScreenshots = [
-  {
-    src: "/images/hy2ng/Screenshot_20251201_041544.png",
-    alt: "Configurations list",
-  },
-  {
-    src: "/images/hy2ng/Screenshot_20251201_041639.png",
-    alt: "Add configuration",
-  },
-  {
-    src: "/images/hy2ng/Screenshot_20251201_041720.png",
-    alt: "QR code sharing",
-  },
-  {
-    src: "/images/hy2ng/Screenshot_20251201_041741.png",
-    alt: "Server setup wizard",
-  },
+  { src: "/images/hy2ng/Screenshot_20251201_041544.png", alt: "Configurations list" },
+  { src: "/images/hy2ng/Screenshot_20251201_041639.png", alt: "Add configuration" },
+  { src: "/images/hy2ng/Screenshot_20251201_041720.png", alt: "QR code sharing" },
+  { src: "/images/hy2ng/Screenshot_20251201_041741.png", alt: "Server setup wizard" },
   { src: "/images/hy2ng/Screenshot_20251201_041802.png", alt: "Per-app proxy" },
 ];
 
 const hy2ngFeatures = [
-  {
-    icon: ServerIcon,
-    title: "Server Setup Wizard",
-    desc: "Configure your own VPS with built-in setup guide",
-  },
-  {
-    icon: QrCodeIcon,
-    title: "QR Code Import",
-    desc: "Import configs via QR code or clipboard",
-  },
-  {
-    icon: AppsIcon,
-    title: "Per-App Proxy",
-    desc: "Choose which apps use the VPN connection",
-  },
-  {
-    icon: ShieldIcon,
-    title: "Privacy First",
-    desc: "No ads, no tracking, all data stays on device",
-  },
+  { icon: ServerIcon, title: "Server Setup Wizard", desc: "Configure your own VPS with built-in setup guide" },
+  { icon: QrCodeIcon, title: "QR Code Import", desc: "Import configs via QR code or clipboard" },
+  { icon: AppsIcon, title: "Per-App Proxy", desc: "Choose which apps use the VPN connection" },
+  { icon: ShieldIcon, title: "Privacy First", desc: "No ads, no tracking, all data stays on device" },
 ];
 
 export default function IndexPage() {
@@ -147,11 +76,7 @@ export default function IndexPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
-  const [contactForm, setContactForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -163,13 +88,10 @@ export default function IndexPage() {
     try {
       setLoading(true);
       setError(null);
-      const { repos: data } = await fetchGitHubRepos(
-        siteConfig.githubApi.repos,
-      );
+      const { repos: data } = await fetchGitHubRepos(siteConfig.githubApi.repos);
       const filteredRepos = (data as GitHubRepo[])
         .filter((repo) => !repo.fork)
         .sort((a, b) => b.stargazers_count - a.stargazers_count);
-
       setRepos(filteredRepos);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load projects");
@@ -193,7 +115,6 @@ export default function IndexPage() {
     const body = encodeURIComponent(
       `Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`,
     );
-
     window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
     setFormSubmitted(true);
     setTimeout(() => {
@@ -202,33 +123,40 @@ export default function IndexPage() {
     }, 3000);
   }, [contactForm.name, contactForm.email, contactForm.message, isSubmitting]);
 
-  const totalStars = repos.reduce(
-    (sum, repo) => sum + repo.stargazers_count,
-    0,
-  );
+  const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
 
   return (
     <PageLayout>
       {/* ======== HERO ======== */}
-      <section className="relative border-b border-foreground/[0.06] overflow-hidden">
+      <section className="relative min-h-[80vh] sm:min-h-[85vh] flex items-center border-b border-foreground/[0.06] overflow-hidden">
         <div className="absolute inset-0 bg-hero-gradient" />
+        <div className="absolute inset-0 bg-dots opacity-[0.03]" />
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 py-24 sm:py-32 md:py-36 min-h-[70vh] flex flex-col justify-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-32">
           <motion.div
             animate="visible"
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-3xl"
             initial="hidden"
             variants={staggerContainer}
           >
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-6xl font-display text-foreground tracking-tight leading-[1.05] mb-6"
+            <motion.p
+              className="text-[10px] sm:text-xs font-mono text-foreground/40 uppercase tracking-[0.2em] mb-4 sm:mb-6"
               variants={fadeInUp}
             >
-              No crap, straight to the point apps with privacy by default
+              The Byte Array
+            </motion.p>
+
+            <motion.h1
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display text-foreground tracking-tight leading-[1.05] mb-4 sm:mb-6"
+              variants={fadeInUp}
+            >
+              No crap, straight to the point apps{" "}
+              <br className="hidden sm:block" />
+              <span className="text-foreground/40">with privacy by default</span>
             </motion.h1>
 
             <motion.p
-              className="text-base sm:text-lg text-foreground/55 max-w-lg mx-auto mb-10 leading-relaxed"
+              className="text-sm sm:text-base lg:text-lg text-foreground/55 max-w-xl mb-8 sm:mb-10 leading-relaxed"
               variants={fadeInUp}
             >
               Tools, libraries, and products that solve real problems without
@@ -237,63 +165,54 @@ export default function IndexPage() {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-3 justify-center"
+              className="flex flex-col sm:flex-row gap-3"
               variants={fadeInUp}
             >
-              <Button
-                isExternal
-                as={Link}
-                className="font-medium bg-foreground text-background btn-hover px-8"
-                endContent={<ArrowRightIcon size={16} />}
+              <a
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background text-sm font-medium btn-hover"
                 href={siteConfig.links.github}
-                radius="full"
-                size="lg"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 View Projects
-              </Button>
-              <Button
-                as={Link}
-                className="font-medium border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] px-8"
-                href="#contact"
-                radius="full"
-                size="lg"
-                variant="bordered"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document
-                    .querySelector("#contact")
-                    ?.scrollIntoView({ behavior: "smooth" });
+                <ArrowRightIcon size={16} />
+              </a>
+              <button
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 border border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] text-sm font-medium transition-colors"
+                onClick={() => {
+                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
                 }}
+                type="button"
               >
                 Get in Touch
-              </Button>
+              </button>
             </motion.div>
 
             <motion.div
-              className="flex flex-wrap justify-center gap-10 sm:gap-12 mt-14 pt-8 border-t border-foreground/[0.06] max-w-lg mx-auto"
+              className="flex gap-8 sm:gap-10 lg:gap-12 mt-10 sm:mt-14 pt-6 sm:pt-8 border-t border-foreground/[0.06]"
               variants={fadeInUp}
             >
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl font-semibold text-foreground font-mono stat-number tracking-tight">
-                  {repos.length || "…"}
+              <div className="text-left">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-semibold text-foreground font-mono stat-number tracking-tight">
+                  {repos.length || "\u2026"}
                 </div>
-                <div className="text-[11px] text-foreground/40 mt-1.5 uppercase tracking-[0.15em]">
+                <div className="text-[10px] sm:text-[11px] text-foreground/40 mt-1 sm:mt-1.5 uppercase tracking-[0.15em]">
                   Repositories
                 </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl font-semibold text-foreground font-mono stat-number tracking-tight">
-                  {totalStars || "…"}
+              <div className="text-left">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-semibold text-foreground font-mono stat-number tracking-tight">
+                  {totalStars || "\u2026"}
                 </div>
-                <div className="text-[11px] text-foreground/40 mt-1.5 uppercase tracking-[0.15em]">
+                <div className="text-[10px] sm:text-[11px] text-foreground/40 mt-1 sm:mt-1.5 uppercase tracking-[0.15em]">
                   GitHub Stars
                 </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl font-semibold text-foreground font-mono tracking-tight">
+              <div className="text-left">
+                <div className="text-xl sm:text-2xl lg:text-3xl font-semibold text-foreground font-mono tracking-tight">
                   OSS
                 </div>
-                <div className="text-[11px] text-foreground/40 mt-1.5 uppercase tracking-[0.15em]">
+                <div className="text-[10px] sm:text-[11px] text-foreground/40 mt-1 sm:mt-1.5 uppercase tracking-[0.15em]">
                   &amp; Products
                 </div>
               </div>
@@ -304,10 +223,10 @@ export default function IndexPage() {
 
       {/* ======== ABOUT ======== */}
       <section
-        className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06] overflow-hidden"
         id="about"
       >
-        <div className="relative container mx-auto px-4 sm:px-6">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             className="max-w-5xl mx-auto"
             initial="hidden"
@@ -316,36 +235,33 @@ export default function IndexPage() {
             whileInView="visible"
           >
             <motion.p
-              className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium mb-10 text-center lg:text-left"
+              className="text-[10px] sm:text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium mb-8 sm:mb-10 text-center lg:text-left"
               variants={fadeInUp}
             >
               {aboutContent.label}
             </motion.p>
 
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-              <motion.div
-                className="text-center lg:text-left"
-                variants={fadeInUp}
-              >
-                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-foreground tracking-tight leading-[1.1] mb-5">
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+              <motion.div className="text-center lg:text-left" variants={fadeInUp}>
+                <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground tracking-tight leading-[1.1] mb-4 sm:mb-5">
                   {aboutContent.headline}
                 </h2>
-                <p className="text-lg text-foreground/55 leading-relaxed max-w-md mx-auto lg:mx-0">
+                <p className="text-sm sm:text-base lg:text-lg text-foreground/55 leading-relaxed max-w-md mx-auto lg:mx-0">
                   {aboutContent.lead}
                 </p>
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <div className="rounded-[28px] border border-foreground/[0.08] bg-foreground/[0.03] px-6 sm:px-8 py-2 divide-y divide-foreground/[0.06]">
+                <div className="border border-foreground/[0.08] bg-foreground/[0.02] px-5 sm:px-8 py-2 divide-y divide-foreground/[0.06]">
                   {aboutContent.pillars.map((item) => (
-                    <div key={item.num} className="py-6 first:pt-5 last:pb-5">
-                      <span className="text-[11px] font-mono text-foreground/35 tracking-wider">
+                    <div key={item.num} className="py-5 sm:py-6 first:pt-4 sm:first:pt-5 last:pb-4 sm:last:pb-5">
+                      <span className="text-[10px] sm:text-[11px] font-mono text-foreground/35 tracking-wider">
                         {item.num}
                       </span>
-                      <h3 className="font-medium text-foreground text-base sm:text-lg mt-2 mb-2 tracking-tight">
+                      <h3 className="font-medium text-foreground text-sm sm:text-base lg:text-lg mt-1.5 sm:mt-2 mb-1.5 sm:mb-2 tracking-tight">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-foreground/55 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-foreground/55 leading-relaxed">
                         {item.desc}
                       </p>
                     </div>
@@ -354,11 +270,8 @@ export default function IndexPage() {
               </motion.div>
             </div>
 
-            <motion.div
-              className="mt-14 lg:mt-16 max-w-3xl lg:max-w-none"
-              variants={fadeInUp}
-            >
-              <p className="text-foreground/55 leading-relaxed text-base lg:text-lg text-left">
+            <motion.div className="mt-10 lg:mt-16 max-w-3xl lg:max-w-none" variants={fadeInUp}>
+              <p className="text-foreground/55 leading-relaxed text-sm sm:text-base lg:text-lg text-left">
                 {aboutContent.mission}
               </p>
             </motion.div>
@@ -395,12 +308,12 @@ export default function IndexPage() {
 
       {/* ======== PROJECTS ======== */}
       <section
-        className="relative py-28 sm:py-36 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-28 lg:py-36 border-t border-foreground/[0.06] overflow-hidden"
         id="projects"
       >
         <div className="absolute inset-0 bg-section-gradient" />
 
-        <div className="relative container mx-auto px-4 sm:px-6">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             variants={staggerContainer}
@@ -409,156 +322,117 @@ export default function IndexPage() {
           >
             <motion.div variants={fadeInUp}>
               <SectionHeader
-                className="mb-10"
+                className="mb-8 sm:mb-10"
                 description="Public repositories and community-driven projects"
-                descriptionMaxWidth="max-w-md"
                 label="Projects"
                 title="Open Source"
               />
             </motion.div>
 
             {loading ? (
-              <div className="flex justify-center py-20">
-                <Spinner color="default" size="lg" />
+              <div className="flex justify-center py-16 sm:py-20">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-foreground/20 border-t-transparent animate-spin" />
               </div>
             ) : error ? (
-              <motion.div className="text-center py-20" variants={fadeInUp}>
-                <p aria-live="polite" className="text-foreground/55 mb-4">
-                  {error}
-                </p>
-                <Button
-                  className="border-foreground/[0.12] text-foreground/55"
-                  radius="full"
-                  size="sm"
-                  variant="bordered"
-                  onPress={fetchRepos}
+              <motion.div className="text-center py-16 sm:py-20" variants={fadeInUp}>
+                <p aria-live="polite" className="text-foreground/55 mb-4">{error}</p>
+                <button
+                  className="px-4 py-1.5 border border-foreground/[0.12] text-foreground/55 text-xs"
+                  onClick={fetchRepos}
+                  type="button"
                 >
                   Retry
-                </Button>
+                </button>
               </motion.div>
             ) : repos.length === 0 ? (
-              <motion.div className="text-center py-20" variants={fadeInUp}>
+              <motion.div className="text-center py-16 sm:py-20" variants={fadeInUp}>
                 <p className="text-foreground/55">No repositories found.</p>
               </motion.div>
             ) : (
               <>
                 {languages.length > 1 && (
-                  <motion.div
-                    className="flex flex-wrap justify-center gap-2 mb-8"
-                    variants={fadeInUp}
-                  >
-                    <Button
-                      className={`text-xs ${
+                  <motion.div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8" variants={fadeInUp}>
+                    <button
+                      className={`text-xs px-2.5 sm:px-3 py-1.5 transition-colors ${
                         selectedLanguage === null
                           ? "bg-foreground text-background"
-                          : "border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
+                          : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
                       }`}
-                      radius="full"
-                      size="sm"
-                      variant={selectedLanguage === null ? "solid" : "bordered"}
-                      onPress={() => setSelectedLanguage(null)}
+                      onClick={() => setSelectedLanguage(null)}
+                      type="button"
                     >
                       All ({repos.length})
-                    </Button>
+                    </button>
                     {languages.map((lang) => (
-                      <Button
+                      <button
                         key={lang}
-                        className={`text-xs ${
+                        className={`text-xs px-2.5 sm:px-3 py-1.5 transition-colors ${
                           selectedLanguage === lang
                             ? "bg-foreground text-background"
-                            : "border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
+                            : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
                         }`}
-                        radius="full"
-                        size="sm"
-                        variant={
-                          selectedLanguage === lang ? "solid" : "bordered"
-                        }
-                        onPress={() => setSelectedLanguage(lang)}
+                        onClick={() => setSelectedLanguage(lang)}
+                        type="button"
                       >
                         <span
-                          className="w-2 h-2 rounded-full mr-1.5"
-                          style={{
-                            backgroundColor: languageColors[lang!] || "#71717a",
-                          }}
+                          className="w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1 sm:mr-1.5 inline-block"
+                          style={{ backgroundColor: languageColors[lang!] || "#71717a" }}
                         />
-                        {lang} (
-                        {repos.filter((r) => r.language === lang).length})
-                      </Button>
+                        {lang} ({repos.filter((r) => r.language === lang).length})
+                      </button>
                     ))}
                   </motion.div>
                 )}
 
                 <motion.div
-                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                  className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
                   variants={staggerContainer}
                 >
                   {filteredRepos.map((repo) => (
                     <motion.div key={repo.id} variants={fadeInUp}>
-                      <Card
-                        isExternal
-                        isPressable
-                        as={Link}
-                        className="h-full bg-foreground/[0.02] border border-foreground/[0.06] group card-hover"
+                      <a
+                        className="flex flex-col h-full border border-foreground/[0.06] bg-foreground/[0.02] p-4 sm:p-5 card-hover"
                         href={repo.html_url}
-                        shadow="none"
+                        rel="noopener noreferrer"
+                        target="_blank"
                       >
-                        <CardHeader className="flex justify-between items-start pb-0">
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-8 h-8 rounded-lg bg-foreground/[0.06] flex items-center justify-center">
-                              <GithubIcon
-                                className="text-foreground/40"
-                                size={15}
-                              />
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-foreground/[0.06] flex items-center justify-center shrink-0">
+                              <GithubIcon className="text-foreground/40" size={14} />
                             </div>
-                            <h3 className="font-medium text-foreground group-hover:opacity-70 transition-opacity font-mono text-sm">
+                            <h3 className="font-medium text-foreground group-hover:opacity-70 transition-opacity font-mono text-sm truncate">
                               {repo.name}
                             </h3>
                           </div>
                           <ExternalLinkIcon
-                            className="text-foreground/20 group-hover:text-foreground/40 transition-colors"
+                            className="text-foreground/20 group-hover:text-foreground/40 transition-colors shrink-0"
                             size={13}
                           />
-                        </CardHeader>
-                        <CardBody className="py-2.5">
-                          <p className="text-sm text-foreground/55 line-clamp-2">
-                            {repo.description || "No description"}
-                          </p>
-                        </CardBody>
-                        <CardFooter className="pt-0 gap-3">
+                        </div>
+                        <p className="text-xs sm:text-sm text-foreground/55 line-clamp-2 mb-auto leading-relaxed">
+                          {repo.description || "No description"}
+                        </p>
+                        <div className="flex items-center gap-3 mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-foreground/[0.06]">
                           {repo.language && (
                             <div className="flex items-center gap-1.5">
                               <span
-                                className="w-2.5 h-2.5 rounded-full"
-                                style={{
-                                  backgroundColor:
-                                    languageColors[repo.language] || "#71717a",
-                                }}
+                                className="w-2 h-2 shrink-0"
+                                style={{ backgroundColor: languageColors[repo.language] || "#71717a" }}
                               />
-                              <span className="text-xs text-foreground/40 font-mono">
-                                {repo.language}
-                              </span>
+                              <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">{repo.language}</span>
                             </div>
                           )}
                           <div className="flex items-center gap-1">
-                            <StarIcon
-                              className="text-foreground/30"
-                              size={12}
-                            />
-                            <span className="text-xs text-foreground/40 font-mono">
-                              {repo.stargazers_count}
-                            </span>
+                            <StarIcon className="text-foreground/30" size={12} />
+                            <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">{repo.stargazers_count}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <ForkIcon
-                              className="text-foreground/30"
-                              size={12}
-                            />
-                            <span className="text-xs text-foreground/40 font-mono">
-                              {repo.forks_count}
-                            </span>
+                            <ForkIcon className="text-foreground/30" size={12} />
+                            <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">{repo.forks_count}</span>
                           </div>
-                        </CardFooter>
-                      </Card>
+                        </div>
+                      </a>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -566,19 +440,16 @@ export default function IndexPage() {
             )}
 
             {repos.length > 0 && !loading && (
-              <motion.div className="text-center mt-10" variants={fadeIn}>
-                <Button
-                  isExternal
-                  as={Link}
-                  className="font-medium border-foreground/[0.12] hover:border-foreground/25 text-foreground/55"
-                  endContent={<ExternalLinkIcon size={12} />}
+              <motion.div className="text-center mt-8 sm:mt-10" variants={fadeIn}>
+                <a
+                  className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 border border-foreground/[0.12] hover:border-foreground/25 text-foreground/55 text-xs font-medium transition-colors"
                   href={siteConfig.links.github}
-                  radius="full"
-                  size="sm"
-                  variant="bordered"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   View All on GitHub
-                </Button>
+                  <ExternalLinkIcon size={12} />
+                </a>
               </motion.div>
             )}
           </motion.div>
@@ -587,10 +458,10 @@ export default function IndexPage() {
 
       {/* ======== TEAM ======== */}
       <section
-        className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06] overflow-hidden"
         id="team"
       >
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
             variants={staggerContainer}
@@ -598,44 +469,39 @@ export default function IndexPage() {
             whileInView="visible"
           >
             <motion.div variants={fadeInUp}>
-              <SectionHeader
-                className="mb-12"
-                label="Team"
-                title="Contributors"
-              />
+              <SectionHeader className="mb-10 sm:mb-12" label="Team" title="Contributors" />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-lg mx-auto">
                 {siteConfig.team.members.map((member) => (
                   <div
                     key={member.username}
-                    className="rounded-2xl border border-foreground/[0.08] bg-foreground/[0.03] p-6 sm:p-8 flex flex-col items-center text-center"
+                    className="border border-foreground/[0.08] bg-foreground/[0.02] p-6 sm:p-8 flex flex-col items-center text-center"
                   >
-                    <Avatar
-                      className="w-20 h-20 sm:w-24 sm:h-24 ring-4 ring-background shadow-lg"
+                    <img
+                      alt={member.name}
+                      className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-background shadow-lg"
                       src={member.avatar}
                     />
-                    <h3 className="font-display text-xl sm:text-2xl text-foreground tracking-tight mt-4">
+                    <h3 className="font-display text-lg sm:text-xl lg:text-2xl text-foreground tracking-tight mt-4">
                       {member.name}
                     </h3>
-                    <p className="inline-flex mt-2 rounded-full px-3 py-0.5 text-xs bg-foreground/[0.06] text-foreground/70">
+                    <p className="inline-flex mt-2 px-2.5 sm:px-3 py-0.5 text-[11px] sm:text-xs bg-foreground/[0.06] text-foreground/70">
                       {member.role}
                     </p>
-                    <p className="text-foreground/55 text-sm mt-3 leading-relaxed">
+                    <p className="text-foreground/55 text-xs sm:text-sm mt-3 leading-relaxed">
                       {member.bio}
                     </p>
-                    <Button
-                      isExternal
-                      as={Link}
-                      className="mt-4 font-medium bg-foreground text-background btn-hover"
+                    <a
+                      className="inline-flex items-center gap-2 mt-4 px-3.5 sm:px-4 py-1.5 bg-foreground text-background text-xs font-medium btn-hover"
                       href={member.github}
-                      radius="full"
-                      size="sm"
-                      startContent={<GithubIcon size={14} />}
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
+                      <GithubIcon size={14} />
                       @{member.username}
-                    </Button>
+                    </a>
                   </div>
                 ))}
               </div>
@@ -646,155 +512,112 @@ export default function IndexPage() {
 
       {/* ======== CONTACT ======== */}
       <section
-        className="relative py-24 sm:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06] overflow-hidden"
         id="contact"
       >
         <div className="absolute inset-0 bg-section-gradient" />
 
-        <div className="relative container mx-auto px-4 sm:px-6 max-w-5xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
-            className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start"
+            className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start max-w-5xl mx-auto"
             initial="hidden"
             variants={staggerContainer}
             viewport={{ once: true, margin: "-80px" }}
             whileInView="visible"
           >
             <motion.div
-              className="lg:col-span-5 space-y-6 text-center lg:text-left"
+              className="lg:col-span-5 space-y-4 sm:space-y-6 text-center lg:text-left"
               variants={fadeInUp}
             >
-              <p className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium">
+              <p className="text-[10px] sm:text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium">
                 Contact
               </p>
-              <h2 className="font-display text-4xl sm:text-5xl text-foreground tracking-tight leading-[1.1]">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground tracking-tight leading-[1.1]">
                 Get in touch
               </h2>
-              <p className="text-lg text-foreground/55 leading-relaxed">
+              <p className="text-sm sm:text-base lg:text-lg text-foreground/55 leading-relaxed">
                 Questions or interested in collaborating? Send a message or
                 email us directly.
               </p>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3 pt-2">
-                <Button
-                  isExternal
-                  as={Link}
-                  className="font-medium border-foreground/[0.12] bg-foreground/[0.04] hover:bg-foreground/[0.07] text-foreground/80"
+              <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 pt-2">
+                <a
+                  className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 border border-foreground/[0.12] bg-foreground/[0.04] hover:bg-foreground/[0.07] text-foreground/80 text-xs sm:text-sm transition-colors"
                   href={`mailto:${siteConfig.email}`}
-                  radius="full"
-                  size="md"
-                  startContent={<EmailIcon size={16} />}
-                  variant="bordered"
                 >
+                  <EmailIcon size={14} />
                   {siteConfig.email}
-                </Button>
+                </a>
               </div>
             </motion.div>
 
             <motion.div className="lg:col-span-7 w-full" variants={fadeInUp}>
-              <Card
-                className="rounded-[28px] bg-foreground/[0.02] border border-foreground/[0.08]"
-                shadow="none"
-              >
-                <CardBody className="p-6 sm:p-8 space-y-5">
-                  <Input
-                    autoComplete="name"
-                    classNames={{
-                      label: "text-foreground/55 text-xs font-medium",
-                      inputWrapper:
-                        "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
-                    }}
-                    label="Name"
-                    labelPlacement="outside"
-                    name="name"
-                    placeholder="Your name"
-                    radius="lg"
-                    size="md"
-                    type="text"
-                    value={contactForm.name}
-                    variant="bordered"
-                    onValueChange={(value) =>
-                      setContactForm({ ...contactForm, name: value })
-                    }
-                  />
-                  <Input
-                    autoComplete="email"
-                    classNames={{
-                      label: "text-foreground/55 text-xs font-medium",
-                      inputWrapper:
-                        "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
-                    }}
-                    inputMode="email"
-                    label="Email"
-                    labelPlacement="outside"
-                    name="email"
-                    placeholder="your@email.com"
-                    radius="lg"
-                    size="md"
-                    spellCheck="false"
-                    type="email"
-                    value={contactForm.email}
-                    variant="bordered"
-                    onValueChange={(value) =>
-                      setContactForm({ ...contactForm, email: value })
-                    }
-                  />
-                  <Textarea
-                    disableAutosize
-                    classNames={{
-                      label: "text-foreground/55 text-xs font-medium",
-                      inputWrapper:
-                        "rounded-2xl border-foreground/[0.08] hover:border-foreground/[0.15] focus-within:!border-foreground/30",
-                    }}
-                    label="Message"
-                    labelPlacement="outside"
-                    minRows={4}
-                    placeholder="Your message"
-                    radius="lg"
-                    size="md"
-                    value={contactForm.message}
-                    variant="bordered"
-                    onValueChange={(value) =>
-                      setContactForm({ ...contactForm, message: value })
-                    }
-                  />
+              <div className="border border-foreground/[0.08] bg-foreground/[0.02] p-5 sm:p-6 lg:p-8">
+                <div className="space-y-4 sm:space-y-5">
+                  <div>
+                    <label className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2" htmlFor="contact-name">
+                      Name
+                    </label>
+                    <input
+                      autoComplete="name"
+                      className="w-full border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors"
+                      id="contact-name"
+                      placeholder="Your name"
+                      type="text"
+                      value={contactForm.name}
+                      onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2" htmlFor="contact-email">
+                      Email
+                    </label>
+                    <input
+                      autoComplete="email"
+                      className="w-full border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors"
+                      id="contact-email"
+                      placeholder="your@email.com"
+                      spellCheck="false"
+                      type="email"
+                      value={contactForm.email}
+                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2" htmlFor="contact-message">
+                      Message
+                    </label>
+                    <textarea
+                      className="w-full border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors resize-none"
+                      id="contact-message"
+                      placeholder="Your message"
+                      rows={4}
+                      value={contactForm.message}
+                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    />
+                  </div>
                   {formSubmitted ? (
-                    <div
-                      aria-live="polite"
-                      className="flex flex-col items-center justify-center py-6 text-center"
-                      role="status"
-                    >
-                      <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mb-3">
-                        <SendIcon
-                          className="text-green-600 dark:text-green-400"
-                          size={20}
-                        />
+                    <div aria-live="polite" className="flex flex-col items-center justify-center py-4 sm:py-6 text-center" role="status">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/10 flex items-center justify-center mb-2 sm:mb-3">
+                        <SendIcon className="text-green-600 dark:text-green-400" size={18} />
                       </div>
-                      <p className="font-medium text-foreground">
-                        Your email app should open now
-                      </p>
-                      <p className="text-sm text-foreground/55 mt-1">
+                      <p className="text-sm sm:text-base font-medium text-foreground">Your email app should open now</p>
+                      <p className="text-xs sm:text-sm text-foreground/55 mt-1">
                         Send the pre-filled email to complete your message
                       </p>
                     </div>
                   ) : (
-                    <Button
-                      className="w-full font-medium bg-foreground text-background btn-hover"
-                      endContent={<SendIcon size={14} />}
-                      isDisabled={
-                        !contactForm.name ||
-                        !contactForm.email ||
-                        !contactForm.message ||
-                        isSubmitting
-                      }
-                      isLoading={isSubmitting}
-                      radius="full"
-                      size="lg"
-                      onPress={handleContactSubmit}
+                    <button
+                      className="w-full inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-2.5 bg-foreground text-background text-xs sm:text-sm font-medium btn-hover disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={!contactForm.name || !contactForm.email || !contactForm.message || isSubmitting}
+                      onClick={handleContactSubmit}
+                      type="button"
                     >
-                      Open email app to send message
-                    </Button>
+                      {isSubmitting ? "Opening..." : "Open email app to send message"}
+                      {!isSubmitting && <SendIcon size={14} />}
+                    </button>
                   )}
-                </CardBody>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>

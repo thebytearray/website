@@ -1,6 +1,4 @@
-import { Link } from "@heroui/link";
-
-import { ChevronRightIcon } from "@/components/icons";
+import { Link } from "react-router-dom";
 
 interface BreadcrumbItem {
   label: string;
@@ -13,25 +11,30 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex items-center gap-1.5 text-xs font-mono">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center gap-1.5">
-            {index > 0 && (
-              <ChevronRightIcon className="text-foreground/30" size={12} />
-            )}
-            {item.href ? (
-              <Link
-                className="text-foreground/55 hover:text-foreground transition-colors"
-                href={item.href}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span className="text-foreground/35">{item.label}</span>
-            )}
-          </li>
-        ))}
+    <nav aria-label="Breadcrumb" className="mb-4">
+      <ol className="flex items-center gap-1.5 text-xs text-foreground/45 font-mono">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li key={item.label} className="flex items-center gap-1.5">
+              {index > 0 && (
+                <span className="text-foreground/20" aria-hidden="true">/</span>
+              )}
+              {item.href && !isLast ? (
+                <Link
+                  className="hover:text-foreground/70 transition-colors"
+                  to={item.href}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span className={isLast ? "text-foreground/70" : ""}>
+                  {item.label}
+                </span>
+              )}
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );

@@ -1,63 +1,43 @@
-import { Component, type ErrorInfo, type ReactNode } from "react";
-import { Button } from "@heroui/button";
+import React from "react";
 
-interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
 }
 
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
 }
 
-/**
- * Error boundary to prevent full app crashes under load or when
- * external APIs fail. Catches React render errors and displays fallback UI.
- */
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error) {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error("ErrorBoundary caught:", error, errorInfo);
-  }
-
-  render(): ReactNode {
-    if (this.state.hasError && this.state.error) {
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-
+  render() {
+    if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-background p-6">
-          <div className="max-w-md text-center space-y-4">
-            <h1 className="text-xl font-medium text-foreground">
-              Something went wrong
-            </h1>
-            <p className="text-sm text-default-500">
-              We encountered an unexpected error. Please refresh the page to try
-              again.
-            </p>
-            <Button
-              color="primary"
-              radius="lg"
-              size="sm"
-              onPress={() => this.setState({ hasError: false, error: null })}
-            >
-              Try again
-            </Button>
-          </div>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground px-4">
+          <p className="text-sm font-mono text-foreground/40 uppercase tracking-[0.2em] mb-4">Error</p>
+          <h1 className="text-2xl sm:text-3xl font-display mb-4 text-center">Something went wrong</h1>
+          <p className="text-foreground/55 text-sm mb-6 text-center max-w-md">
+            {this.state.error?.message || "An unexpected error occurred."}
+          </p>
+          <button
+            className="px-6 py-2  bg-foreground text-background text-sm font-medium"
+            onClick={() => window.location.reload()}
+            type="button"
+          >
+            Reload page
+          </button>
         </div>
       );
     }
-
     return this.props.children;
   }
 }

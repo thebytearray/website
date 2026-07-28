@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Button } from "@heroui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { ArrowUpIcon } from "@/components/icons";
@@ -11,9 +10,7 @@ export function BackToTop() {
     const toggleVisibility = () => {
       setIsVisible(window.scrollY > 600);
     };
-
     window.addEventListener("scroll", toggleVisibility, { passive: true });
-
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
@@ -31,16 +28,14 @@ export function BackToTop() {
           initial={{ opacity: 0, scale: 0.96 }}
           transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Button
-            isIconOnly
+          <button
             aria-label="Back to top"
-            className="bg-foreground text-background shadow-lg hover:bg-foreground/90 transition-colors"
-            radius="full"
-            size="lg"
-            onPress={scrollToTop}
+            className="flex items-center justify-center w-10 h-10  bg-foreground text-background shadow-lg hover:opacity-90 transition-opacity"
+            onClick={scrollToTop}
+            type="button"
           >
             <ArrowUpIcon size={18} />
-          </Button>
+          </button>
         </motion.div>
       )}
     </AnimatePresence>
