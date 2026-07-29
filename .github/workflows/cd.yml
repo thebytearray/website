@@ -51,7 +51,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            tar -xzf /opt/thebytearray/build.tar.gz -C /var/www/thebytearray/
+            rm -rf /var/www/thebytearray/*
+            tar -xzf /opt/thebytearray/build.tar.gz -C /var/www/thebytearray/ --strip-components=1
             chown -R deploy:deploy /var/www/thebytearray
             sudo service nginx reload
             rm -f /opt/thebytearray/build.tar.gz
