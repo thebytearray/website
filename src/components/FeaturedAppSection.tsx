@@ -56,19 +56,24 @@ export function FeaturedAppSection({
 
   useEffect(() => {
     const el = carouselRef.current;
+
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting) return;
         const idx = currentScreenshot;
+
         [idx, (idx + 1) % screenshots.length].forEach((i) => {
           const img = new Image();
+
           img.src = screenshots[i].src;
         });
       },
       { rootMargin: "100px" },
     );
+
     observer.observe(el);
+
     return () => observer.disconnect();
   }, [currentScreenshot, screenshots]);
 
@@ -89,11 +94,9 @@ export function FeaturedAppSection({
 
   return (
     <section
-      className="relative py-28 sm:py-36 border-t border-foreground/[0.06] overflow-hidden"
+      className="relative py-28 sm:py-36 border-t border-foreground/[0.06]"
       id={id}
     >
-      <div className="absolute inset-0 bg-dots opacity-40" />
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial="hidden"
@@ -150,16 +153,16 @@ export function FeaturedAppSection({
                 <button
                   aria-label="Previous screenshot"
                   className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-10 w-7 h-7 lg:w-8 lg:h-8 items-center justify-center bg-foreground/[0.06] border border-foreground/[0.08] hover:bg-foreground/[0.1] text-foreground/55"
-                  onClick={prevScreenshot}
                   type="button"
+                  onClick={prevScreenshot}
                 >
                   <ChevronLeftIcon size={14} />
                 </button>
                 <button
                   aria-label="Next screenshot"
                   className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-10 w-7 h-7 lg:w-8 lg:h-8 items-center justify-center bg-foreground/[0.06] border border-foreground/[0.08] hover:bg-foreground/[0.1] text-foreground/55"
-                  onClick={nextScreenshot}
                   type="button"
+                  onClick={nextScreenshot}
                 >
                   <ChevronRightIcon size={14} />
                 </button>
@@ -213,7 +216,7 @@ export function FeaturedAppSection({
                 {features.map((feature, index) => (
                   <div
                     key={index}
-                    className="feature-card p-4  border border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.12] transition-colors duration-200 group"
+                    className="p-4 border border-foreground/[0.06] bg-foreground/[0.02] hover:border-foreground/[0.12] transition-colors duration-200 group"
                   >
                     <div className="w-9 h-9  bg-foreground/[0.06] flex items-center justify-center mb-3 group-hover:bg-foreground/[0.1] transition-colors">
                       <feature.icon className="text-foreground/55" size={18} />
@@ -230,7 +233,7 @@ export function FeaturedAppSection({
 
               <div className="flex flex-wrap items-center gap-3">
                 <a
-                  className="inline-flex items-center gap-2 px-5 py-2.5  bg-foreground text-background text-sm font-medium btn-hover"
+                  className="inline-flex items-center gap-2 px-5 py-2.5  bg-foreground text-background text-sm font-medium transition-opacity hover:opacity-80"
                   href={playStoreUrl}
                   rel="noopener noreferrer"
                   target="_blank"

@@ -45,8 +45,8 @@ export default function BlogPostPage() {
               </p>
               <button
                 className="px-6 py-2  bg-foreground text-background text-sm font-medium"
-                onClick={() => navigate("/blog")}
                 type="button"
+                onClick={() => navigate("/blog")}
               >
                 Back to Blog
               </button>
@@ -67,10 +67,7 @@ export default function BlogPostPage() {
   return (
     <PageLayout footerVariant="minimal">
       <section className="relative pt-16 pb-12 border-b border-foreground/[0.06]">
-        <div className="absolute inset-0 bg-hero-gradient opacity-50" />
-        <div className="absolute inset-0 bg-dots opacity-20" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             animate="visible"
             className="max-w-3xl mx-auto"
@@ -102,7 +99,9 @@ export default function BlogPostPage() {
               />
               <div>
                 <p className="font-medium text-foreground">{post.author}</p>
-                <p className="text-sm text-foreground/50">{formatDate(post.date)}</p>
+                <p className="text-sm text-foreground/50">
+                  {formatDate(post.date)}
+                </p>
               </div>
             </motion.div>
           </motion.div>
@@ -121,13 +120,16 @@ export default function BlogPostPage() {
               <MDXContent content={Content} />
             </motion.div>
 
-            <motion.div className="mt-8 border-t border-foreground/[0.06]" variants={fadeInUp} />
+            <motion.div
+              className="mt-8 border-t border-foreground/[0.06]"
+              variants={fadeInUp}
+            />
 
             <motion.div className="mt-6" variants={fadeInUp}>
               <button
                 className="inline-flex items-center gap-2 px-4 py-2  border border-foreground/[0.12] text-foreground/55 text-sm hover:border-foreground/25 transition-colors"
-                onClick={() => navigate("/blog")}
                 type="button"
+                onClick={() => navigate("/blog")}
               >
                 <ChevronLeftIcon size={14} />
                 Back to Blog

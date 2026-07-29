@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/Footer";
-import { BackToTop } from "@/components/BackToTop";
 
 type FooterVariant = "full" | "minimal";
 
@@ -22,11 +21,10 @@ export function PageLayout({
         Skip to content
       </a>
       <Navbar />
-      <main className="flex-1 pt-14" id="main-content">
+      <main className="flex-1 pt-12" id="main-content">
         {children}
       </main>
       <Footer variant={footerVariant} />
-      <BackToTop />
     </div>
   );
 }

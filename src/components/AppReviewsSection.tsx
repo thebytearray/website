@@ -16,23 +16,43 @@ function ReviewStars({ count }: { count: number }) {
   const filled = Math.min(5, Math.max(0, Math.round(count)));
 
   return (
-    <div aria-label={`${filled} out of 5 stars`} className="flex gap-px items-center" role="img">
+    <div
+      aria-label={`${filled} out of 5 stars`}
+      className="flex gap-px items-center"
+      role="img"
+    >
       {Array.from({ length: 5 }, (_, i) =>
         i < filled ? (
-          <StarFilledIcon key={i} aria-hidden className="text-amber-500 dark:text-amber-400 shrink-0" size={STAR_SIZE} />
+          <StarFilledIcon
+            key={i}
+            aria-hidden
+            className="text-amber-500 dark:text-amber-400 shrink-0"
+            size={STAR_SIZE}
+          />
         ) : (
-          <StarIcon key={i} aria-hidden className="text-foreground/18 shrink-0" size={STAR_SIZE} />
+          <StarIcon
+            key={i}
+            aria-hidden
+            className="text-foreground/18 shrink-0"
+            size={STAR_SIZE}
+          />
         ),
       )}
     </div>
   );
 }
 
-export function AppReviewsSection({ reviews, appName }: AppReviewsSectionProps) {
+export function AppReviewsSection({
+  reviews,
+  appName,
+}: AppReviewsSectionProps) {
   if (!reviews.length) return null;
 
   return (
-    <motion.div className="mt-16 sm:mt-20 max-w-5xl mx-auto" variants={fadeInUp}>
+    <motion.div
+      className="mt-16 sm:mt-20 max-w-5xl mx-auto"
+      variants={fadeInUp}
+    >
       <div className="text-center mb-2">
         <p className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.22em] mb-1.5 font-medium">
           Reviews
@@ -62,13 +82,17 @@ export function AppReviewsSection({ reviews, appName }: AppReviewsSectionProps) 
                 width={36}
               />
               <div className="min-w-0 flex-1">
-                <p className="font-medium text-sm text-foreground truncate">{review.name}</p>
+                <p className="font-medium text-sm text-foreground truncate">
+                  {review.name}
+                </p>
                 <div className="mt-0.5">
                   <ReviewStars count={review.stars} />
                 </div>
               </div>
             </div>
-            <p className="text-sm text-foreground/55 leading-relaxed">&ldquo;{review.comment}&rdquo;</p>
+            <p className="text-sm text-foreground/55 leading-relaxed">
+              &ldquo;{review.comment}&rdquo;
+            </p>
           </li>
         ))}
       </ul>

@@ -5,7 +5,6 @@ export default function OpenLoaderPrivacyPage() {
   return (
     <PageLayout footerVariant="minimal">
       <section className="relative pt-16 pb-12 border-b border-foreground/[0.06]">
-        <div className="absolute inset-0 bg-hero-gradient opacity-50" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <Breadcrumbs

@@ -43,32 +43,87 @@ interface GitHubRepo {
 const openloaderScreenshots = [
   { src: "/images/openloader/1.png", alt: "OpenLoader home screen" },
   { src: "/images/openloader/2.png", alt: "Install queue and progress" },
-  { src: "/images/openloader/3.png", alt: "Wireless debugging and device connection" },
+  {
+    src: "/images/openloader/3.png",
+    alt: "Wireless debugging and device connection",
+  },
   { src: "/images/openloader/4.png", alt: "Settings and install options" },
 ];
 
 const openloaderFeatures = [
-  { icon: DownloadIcon, title: "Sideload APKs", desc: "Install APK files you provide outside the store flow, including several in one queue" },
-  { icon: AndroidIcon, title: "Faster on many devices", desc: "Sideload and push debug builds to several phones or tablets without repeating every step" },
-  { icon: TerminalIcon, title: "Wireless ADB", desc: "Connect and deploy over the network on Android 11 and newer" },
-  { icon: ZapIcon, title: "Pairing helpers", desc: "Flows and checks for wireless debugging and pairing where supported" },
-  { icon: SystemIcon, title: "Optional Shizuku", desc: "Use a privileged install path when you grant Shizuku access" },
-  { icon: ShieldIcon, title: "Privacy first", desc: "No analytics or cloud account; history and preferences stay on your device" },
+  {
+    icon: DownloadIcon,
+    title: "Sideload APKs",
+    desc: "Install APK files you provide outside the store flow, including several in one queue",
+  },
+  {
+    icon: AndroidIcon,
+    title: "Faster on many devices",
+    desc: "Sideload and push debug builds to several phones or tablets without repeating every step",
+  },
+  {
+    icon: TerminalIcon,
+    title: "Wireless ADB",
+    desc: "Connect and deploy over the network on Android 11 and newer",
+  },
+  {
+    icon: ZapIcon,
+    title: "Pairing helpers",
+    desc: "Flows and checks for wireless debugging and pairing where supported",
+  },
+  {
+    icon: SystemIcon,
+    title: "Optional Shizuku",
+    desc: "Use a privileged install path when you grant Shizuku access",
+  },
+  {
+    icon: ShieldIcon,
+    title: "Privacy first",
+    desc: "No analytics or cloud account; history and preferences stay on your device",
+  },
 ];
 
 const hy2ngScreenshots = [
-  { src: "/images/hy2ng/Screenshot_20251201_041544.png", alt: "Configurations list" },
-  { src: "/images/hy2ng/Screenshot_20251201_041639.png", alt: "Add configuration" },
-  { src: "/images/hy2ng/Screenshot_20251201_041720.png", alt: "QR code sharing" },
-  { src: "/images/hy2ng/Screenshot_20251201_041741.png", alt: "Server setup wizard" },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041544.png",
+    alt: "Configurations list",
+  },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041639.png",
+    alt: "Add configuration",
+  },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041720.png",
+    alt: "QR code sharing",
+  },
+  {
+    src: "/images/hy2ng/Screenshot_20251201_041741.png",
+    alt: "Server setup wizard",
+  },
   { src: "/images/hy2ng/Screenshot_20251201_041802.png", alt: "Per-app proxy" },
 ];
 
 const hy2ngFeatures = [
-  { icon: ServerIcon, title: "Server Setup Wizard", desc: "Configure your own VPS with built-in setup guide" },
-  { icon: QrCodeIcon, title: "QR Code Import", desc: "Import configs via QR code or clipboard" },
-  { icon: AppsIcon, title: "Per-App Proxy", desc: "Choose which apps use the VPN connection" },
-  { icon: ShieldIcon, title: "Privacy First", desc: "No ads, no tracking, all data stays on device" },
+  {
+    icon: ServerIcon,
+    title: "Server Setup Wizard",
+    desc: "Configure your own VPS with built-in setup guide",
+  },
+  {
+    icon: QrCodeIcon,
+    title: "QR Code Import",
+    desc: "Import configs via QR code or clipboard",
+  },
+  {
+    icon: AppsIcon,
+    title: "Per-App Proxy",
+    desc: "Choose which apps use the VPN connection",
+  },
+  {
+    icon: ShieldIcon,
+    title: "Privacy First",
+    desc: "No ads, no tracking, all data stays on device",
+  },
 ];
 
 export default function IndexPage() {
@@ -76,7 +131,11 @@ export default function IndexPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
-  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -88,10 +147,13 @@ export default function IndexPage() {
     try {
       setLoading(true);
       setError(null);
-      const { repos: data } = await fetchGitHubRepos(siteConfig.githubApi.repos);
+      const { repos: data } = await fetchGitHubRepos(
+        siteConfig.githubApi.repos,
+      );
       const filteredRepos = (data as GitHubRepo[])
         .filter((repo) => !repo.fork)
         .sort((a, b) => b.stargazers_count - a.stargazers_count);
+
       setRepos(filteredRepos);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load projects");
@@ -115,6 +177,7 @@ export default function IndexPage() {
     const body = encodeURIComponent(
       `Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`,
     );
+
     window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
     setFormSubmitted(true);
     setTimeout(() => {
@@ -123,16 +186,16 @@ export default function IndexPage() {
     }, 3000);
   }, [contactForm.name, contactForm.email, contactForm.message, isSubmitting]);
 
-  const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+  const totalStars = repos.reduce(
+    (sum, repo) => sum + repo.stargazers_count,
+    0,
+  );
 
   return (
     <PageLayout>
       {/* ======== HERO ======== */}
-      <section className="relative min-h-[80vh] sm:min-h-[85vh] flex items-center border-b border-foreground/[0.06] overflow-hidden">
-        <div className="absolute inset-0 bg-hero-gradient" />
-        <div className="absolute inset-0 bg-dots opacity-[0.03]" />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-32">
+      <section className="relative min-h-[80vh] sm:min-h-[85vh] flex items-center border-b border-foreground/[0.06]">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-32">
           <motion.div
             animate="visible"
             className="max-w-3xl"
@@ -152,7 +215,9 @@ export default function IndexPage() {
             >
               No crap, straight to the point apps{" "}
               <br className="hidden sm:block" />
-              <span className="text-foreground/40">with privacy by default</span>
+              <span className="text-foreground/40">
+                with privacy by default
+              </span>
             </motion.h1>
 
             <motion.p
@@ -169,7 +234,7 @@ export default function IndexPage() {
               variants={fadeInUp}
             >
               <a
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background text-sm font-medium btn-hover"
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background text-sm font-medium transition-opacity hover:opacity-80"
                 href={siteConfig.links.github}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -179,10 +244,12 @@ export default function IndexPage() {
               </a>
               <button
                 className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 border border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] text-sm font-medium transition-colors"
-                onClick={() => {
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
                 type="button"
+                onClick={() => {
+                  document
+                    .querySelector("#contact")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
               >
                 Get in Touch
               </button>
@@ -223,7 +290,7 @@ export default function IndexPage() {
 
       {/* ======== ABOUT ======== */}
       <section
-        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06]"
         id="about"
       >
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -242,7 +309,10 @@ export default function IndexPage() {
             </motion.p>
 
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-              <motion.div className="text-center lg:text-left" variants={fadeInUp}>
+              <motion.div
+                className="text-center lg:text-left"
+                variants={fadeInUp}
+              >
                 <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground tracking-tight leading-[1.1] mb-4 sm:mb-5">
                   {aboutContent.headline}
                 </h2>
@@ -254,7 +324,10 @@ export default function IndexPage() {
               <motion.div variants={fadeInUp}>
                 <div className="border border-foreground/[0.08] bg-foreground/[0.02] px-5 sm:px-8 py-2 divide-y divide-foreground/[0.06]">
                   {aboutContent.pillars.map((item) => (
-                    <div key={item.num} className="py-5 sm:py-6 first:pt-4 sm:first:pt-5 last:pb-4 sm:last:pb-5">
+                    <div
+                      key={item.num}
+                      className="py-5 sm:py-6 first:pt-4 sm:first:pt-5 last:pb-4 sm:last:pb-5"
+                    >
                       <span className="text-[10px] sm:text-[11px] font-mono text-foreground/35 tracking-wider">
                         {item.num}
                       </span>
@@ -270,7 +343,10 @@ export default function IndexPage() {
               </motion.div>
             </div>
 
-            <motion.div className="mt-10 lg:mt-16 max-w-3xl lg:max-w-none" variants={fadeInUp}>
+            <motion.div
+              className="mt-10 lg:mt-16 max-w-3xl lg:max-w-none"
+              variants={fadeInUp}
+            >
               <p className="text-foreground/55 leading-relaxed text-sm sm:text-base lg:text-lg text-left">
                 {aboutContent.mission}
               </p>
@@ -308,11 +384,9 @@ export default function IndexPage() {
 
       {/* ======== PROJECTS ======== */}
       <section
-        className="relative py-20 sm:py-28 lg:py-36 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-28 lg:py-36 border-t border-foreground/[0.06]"
         id="projects"
       >
-        <div className="absolute inset-0 bg-section-gradient" />
-
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial="hidden"
@@ -334,32 +408,43 @@ export default function IndexPage() {
                 <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-foreground/20 border-t-transparent animate-spin" />
               </div>
             ) : error ? (
-              <motion.div className="text-center py-16 sm:py-20" variants={fadeInUp}>
-                <p aria-live="polite" className="text-foreground/55 mb-4">{error}</p>
+              <motion.div
+                className="text-center py-16 sm:py-20"
+                variants={fadeInUp}
+              >
+                <p aria-live="polite" className="text-foreground/55 mb-4">
+                  {error}
+                </p>
                 <button
                   className="px-4 py-1.5 border border-foreground/[0.12] text-foreground/55 text-xs"
-                  onClick={fetchRepos}
                   type="button"
+                  onClick={fetchRepos}
                 >
                   Retry
                 </button>
               </motion.div>
             ) : repos.length === 0 ? (
-              <motion.div className="text-center py-16 sm:py-20" variants={fadeInUp}>
+              <motion.div
+                className="text-center py-16 sm:py-20"
+                variants={fadeInUp}
+              >
                 <p className="text-foreground/55">No repositories found.</p>
               </motion.div>
             ) : (
               <>
                 {languages.length > 1 && (
-                  <motion.div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8" variants={fadeInUp}>
+                  <motion.div
+                    className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-6 sm:mb-8"
+                    variants={fadeInUp}
+                  >
                     <button
                       className={`text-xs px-2.5 sm:px-3 py-1.5 transition-colors ${
                         selectedLanguage === null
                           ? "bg-foreground text-background"
                           : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
                       }`}
-                      onClick={() => setSelectedLanguage(null)}
                       type="button"
+                      onClick={() => setSelectedLanguage(null)}
                     >
                       All ({repos.length})
                     </button>
@@ -371,14 +456,17 @@ export default function IndexPage() {
                             ? "bg-foreground text-background"
                             : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
                         }`}
-                        onClick={() => setSelectedLanguage(lang)}
                         type="button"
+                        onClick={() => setSelectedLanguage(lang)}
                       >
                         <span
                           className="w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1 sm:mr-1.5 inline-block"
-                          style={{ backgroundColor: languageColors[lang!] || "#71717a" }}
+                          style={{
+                            backgroundColor: languageColors[lang!] || "#71717a",
+                          }}
                         />
-                        {lang} ({repos.filter((r) => r.language === lang).length})
+                        {lang} (
+                        {repos.filter((r) => r.language === lang).length})
                       </button>
                     ))}
                   </motion.div>
@@ -391,7 +479,7 @@ export default function IndexPage() {
                   {filteredRepos.map((repo) => (
                     <motion.div key={repo.id} variants={fadeInUp}>
                       <a
-                        className="flex flex-col h-full border border-foreground/[0.06] bg-foreground/[0.02] p-4 sm:p-5 card-hover"
+                        className="flex flex-col h-full border border-foreground/[0.06] bg-foreground/[0.02] p-4 sm:p-5 transition-opacity hover:opacity-80"
                         href={repo.html_url}
                         rel="noopener noreferrer"
                         target="_blank"
@@ -399,7 +487,10 @@ export default function IndexPage() {
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2.5 min-w-0">
                             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-foreground/[0.06] flex items-center justify-center shrink-0">
-                              <GithubIcon className="text-foreground/40" size={14} />
+                              <GithubIcon
+                                className="text-foreground/40"
+                                size={14}
+                              />
                             </div>
                             <h3 className="font-medium text-foreground group-hover:opacity-70 transition-opacity font-mono text-sm truncate">
                               {repo.name}
@@ -418,18 +509,33 @@ export default function IndexPage() {
                             <div className="flex items-center gap-1.5">
                               <span
                                 className="w-2 h-2 shrink-0"
-                                style={{ backgroundColor: languageColors[repo.language] || "#71717a" }}
+                                style={{
+                                  backgroundColor:
+                                    languageColors[repo.language] || "#71717a",
+                                }}
                               />
-                              <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">{repo.language}</span>
+                              <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">
+                                {repo.language}
+                              </span>
                             </div>
                           )}
                           <div className="flex items-center gap-1">
-                            <StarIcon className="text-foreground/30" size={12} />
-                            <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">{repo.stargazers_count}</span>
+                            <StarIcon
+                              className="text-foreground/30"
+                              size={12}
+                            />
+                            <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">
+                              {repo.stargazers_count}
+                            </span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <ForkIcon className="text-foreground/30" size={12} />
-                            <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">{repo.forks_count}</span>
+                            <ForkIcon
+                              className="text-foreground/30"
+                              size={12}
+                            />
+                            <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">
+                              {repo.forks_count}
+                            </span>
                           </div>
                         </div>
                       </a>
@@ -440,7 +546,10 @@ export default function IndexPage() {
             )}
 
             {repos.length > 0 && !loading && (
-              <motion.div className="text-center mt-8 sm:mt-10" variants={fadeIn}>
+              <motion.div
+                className="text-center mt-8 sm:mt-10"
+                variants={fadeIn}
+              >
                 <a
                   className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 border border-foreground/[0.12] hover:border-foreground/25 text-foreground/55 text-xs font-medium transition-colors"
                   href={siteConfig.links.github}
@@ -469,7 +578,11 @@ export default function IndexPage() {
             whileInView="visible"
           >
             <motion.div variants={fadeInUp}>
-              <SectionHeader className="mb-10 sm:mb-12" label="Team" title="Contributors" />
+              <SectionHeader
+                className="mb-10 sm:mb-12"
+                label="Team"
+                title="Contributors"
+              />
             </motion.div>
 
             <motion.div variants={fadeInUp}>
@@ -494,13 +607,12 @@ export default function IndexPage() {
                       {member.bio}
                     </p>
                     <a
-                      className="inline-flex items-center gap-2 mt-4 px-3.5 sm:px-4 py-1.5 bg-foreground text-background text-xs font-medium btn-hover"
+                      className="inline-flex items-center gap-2 mt-4 px-3.5 sm:px-4 py-1.5 bg-foreground text-background text-xs font-medium transition-opacity hover:opacity-80"
                       href={member.github}
                       rel="noopener noreferrer"
                       target="_blank"
                     >
-                      <GithubIcon size={14} />
-                      @{member.username}
+                      <GithubIcon size={14} />@{member.username}
                     </a>
                   </div>
                 ))}
@@ -512,11 +624,9 @@ export default function IndexPage() {
 
       {/* ======== CONTACT ======== */}
       <section
-        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06]"
         id="contact"
       >
-        <div className="absolute inset-0 bg-section-gradient" />
-
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start max-w-5xl mx-auto"
@@ -554,7 +664,10 @@ export default function IndexPage() {
               <div className="border border-foreground/[0.08] bg-foreground/[0.02] p-5 sm:p-6 lg:p-8">
                 <div className="space-y-4 sm:space-y-5">
                   <div>
-                    <label className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2" htmlFor="contact-name">
+                    <label
+                      className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2"
+                      htmlFor="contact-name"
+                    >
                       Name
                     </label>
                     <input
@@ -564,11 +677,16 @@ export default function IndexPage() {
                       placeholder="Your name"
                       type="text"
                       value={contactForm.name}
-                      onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                      onChange={(e) =>
+                        setContactForm({ ...contactForm, name: e.target.value })
+                      }
                     />
                   </div>
                   <div>
-                    <label className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2" htmlFor="contact-email">
+                    <label
+                      className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2"
+                      htmlFor="contact-email"
+                    >
                       Email
                     </label>
                     <input
@@ -579,11 +697,19 @@ export default function IndexPage() {
                       spellCheck="false"
                       type="email"
                       value={contactForm.email}
-                      onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                      onChange={(e) =>
+                        setContactForm({
+                          ...contactForm,
+                          email: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div>
-                    <label className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2" htmlFor="contact-message">
+                    <label
+                      className="block text-foreground/55 text-[11px] sm:text-xs font-medium mb-1.5 sm:mb-2"
+                      htmlFor="contact-message"
+                    >
                       Message
                     </label>
                     <textarea
@@ -592,27 +718,48 @@ export default function IndexPage() {
                       placeholder="Your message"
                       rows={4}
                       value={contactForm.message}
-                      onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                      onChange={(e) =>
+                        setContactForm({
+                          ...contactForm,
+                          message: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   {formSubmitted ? (
-                    <div aria-live="polite" className="flex flex-col items-center justify-center py-4 sm:py-6 text-center" role="status">
+                    <div
+                      aria-live="polite"
+                      className="flex flex-col items-center justify-center py-4 sm:py-6 text-center"
+                      role="status"
+                    >
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/10 flex items-center justify-center mb-2 sm:mb-3">
-                        <SendIcon className="text-green-600 dark:text-green-400" size={18} />
+                        <SendIcon
+                          className="text-green-600 dark:text-green-400"
+                          size={18}
+                        />
                       </div>
-                      <p className="text-sm sm:text-base font-medium text-foreground">Your email app should open now</p>
+                      <p className="text-sm sm:text-base font-medium text-foreground">
+                        Your email app should open now
+                      </p>
                       <p className="text-xs sm:text-sm text-foreground/55 mt-1">
                         Send the pre-filled email to complete your message
                       </p>
                     </div>
                   ) : (
                     <button
-                      className="w-full inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-2.5 bg-foreground text-background text-xs sm:text-sm font-medium btn-hover disabled:opacity-40 disabled:cursor-not-allowed"
-                      disabled={!contactForm.name || !contactForm.email || !contactForm.message || isSubmitting}
-                      onClick={handleContactSubmit}
+                      className="w-full inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-2.5 bg-foreground text-background text-xs sm:text-sm font-medium transition-opacity hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed"
+                      disabled={
+                        !contactForm.name ||
+                        !contactForm.email ||
+                        !contactForm.message ||
+                        isSubmitting
+                      }
                       type="button"
+                      onClick={handleContactSubmit}
                     >
-                      {isSubmitting ? "Opening..." : "Open email app to send message"}
+                      {isSubmitting
+                        ? "Opening..."
+                        : "Open email app to send message"}
                       {!isSubmitting && <SendIcon size={14} />}
                     </button>
                   )}

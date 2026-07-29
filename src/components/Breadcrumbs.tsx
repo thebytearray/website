@@ -15,10 +15,13 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
       <ol className="flex items-center gap-1.5 text-xs text-foreground/45 font-mono">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
+
           return (
             <li key={item.label} className="flex items-center gap-1.5">
               {index > 0 && (
-                <span className="text-foreground/20" aria-hidden="true">/</span>
+                <span aria-hidden="true" className="text-foreground/20">
+                  /
+                </span>
               )}
               {item.href && !isLast ? (
                 <Link

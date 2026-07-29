@@ -15,6 +15,7 @@ const blogPosts = import.meta.glob<{ frontmatter: Omit<BlogPost, "slug"> }>(
 
 const posts: BlogPost[] = Object.entries(blogPosts).map(([path, mod]) => {
   const slug = path.split("/").pop()?.replace(".mdx", "") || "";
+
   return { slug, ...mod.frontmatter };
 });
 
@@ -34,10 +35,7 @@ export default function BlogIndexPage() {
   return (
     <PageLayout footerVariant="minimal">
       <section className="relative pt-16 pb-12 border-b border-foreground/[0.06]">
-        <div className="absolute inset-0 bg-hero-gradient opacity-50" />
-        <div className="absolute inset-0 bg-dots opacity-20" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             animate="visible"
             className="max-w-3xl mx-auto"
@@ -83,9 +81,9 @@ export default function BlogIndexPage() {
                 variants={fadeInUp}
               >
                 <button
-                  className="flex flex-col h-full w-full text-left  border border-foreground/[0.06] bg-foreground/[0.02] p-5 card-hover"
-                  onClick={() => navigate(`/blog/${post.slug}`)}
+                  className="flex flex-col h-full w-full text-left  border border-foreground/[0.06] bg-foreground/[0.02] p-5 transition-opacity hover:opacity-80"
                   type="button"
+                  onClick={() => navigate(`/blog/${post.slug}`)}
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <img
@@ -94,8 +92,12 @@ export default function BlogIndexPage() {
                       src={siteConfig.team.founder.avatar}
                     />
                     <div>
-                      <p className="text-sm font-medium text-foreground">{post.author}</p>
-                      <p className="text-xs text-foreground/50">{formatDate(post.date)}</p>
+                      <p className="text-sm font-medium text-foreground">
+                        {post.author}
+                      </p>
+                      <p className="text-xs text-foreground/50">
+                        {formatDate(post.date)}
+                      </p>
                     </div>
                   </div>
                   <h2 className="text-lg font-semibold text-foreground mb-2">
