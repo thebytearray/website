@@ -596,7 +596,7 @@ export default function IndexPage() {
                 >
                   <img
                     alt={member.name}
-                    className="w-20 h-14 shrink-0"
+                    className="w-16 h-16 shrink-0"
                     src={member.avatar}
                   />
                   <div className="flex-1 min-w-0">
