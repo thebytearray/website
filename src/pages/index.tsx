@@ -6,7 +6,7 @@ import { PageLayout } from "@/layouts/PageLayout";
 import { SectionHeader } from "@/components/SectionHeader";
 import { siteConfig } from "@/config/site";
 import { aboutContent } from "@/config/about";
-import { fadeIn, fadeInUp, staggerContainer } from "@/lib/animations";
+import { fadeIn, fadeInUp, scaleIn, staggerContainer } from "@/lib/animations";
 import { fetchGitHubRepos } from "@/lib/githubApi";
 import {
   GithubIcon,
@@ -194,8 +194,12 @@ export default function IndexPage() {
   return (
     <PageLayout>
       {/* ======== HERO ======== */}
-      <section className="relative min-h-[80vh] sm:min-h-[85vh] flex items-center border-b border-foreground/[0.06]">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-32">
+      <section className="relative min-h-[80vh] sm:min-h-[85vh] flex items-center border-b border-foreground/[0.06] overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-radial-foreground opacity-80" />
+          <div className="absolute top-1/3 right-0 w-[400px] h-[400px] opacity-40" style={{ background: 'radial-gradient(ellipse at center, oklch(70% 0 0 / 3%), transparent 70%)' }} />
+        </div>
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
           <motion.div
             animate="visible"
             className="max-w-3xl"
@@ -215,7 +219,7 @@ export default function IndexPage() {
             >
               No crap, straight to the point apps{" "}
               <br className="hidden sm:block" />
-              <span className="text-foreground/40">
+              <span className="gradient-text">
                 with privacy by default
               </span>
             </motion.h1>
@@ -234,7 +238,7 @@ export default function IndexPage() {
               variants={fadeInUp}
             >
               <a
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background text-sm font-medium transition-opacity hover:opacity-80"
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background text-sm font-medium rounded-full transition-all hover:opacity-85 hover:scale-[1.02]"
                 href={siteConfig.links.github}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -243,7 +247,7 @@ export default function IndexPage() {
                 <ArrowRightIcon size={16} />
               </a>
               <button
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 border border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] text-sm font-medium transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 border border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] text-sm font-medium rounded-full transition-all"
                 type="button"
                 onClick={() => {
                   document
@@ -290,7 +294,7 @@ export default function IndexPage() {
 
       {/* ======== ABOUT ======== */}
       <section
-        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06]"
+        className="relative py-20 sm:py-28 border-t border-foreground/[0.06] section-glow"
         id="about"
       >
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -301,90 +305,73 @@ export default function IndexPage() {
             viewport={{ once: true, margin: "-80px" }}
             whileInView="visible"
           >
-            <motion.p
-              className="text-[10px] sm:text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium mb-8 sm:mb-10 text-center lg:text-left"
-              variants={fadeInUp}
-            >
-              {aboutContent.label}
-            </motion.p>
-
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-              <motion.div
-                className="text-center lg:text-left"
-                variants={fadeInUp}
-              >
-                <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground tracking-tight leading-[1.1] mb-4 sm:mb-5">
-                  {aboutContent.headline}
-                </h2>
-                <p className="text-sm sm:text-base lg:text-lg text-foreground/55 leading-relaxed max-w-md mx-auto lg:mx-0">
-                  {aboutContent.lead}
-                </p>
-              </motion.div>
-
-              <motion.div variants={fadeInUp}>
-                <div className="border border-foreground/[0.08] bg-foreground/[0.02] px-5 sm:px-8 py-2 divide-y divide-foreground/[0.06]">
-                  {aboutContent.pillars.map((item) => (
-                    <div
-                      key={item.num}
-                      className="py-5 sm:py-6 first:pt-4 sm:first:pt-5 last:pb-4 sm:last:pb-5"
-                    >
-                      <span className="text-[10px] sm:text-[11px] font-mono text-foreground/35 tracking-wider">
-                        {item.num}
-                      </span>
-                      <h3 className="font-medium text-foreground text-sm sm:text-base lg:text-lg mt-1.5 sm:mt-2 mb-1.5 sm:mb-2 tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-foreground/55 leading-relaxed">
-                        {item.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
+            <motion.div className="text-center max-w-2xl mx-auto mb-12" variants={fadeInUp}>
+              <span className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.25em] font-medium">
+                {aboutContent.label}
+              </span>
+              <p className="text-foreground/55 mt-4 text-base sm:text-lg leading-relaxed">
+                {aboutContent.lead}
+              </p>
+            </motion.div>
 
             <motion.div
-              className="mt-10 lg:mt-16 max-w-3xl lg:max-w-none"
-              variants={fadeInUp}
+              className="grid sm:grid-cols-3 gap-4"
+              variants={staggerContainer}
             >
-              <p className="text-foreground/55 leading-relaxed text-sm sm:text-base lg:text-lg text-left">
-                {aboutContent.mission}
-              </p>
+              {aboutContent.pillars.map((item) => (
+                <motion.div
+                  key={item.num}
+                  className="rounded-xl border border-foreground/[0.08] bg-foreground/[0.02] p-5 sm:p-6 card-hover"
+                  variants={fadeInUp}
+                >
+                  <span className="text-[10px] sm:text-[11px] font-mono text-foreground/25 tracking-wider">
+                    {item.num}
+                  </span>
+                  <h3 className="font-medium text-foreground text-sm sm:text-base mt-2 mb-1.5 tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-foreground/55 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* ======== FEATURED APPS ======== */}
-      <FeaturedAppSection
-        appName="OpenLoader"
-        description="Sideload APKs you already have on devices you own, including several in one go. Built with Android developers in mind: queue installs, push to multiple devices over wireless ADB, optional Shizuku for privileged installs, Material You UI. Open source under GPL-3.0."
-        features={openloaderFeatures}
-        iconAlt="OpenLoader app icon"
-        iconSrc="/images/openloader/icon.png"
-        id="openloader"
-        playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.app.android.openloader"
-        privacyUrl="/openloader-privacy"
-        screenshots={openloaderScreenshots}
-        subtitle="Sideload APK installs"
-      />
+      <div id="featured">
+        <FeaturedAppSection
+          appName="OpenLoader"
+          description="Sideload APKs you already have on devices you own, including several in one go. Built with Android developers in mind: queue installs, push to multiple devices over wireless ADB, optional Shizuku for privileged installs, Material You UI. Open source under GPL-3.0."
+          features={openloaderFeatures}
+          iconAlt="OpenLoader app icon"
+          iconSrc="/images/openloader/icon.png"
+          id="openloader"
+          playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.app.android.openloader"
+          privacyUrl="/openloader-privacy"
+          screenshots={openloaderScreenshots}
+          subtitle="Sideload APK installs"
+        />
 
-      <FeaturedAppSection
-        appName="Hy2NG"
-        description="A powerful Hysteria2 VPN client for Android with a built-in server setup wizard. Connect to Hysteria2 servers with ease."
-        features={hy2ngFeatures}
-        iconAlt="Hy2NG App Icon"
-        iconSrc="/images/hy2ng/hy2ng.png"
-        id="featured-app"
-        playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.hy2.ng"
-        privacyUrl="/hy2ng-privacy"
-        screenshots={hy2ngScreenshots}
-        subtitle="Hysteria2 Client"
-      />
+        <FeaturedAppSection
+          appName="Hy2NG"
+          description="A powerful Hysteria2 VPN client for Android with a built-in server setup wizard. Connect to Hysteria2 servers with ease."
+          features={hy2ngFeatures}
+          iconAlt="Hy2NG App Icon"
+          iconSrc="/images/hy2ng/hy2ng.png"
+          id="featured-app"
+          playStoreUrl="https://play.google.com/store/apps/details?id=org.thebytearray.hy2.ng"
+          privacyUrl="/hy2ng-privacy"
+          screenshots={hy2ngScreenshots}
+          subtitle="Hysteria2 Client"
+        />
+      </div>
 
       {/* ======== PROJECTS ======== */}
       <section
-        className="relative py-20 sm:py-28 lg:py-36 border-t border-foreground/[0.06]"
+        className="relative py-20 sm:py-28 lg:py-36 border-t border-foreground/[0.06] section-glow"
         id="projects"
       >
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -405,7 +392,7 @@ export default function IndexPage() {
 
             {loading ? (
               <div className="flex justify-center py-16 sm:py-20">
-                <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-foreground/20 border-t-transparent animate-spin" />
+                <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-foreground/20 border-t-transparent rounded-full animate-spin" />
               </div>
             ) : error ? (
               <motion.div
@@ -416,7 +403,7 @@ export default function IndexPage() {
                   {error}
                 </p>
                 <button
-                  className="px-4 py-1.5 border border-foreground/[0.12] text-foreground/55 text-xs"
+                  className="px-4 py-1.5 border border-foreground/[0.12] text-foreground/55 text-xs rounded-lg"
                   type="button"
                   onClick={fetchRepos}
                 >
@@ -438,7 +425,7 @@ export default function IndexPage() {
                     variants={fadeInUp}
                   >
                     <button
-                      className={`text-xs px-2.5 sm:px-3 py-1.5 transition-colors ${
+                      className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
                         selectedLanguage === null
                           ? "bg-foreground text-background"
                           : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
@@ -451,7 +438,7 @@ export default function IndexPage() {
                     {languages.map((lang) => (
                       <button
                         key={lang}
-                        className={`text-xs px-2.5 sm:px-3 py-1.5 transition-colors ${
+                        className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
                           selectedLanguage === lang
                             ? "bg-foreground text-background"
                             : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
@@ -460,7 +447,7 @@ export default function IndexPage() {
                         onClick={() => setSelectedLanguage(lang)}
                       >
                         <span
-                          className="w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1 sm:mr-1.5 inline-block"
+                          className="w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1 sm:mr-1.5 inline-block rounded-sm"
                           style={{
                             backgroundColor: languageColors[lang!] || "#71717a",
                           }}
@@ -477,27 +464,27 @@ export default function IndexPage() {
                   variants={staggerContainer}
                 >
                   {filteredRepos.map((repo) => (
-                    <motion.div key={repo.id} variants={fadeInUp}>
+                    <motion.div key={repo.id} variants={scaleIn}>
                       <a
-                        className="flex flex-col h-full border border-foreground/[0.06] bg-foreground/[0.02] p-4 sm:p-5 transition-opacity hover:opacity-80"
+                        className="flex flex-col h-full border border-foreground/[0.06] bg-foreground/[0.02] p-4 sm:p-5 rounded-xl transition-all duration-200 card-hover"
                         href={repo.html_url}
                         rel="noopener noreferrer"
                         target="_blank"
                       >
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-foreground/[0.06] flex items-center justify-center shrink-0">
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-foreground/[0.06] rounded-lg flex items-center justify-center shrink-0">
                               <GithubIcon
                                 className="text-foreground/40"
                                 size={14}
                               />
                             </div>
-                            <h3 className="font-medium text-foreground group-hover:opacity-70 transition-opacity font-mono text-sm truncate">
+                            <h3 className="font-medium text-foreground font-mono text-sm truncate">
                               {repo.name}
                             </h3>
                           </div>
                           <ExternalLinkIcon
-                            className="text-foreground/20 group-hover:text-foreground/40 transition-colors shrink-0"
+                            className="text-foreground/20 shrink-0"
                             size={13}
                           />
                         </div>
@@ -508,7 +495,7 @@ export default function IndexPage() {
                           {repo.language && (
                             <div className="flex items-center gap-1.5">
                               <span
-                                className="w-2 h-2 shrink-0"
+                                className="w-2 h-2 shrink-0 rounded-sm"
                                 style={{
                                   backgroundColor:
                                     languageColors[repo.language] || "#71717a",
@@ -551,7 +538,7 @@ export default function IndexPage() {
                 variants={fadeIn}
               >
                 <a
-                  className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 border border-foreground/[0.12] hover:border-foreground/25 text-foreground/55 text-xs font-medium transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-1.5 border border-foreground/[0.12] hover:border-foreground/25 text-foreground/55 text-xs font-medium rounded-lg transition-colors"
                   href={siteConfig.links.github}
                   rel="noopener noreferrer"
                   target="_blank"
@@ -587,7 +574,7 @@ export default function IndexPage() {
 
             <div className="max-w-xl mx-auto">
               <motion.div
-                className="border border-foreground/[0.06] bg-foreground/[0.02] divide-y divide-foreground/[0.06]"
+                className="rounded-xl border border-foreground/[0.06] bg-foreground/[0.02] overflow-hidden divide-y divide-foreground/[0.06]"
                 variants={fadeInUp}
               >
                 {siteConfig.team.members.map((member) => (
@@ -597,7 +584,7 @@ export default function IndexPage() {
                   >
                     <img
                       alt={member.name}
-                      className="w-10 h-10 shrink-0"
+                      className="w-10 h-10 shrink-0 rounded-full ring-1 ring-foreground/[0.06]"
                       src={member.avatar}
                     />
                     <div className="flex-1 min-w-0">
@@ -631,7 +618,7 @@ export default function IndexPage() {
 
       {/* ======== CONTACT ======== */}
       <section
-        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06]"
+        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06] section-glow"
         id="contact"
       >
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -646,9 +633,12 @@ export default function IndexPage() {
               className="lg:col-span-5 space-y-4 sm:space-y-6 text-center lg:text-left"
               variants={fadeInUp}
             >
-              <p className="text-[10px] sm:text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium">
-                Contact
-              </p>
+              <div className="inline-flex items-center gap-3 lg:justify-start justify-center">
+                <span className="h-px w-6 bg-foreground/20 hidden lg:block" />
+                <span className="text-[10px] sm:text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium">
+                  Contact
+                </span>
+              </div>
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-foreground tracking-tight leading-[1.1]">
                 Get in touch
               </h2>
@@ -658,7 +648,7 @@ export default function IndexPage() {
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 pt-2">
                 <a
-                  className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 border border-foreground/[0.12] bg-foreground/[0.04] hover:bg-foreground/[0.07] text-foreground/80 text-xs sm:text-sm transition-colors"
+                  className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 border border-foreground/[0.12] bg-foreground/[0.04] hover:bg-foreground/[0.07] text-foreground/80 text-xs sm:text-sm rounded-lg transition-colors"
                   href={`mailto:${siteConfig.email}`}
                 >
                   <EmailIcon size={14} />
@@ -668,7 +658,7 @@ export default function IndexPage() {
             </motion.div>
 
             <motion.div className="lg:col-span-7 w-full" variants={fadeInUp}>
-              <div className="border border-foreground/[0.08] bg-foreground/[0.02] p-5 sm:p-6 lg:p-8">
+              <div className="rounded-xl border border-foreground/[0.08] bg-foreground/[0.02] p-5 sm:p-6 lg:p-8">
                 <div className="space-y-4 sm:space-y-5">
                   <div>
                     <label
@@ -679,7 +669,7 @@ export default function IndexPage() {
                     </label>
                     <input
                       autoComplete="name"
-                      className="w-full border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors"
+                      className="w-full rounded-lg border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors"
                       id="contact-name"
                       placeholder="Your name"
                       type="text"
@@ -698,7 +688,7 @@ export default function IndexPage() {
                     </label>
                     <input
                       autoComplete="email"
-                      className="w-full border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors"
+                      className="w-full rounded-lg border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors"
                       id="contact-email"
                       placeholder="your@email.com"
                       spellCheck="false"
@@ -720,7 +710,7 @@ export default function IndexPage() {
                       Message
                     </label>
                     <textarea
-                      className="w-full border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors resize-none"
+                      className="w-full rounded-lg border border-foreground/[0.08] bg-background px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-foreground placeholder:text-foreground/30 focus:outline-none focus:border-foreground/30 transition-colors resize-none"
                       id="contact-message"
                       placeholder="Your message"
                       rows={4}
@@ -739,7 +729,7 @@ export default function IndexPage() {
                       className="flex flex-col items-center justify-center py-4 sm:py-6 text-center"
                       role="status"
                     >
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/10 flex items-center justify-center mb-2 sm:mb-3">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-2 sm:mb-3">
                         <SendIcon
                           className="text-green-600 dark:text-green-400"
                           size={18}
@@ -754,7 +744,7 @@ export default function IndexPage() {
                     </div>
                   ) : (
                     <button
-                      className="w-full inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-2.5 bg-foreground text-background text-xs sm:text-sm font-medium transition-opacity hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="w-full inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-2.5 bg-foreground text-background text-xs sm:text-sm font-medium rounded-full transition-all hover:opacity-85 hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                       disabled={
                         !contactForm.name ||
                         !contactForm.email ||

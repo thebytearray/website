@@ -6,6 +6,7 @@ export const siteConfig = {
   email: "contact@thebytearray.org",
   navItems: [
     { label: "About", href: "#about" },
+    { label: "Featured", href: "#featured" },
     { label: "Projects", href: "#projects" },
     { label: "Blog", href: "/blog" },
     { label: "Team", href: "#team" },

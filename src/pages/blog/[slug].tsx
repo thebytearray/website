@@ -8,7 +8,6 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ChevronLeftIcon } from "@/components/icons";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { MDXContent } from "@/components/mdx-components";
-import { siteConfig } from "@/config/site";
 
 const blogPosts = import.meta.glob("/content/blog/*.mdx", {
   eager: true,
@@ -44,7 +43,7 @@ export default function BlogPostPage() {
                 The blog post you are looking for does not exist.
               </p>
               <button
-                className="px-6 py-2  bg-foreground text-background text-sm font-medium"
+                className="px-6 py-2 bg-foreground text-background text-sm font-medium rounded-full"
                 type="button"
                 onClick={() => navigate("/blog")}
               >
@@ -93,9 +92,9 @@ export default function BlogPostPage() {
 
             <motion.div className="flex items-center gap-4" variants={fadeInUp}>
               <img
-                alt={siteConfig.team.founder.name}
-                className="w-10 h-10 "
-                src={siteConfig.team.founder.avatar}
+                alt="Author"
+                className="w-10 h-10 rounded-full ring-1 ring-foreground/[0.06]"
+                src="https://github.com/codewithtamim.png"
               />
               <div>
                 <p className="font-medium text-foreground">{post.author}</p>
@@ -127,7 +126,7 @@ export default function BlogPostPage() {
 
             <motion.div className="mt-6" variants={fadeInUp}>
               <button
-                className="inline-flex items-center gap-2 px-4 py-2  border border-foreground/[0.12] text-foreground/55 text-sm hover:border-foreground/25 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-foreground/[0.12] text-foreground/55 text-sm hover:border-foreground/25 transition-colors"
                 type="button"
                 onClick={() => navigate("/blog")}
               >

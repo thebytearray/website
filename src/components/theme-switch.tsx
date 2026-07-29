@@ -33,7 +33,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
     const meta = document.querySelector('meta[name="theme-color"]');
 
     if (meta) {
-      meta.setAttribute("content", next ? "#000000" : "#f5f5f0");
+      meta.setAttribute("content", next ? "#0a0a0a" : "#f7f7f5");
     }
   };
 
@@ -43,19 +43,22 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
     <button
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className={clsx(
-        "flex items-center justify-center text-foreground/45 hover:text-foreground/70 transition-colors",
+        "flex items-center justify-center w-8 h-8 rounded-lg text-foreground/45 hover:text-foreground/70 hover:bg-foreground/[0.06] transition-all duration-200",
         className,
       )}
       type="button"
       onClick={toggle}
     >
-      {isDark ? (
+      <div className="relative w-[18px] h-[18px]">
         <svg
           fill="none"
           height="18"
           viewBox="0 0 24 24"
           width="18"
           xmlns="http://www.w3.org/2000/svg"
+          className={`absolute inset-0 transition-all duration-300 ${
+            isDark ? "opacity-100 rotate-0" : "opacity-0 rotate-90"
+          }`}
         >
           <path
             d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
@@ -65,13 +68,15 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
             strokeWidth="2"
           />
         </svg>
-      ) : (
         <svg
           fill="none"
           height="18"
           viewBox="0 0 24 24"
           width="18"
           xmlns="http://www.w3.org/2000/svg"
+          className={`absolute inset-0 transition-all duration-300 ${
+            isDark ? "opacity-0 -rotate-90" : "opacity-100 rotate-0"
+          }`}
         >
           <circle
             cx="12"
@@ -90,7 +95,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
             strokeWidth="2"
           />
         </svg>
-      )}
+      </div>
     </button>
   );
 };

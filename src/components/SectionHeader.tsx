@@ -3,6 +3,7 @@ interface SectionHeaderProps {
   title: string;
   description?: string;
   className?: string;
+  gradient?: boolean;
 }
 
 export function SectionHeader({
@@ -10,13 +11,22 @@ export function SectionHeader({
   title,
   description,
   className = "mb-12",
+  gradient,
 }: SectionHeaderProps) {
   return (
     <div className={`text-center ${className}`}>
-      <p className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.25em] mb-3 font-medium">
-        {label}
-      </p>
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display text-foreground tracking-tight leading-[1.1]">
+      <div className="inline-flex items-center gap-3 mb-4">
+        <span className="h-px w-6 bg-foreground/20" />
+        <span className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.25em] font-medium">
+          {label}
+        </span>
+        <span className="h-px w-6 bg-foreground/20" />
+      </div>
+      <h2
+        className={`text-3xl sm:text-4xl lg:text-5xl font-display text-foreground tracking-tight leading-[1.1] ${
+          gradient ? "gradient-text" : ""
+        }`}
+      >
         {title}
       </h2>
       {description && (

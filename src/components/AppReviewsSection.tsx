@@ -1,101 +1,76 @@
-import type { FeaturedAppReview } from "@/components/FeaturedAppSection";
-
 import { motion } from "framer-motion";
 
-import { fadeInUp } from "@/lib/animations";
-import { StarFilledIcon, StarIcon } from "@/components/icons";
+import { StarFilledIcon } from "@/components/icons";
+import { fadeInUp, staggerContainer } from "@/lib/animations";
 
-export interface AppReviewsSectionProps {
-  reviews: FeaturedAppReview[];
-  appName?: string;
+interface AppReview {
+  avatar: string;
+  name: string;
+  stars: number;
+  comment: string;
 }
 
-const STAR_SIZE = 12;
-
-function ReviewStars({ count }: { count: number }) {
-  const filled = Math.min(5, Math.max(0, Math.round(count)));
-
-  return (
-    <div
-      aria-label={`${filled} out of 5 stars`}
-      className="flex gap-px items-center"
-      role="img"
-    >
-      {Array.from({ length: 5 }, (_, i) =>
-        i < filled ? (
-          <StarFilledIcon
-            key={i}
-            aria-hidden
-            className="text-amber-500 dark:text-amber-400 shrink-0"
-            size={STAR_SIZE}
-          />
-        ) : (
-          <StarIcon
-            key={i}
-            aria-hidden
-            className="text-foreground/18 shrink-0"
-            size={STAR_SIZE}
-          />
-        ),
-      )}
-    </div>
-  );
+interface AppReviewsSectionProps {
+  reviews: AppReview[];
 }
 
 export function AppReviewsSection({
   reviews,
-  appName,
 }: AppReviewsSectionProps) {
   if (!reviews.length) return null;
 
   return (
     <motion.div
-      className="mt-16 sm:mt-20 max-w-5xl mx-auto"
-      variants={fadeInUp}
+      className="mt-20"
+      initial="hidden"
+      variants={staggerContainer}
+      viewport={{ once: true, margin: "-80px" }}
+      whileInView="visible"
     >
-      <div className="text-center mb-2">
-        <p className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.22em] mb-1.5 font-medium">
-          Reviews
-        </p>
-        <h2 className="text-xl sm:text-2xl font-display text-foreground tracking-tight leading-[1.15]">
-          What users say
-        </h2>
-      </div>
-      <p className="text-center text-[10px] font-mono text-foreground/40 uppercase tracking-[0.18em] mb-6">
-        Reviews from Google Play{appName ? ` · ${appName}` : ""}
-      </p>
+      <motion.h3
+        className="text-lg font-medium text-foreground text-center mb-8"
+        variants={fadeInUp}
+      >
+        What users are saying
+      </motion.h3>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 list-none p-0 m-0">
-        {reviews.map((review, globalIndex) => (
-          <li
-            key={globalIndex}
-            className=" border border-foreground/[0.06] bg-foreground/[0.02] p-4 flex flex-col"
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {reviews.map((review, i) => (
+          <motion.div
+            key={i}
+            className="p-5 bg-foreground/[0.03] border border-foreground/[0.06] rounded-xl"
+            variants={fadeInUp}
           >
-            <div className="flex items-start gap-2.5 mb-2 shrink-0">
+            <div className="flex items-center gap-3 mb-3">
               <img
                 alt={review.name}
-                className="w-9 h-9  object-cover ring-1 ring-foreground/[0.06]"
-                height={36}
-                loading="lazy"
-                referrerPolicy="no-referrer"
+                className="w-8 h-8 rounded-full ring-1 ring-foreground/[0.06]"
                 src={review.avatar}
-                width={36}
               />
-              <div className="min-w-0 flex-1">
-                <p className="font-medium text-sm text-foreground truncate">
+              <div>
+                <p className="text-sm font-medium text-foreground">
                   {review.name}
                 </p>
-                <div className="mt-0.5">
-                  <ReviewStars count={review.stars} />
+                <div className="flex gap-0.5 mt-0.5">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <StarFilledIcon
+                      key={j}
+                      className={`w-3 h-3 ${
+                        j < review.stars
+                          ? "text-amber-500"
+                          : "text-foreground/15"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
-            <p className="text-sm text-foreground/55 leading-relaxed">
+            <p className="text-sm text-foreground/60 leading-relaxed">
               &ldquo;{review.comment}&rdquo;
             </p>
-          </li>
+          </motion.div>
         ))}
-      </ul>
+      </div>
     </motion.div>
   );
 }

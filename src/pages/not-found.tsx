@@ -6,9 +6,13 @@ export default function NotFoundPage() {
   return (
     <PageLayout footerVariant="minimal">
       <section className="flex flex-col items-center justify-center min-h-[55vh] sm:min-h-[60vh] px-4 py-16 text-center">
-        <p className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium mb-5">
-          404
-        </p>
+        <div className="inline-flex items-center gap-3 mb-6">
+          <span className="h-px w-6 bg-foreground/20" />
+          <span className="text-[11px] font-mono text-foreground/40 uppercase tracking-[0.2em] font-medium">
+            404
+          </span>
+          <span className="h-px w-6 bg-foreground/20" />
+        </div>
         <h1 className="font-display text-4xl sm:text-5xl text-foreground tracking-tight leading-[1.1] mb-4">
           Page not found
         </h1>
@@ -17,7 +21,7 @@ export default function NotFoundPage() {
           the homepage.
         </p>
         <Link
-          className="inline-flex items-center justify-center  bg-foreground text-background px-8 py-3 text-sm font-medium transition-opacity hover:opacity-80"
+          className="inline-flex items-center justify-center bg-foreground text-background px-8 py-3 text-sm font-medium rounded-full transition-all hover:opacity-85 hover:scale-[1.02]"
           to="/"
         >
           Back to home

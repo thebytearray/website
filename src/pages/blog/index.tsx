@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 import { PageLayout } from "@/layouts/PageLayout";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { siteConfig } from "@/config/site";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 const blogPosts = import.meta.glob<{ frontmatter: Omit<BlogPost, "slug"> }>(
@@ -81,15 +80,15 @@ export default function BlogIndexPage() {
                 variants={fadeInUp}
               >
                 <button
-                  className="flex flex-col h-full w-full text-left  border border-foreground/[0.06] bg-foreground/[0.02] p-5 transition-opacity hover:opacity-80"
+                  className="flex flex-col h-full w-full text-left rounded-xl border border-foreground/[0.06] bg-foreground/[0.02] p-5 transition-all duration-200 card-hover"
                   type="button"
                   onClick={() => navigate(`/blog/${post.slug}`)}
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <img
-                      alt={siteConfig.team.founder.name}
-                      className="w-8 h-8 "
-                      src={siteConfig.team.founder.avatar}
+                      alt="Author"
+                      className="w-8 h-8 rounded-full ring-1 ring-foreground/[0.06]"
+                      src="https://github.com/codewithtamim.png"
                     />
                     <div>
                       <p className="text-sm font-medium text-foreground">
@@ -100,7 +99,7 @@ export default function BlogIndexPage() {
                       </p>
                     </div>
                   </div>
-                  <h2 className="text-lg font-semibold text-foreground mb-2">
+                  <h2 className="text-lg font-semibold text-foreground mb-2 tracking-tight">
                     {post.title}
                   </h2>
                   {post.excerpt && (

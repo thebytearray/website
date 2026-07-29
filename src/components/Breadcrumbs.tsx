@@ -11,7 +11,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-4">
+    <nav aria-label="Breadcrumb" className="mb-5">
       <ol className="flex items-center gap-1.5 text-xs text-foreground/45 font-mono">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
@@ -19,8 +19,8 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
           return (
             <li key={item.label} className="flex items-center gap-1.5">
               {index > 0 && (
-                <span aria-hidden="true" className="text-foreground/20">
-                  /
+                <span aria-hidden="true" className="text-foreground/15">
+                  ·
                 </span>
               )}
               {item.href && !isLast ? (
@@ -31,7 +31,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span className={isLast ? "text-foreground/70" : ""}>
+                <span className={isLast ? "text-foreground/60" : ""}>
                   {item.label}
                 </span>
               )}

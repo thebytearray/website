@@ -15,7 +15,7 @@ export function PageLayout({
   return (
     <div className="relative flex flex-col min-h-screen bg-background text-foreground">
       <a
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[60] focus:z-[60] bg-foreground text-background px-4 py-2  text-sm font-medium shadow-lg"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-[60] focus:z-[60] bg-foreground text-background px-4 py-2 rounded-lg text-sm font-medium shadow-lg"
         href="#main-content"
       >
         Skip to content

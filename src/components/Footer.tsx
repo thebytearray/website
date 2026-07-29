@@ -31,24 +31,28 @@ export function Footer({ variant = "full" }: FooterProps) {
   }
 
   return (
-    <footer className="border-t border-foreground/[0.06]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-6 text-sm">
-            <span className="text-foreground/70 font-medium">
+    <footer className="relative border-t border-foreground/[0.06] overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-foreground/[0.01] to-transparent pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-5 text-sm">
+            <span className="text-foreground font-medium tracking-tight">
               {siteConfig.name}
             </span>
+            <span className="w-px h-4 bg-foreground/[0.1]" />
             <a
               className="text-foreground/50 hover:text-foreground transition-colors"
               href={siteConfig.links.github}
               rel="noopener noreferrer"
               target="_blank"
+              aria-label="GitHub"
             >
               <GithubIcon size={16} />
             </a>
             <a
               className="text-foreground/50 hover:text-foreground transition-colors"
               href={`mailto:${siteConfig.email}`}
+              aria-label="Email"
             >
               <EmailIcon size={16} />
             </a>
@@ -76,8 +80,8 @@ export function Footer({ variant = "full" }: FooterProps) {
             </a>
           </div>
         </div>
-        <div className="text-center sm:text-left text-xs text-foreground/40 mt-4 pt-4 border-t border-foreground/[0.06]">
-          &copy; {currentYear} The Byte Array
+        <div className="text-center sm:text-left text-xs text-foreground/40 mt-6 pt-5 border-t border-foreground/[0.06]">
+          &copy; {currentYear} The Byte Array. All rights reserved.
         </div>
       </div>
     </footer>

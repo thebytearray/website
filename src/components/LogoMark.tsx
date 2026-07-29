@@ -7,7 +7,8 @@ export function LogoMark({ className }: LogoMarkProps) {
     <span
       className={`font-mono font-semibold tracking-tight text-foreground ${className ?? ""}`}
     >
-      byte<span className="text-foreground/45">[]</span>
+      byte<span className="text-foreground/40">[</span>
+      <span className="text-foreground/45">]</span>
     </span>
   );
 }
