@@ -567,7 +567,7 @@ export default function IndexPage() {
 
       {/* ======== TEAM ======== */}
       <section
-        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06] overflow-hidden"
+        className="relative py-20 sm:py-24 lg:py-32 border-t border-foreground/[0.06]"
         id="team"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -585,38 +585,43 @@ export default function IndexPage() {
               />
             </motion.div>
 
-            <motion.div variants={fadeInUp}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-lg mx-auto">
-                {siteConfig.team.members.map((member) => (
-                  <div
-                    key={member.username}
-                    className="border border-foreground/[0.08] bg-foreground/[0.02] p-6 sm:p-8 flex flex-col items-center text-center"
-                  >
-                    <img
-                      alt={member.name}
-                      className="w-16 h-16 sm:w-20 sm:h-20 ring-4 ring-background shadow-lg"
-                      src={member.avatar}
-                    />
-                    <h3 className="font-display text-lg sm:text-xl lg:text-2xl text-foreground tracking-tight mt-4">
-                      {member.name}
-                    </h3>
-                    <p className="inline-flex mt-2 px-2.5 sm:px-3 py-0.5 text-[11px] sm:text-xs bg-foreground/[0.06] text-foreground/70">
-                      {member.role}
-                    </p>
-                    <p className="text-foreground/55 text-xs sm:text-sm mt-3 leading-relaxed">
+            <motion.div
+              className="max-w-xl mx-auto divide-y divide-foreground/[0.06]"
+              variants={fadeInUp}
+            >
+              {siteConfig.team.members.map((member) => (
+                <div
+                  key={member.username}
+                  className="flex items-center gap-4 py-4 first:pt-0 last:pb-0"
+                >
+                  <img
+                    alt={member.name}
+                    className="w-10 h-10 shrink-0"
+                    src={member.avatar}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-medium text-foreground text-sm">
+                        {member.name}
+                      </h3>
+                      <span className="text-[11px] text-foreground/40 font-mono">
+                        {member.role}
+                      </span>
+                    </div>
+                    <p className="text-sm text-foreground/50 truncate">
                       {member.bio}
                     </p>
-                    <a
-                      className="inline-flex items-center gap-2 mt-4 px-3.5 sm:px-4 py-1.5 bg-foreground text-background text-xs font-medium transition-opacity hover:opacity-80"
-                      href={member.github}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <GithubIcon size={14} />@{member.username}
-                    </a>
                   </div>
-                ))}
-              </div>
+                  <a
+                    className="shrink-0 text-foreground/40 hover:text-foreground transition-colors"
+                    href={member.github}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <GithubIcon size={16} />
+                  </a>
+                </div>
+              ))}
             </motion.div>
           </motion.div>
         </div>
