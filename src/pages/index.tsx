@@ -586,17 +586,17 @@ export default function IndexPage() {
             </motion.div>
 
             <motion.div
-              className="max-w-xl mx-auto divide-y divide-foreground/[0.06]"
+              className="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto"
               variants={fadeInUp}
             >
               {siteConfig.team.members.map((member) => (
                 <div
                   key={member.username}
-                  className="flex items-center gap-4 py-4 first:pt-0 last:pb-0"
+                  className="border border-foreground/[0.08] bg-foreground/[0.02] p-5 flex items-start gap-4"
                 >
                   <img
                     alt={member.name}
-                    className="w-10 h-10 shrink-0"
+                    className="w-12 h-12 shrink-0"
                     src={member.avatar}
                   />
                   <div className="flex-1 min-w-0">
@@ -608,18 +608,18 @@ export default function IndexPage() {
                         {member.role}
                       </span>
                     </div>
-                    <p className="text-sm text-foreground/50 truncate">
+                    <p className="text-sm text-foreground/50 mt-1 leading-relaxed">
                       {member.bio}
                     </p>
+                    <a
+                      className="inline-flex items-center gap-1.5 text-foreground/40 hover:text-foreground transition-colors text-xs mt-2"
+                      href={member.github}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <GithubIcon size={12} />@{member.username}
+                    </a>
                   </div>
-                  <a
-                    className="shrink-0 text-foreground/40 hover:text-foreground transition-colors"
-                    href={member.github}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <GithubIcon size={16} />
-                  </a>
                 </div>
               ))}
             </motion.div>
