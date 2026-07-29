@@ -66,7 +66,7 @@ export default function BlogPostPage() {
 
   return (
     <PageLayout footerVariant="minimal">
-      <section className="relative pt-16 pb-12 border-b border-foreground/[0.06]">
+      <section className="relative pb-12 border-b border-foreground/[0.06]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             animate="visible"
