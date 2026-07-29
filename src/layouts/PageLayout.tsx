@@ -21,7 +21,7 @@ export function PageLayout({
         Skip to content
       </a>
       <Navbar />
-      <main className="flex-1 pt-12" id="main-content">
+      <main className="flex-1 pt-16" id="main-content">
         {children}
       </main>
       <Footer variant={footerVariant} />

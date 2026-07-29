@@ -86,14 +86,14 @@ export const Navbar = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 bg-background border-b border-foreground/[0.06]">
-      <div className="flex items-center justify-between h-12 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div className="flex items-center justify-between h-16 px-6 sm:px-8 max-w-7xl mx-auto">
         <button
           aria-label="The Byte Array home"
           className="flex items-center gap-2 cursor-pointer text-foreground shrink-0"
           type="button"
           onClick={handleLogoClick}
         >
-          <LogoMark className="text-base sm:text-lg font-semibold" />
+          <LogoMark className="text-lg sm:text-xl font-semibold" />
         </button>
 
         <nav className="hidden md:flex items-center gap-0">
