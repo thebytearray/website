@@ -22,19 +22,63 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
     setIsMounted(true);
   }, []);
 
-  const toggle = () => {
-    const next = !isDark;
-
-    setIsDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    document.documentElement.classList.toggle("light", !next);
-    localStorage.setItem("theme", next ? "dark" : "light");
+  const applyTheme = (dark: boolean) => {
+    setIsDark(dark);
+    document.documentElement.classList.toggle("dark", dark);
+    document.documentElement.classList.toggle("light", !dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
 
     const meta = document.querySelector('meta[name="theme-color"]');
 
     if (meta) {
-      meta.setAttribute("content", next ? "#0a0a0a" : "#f7f7f5");
+      meta.setAttribute("content", dark ? "#0a0a0a" : "#ffffff");
     }
+  };
+
+  const toggle = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const next = !isDark;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reducedMotion) {
+      applyTheme(next);
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const maxDist =
+      Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y),
+      ) * 1.15;
+
+    const overlay = document.createElement("div");
+    overlay.style.cssText = [
+      "position: fixed",
+      `left: ${x}px`,
+      `top: ${y}px`,
+      `width: ${maxDist * 2}px`,
+      `height: ${maxDist * 2}px`,
+      "margin: 0",
+      "border-radius: 50%",
+      `background: ${next ? "#0a0a0a" : "#ffffff"}`,
+      "transform: translate(-50%, -50%) scale(0)",
+      "transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+      "z-index: 9999",
+      "pointer-events: none",
+      "will-change: transform",
+    ].join(";");
+    document.body.appendChild(overlay);
+
+    requestAnimationFrame(() => {
+      overlay.style.transform = "translate(-50%, -50%) scale(1)";
+    });
+
+    window.setTimeout(() => applyTheme(next), 420);
+    window.setTimeout(() => overlay.remove(), 560);
   };
 
   if (!isMounted) return <div className="w-5 h-5" />;

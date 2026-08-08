@@ -16,7 +16,7 @@ import {
   EmailIcon,
   SendIcon,
   ArrowRightIcon,
-  languageColors,
+  LanguageIcon,
   ShieldIcon,
   QrCodeIcon,
   ServerIcon,
@@ -238,16 +238,22 @@ export default function IndexPage() {
               variants={fadeInUp}
             >
               <a
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background text-sm font-medium rounded-full transition-all hover:opacity-85 hover:scale-[1.02]"
+                className="group relative inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-foreground text-background text-sm font-medium rounded-lg transition-transform hover:scale-[1.02] overflow-hidden"
                 href={siteConfig.links.github}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                View Projects
-                <ArrowRightIcon size={16} />
+                <span
+                  aria-hidden
+                  className="absolute inset-0 bg-background origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                />
+                <span className="relative z-10 inline-flex items-center gap-2 transition-colors duration-300 group-hover:text-foreground">
+                  View Projects
+                  <ArrowRightIcon size={16} />
+                </span>
               </a>
               <button
-                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 border border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] text-sm font-medium rounded-full transition-all"
+                className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 border border-foreground/[0.12] hover:border-foreground/25 hover:bg-foreground/[0.03] text-sm font-medium rounded-lg transition-all"
                 type="button"
                 onClick={() => {
                   document
@@ -425,7 +431,7 @@ export default function IndexPage() {
                     variants={fadeInUp}
                   >
                     <button
-                      className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
+                      className={`inline-flex items-center text-xs px-3 py-1.5 rounded-lg transition-all ${
                         selectedLanguage === null
                           ? "bg-foreground text-background"
                           : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
@@ -438,7 +444,7 @@ export default function IndexPage() {
                     {languages.map((lang) => (
                       <button
                         key={lang}
-                        className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
+                        className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg transition-all ${
                           selectedLanguage === lang
                             ? "bg-foreground text-background"
                             : "border border-foreground/[0.12] text-foreground/55 hover:border-foreground/25"
@@ -446,12 +452,7 @@ export default function IndexPage() {
                         type="button"
                         onClick={() => setSelectedLanguage(lang)}
                       >
-                        <span
-                          className="w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1 sm:mr-1.5 inline-block rounded-sm"
-                          style={{
-                            backgroundColor: languageColors[lang!] || "#71717a",
-                          }}
-                        />
+                        <LanguageIcon language={lang!} size={12} />
                         {lang} (
                         {repos.filter((r) => r.language === lang).length})
                       </button>
@@ -494,12 +495,9 @@ export default function IndexPage() {
                         <div className="flex items-center gap-3 mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-foreground/[0.06]">
                           {repo.language && (
                             <div className="flex items-center gap-1.5">
-                              <span
-                                className="w-2 h-2 shrink-0 rounded-sm"
-                                style={{
-                                  backgroundColor:
-                                    languageColors[repo.language] || "#71717a",
-                                }}
+                              <LanguageIcon
+                                language={repo.language}
+                                size={13}
                               />
                               <span className="text-[11px] sm:text-xs text-foreground/40 font-mono">
                                 {repo.language}
@@ -744,7 +742,7 @@ export default function IndexPage() {
                     </div>
                   ) : (
                     <button
-                      className="w-full inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-2.5 bg-foreground text-background text-xs sm:text-sm font-medium rounded-full transition-all hover:opacity-85 hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
+                      className="group relative w-full inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-2.5 bg-foreground text-background text-xs sm:text-sm font-medium rounded-lg overflow-hidden transition-transform hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:pointer-events-none"
                       disabled={
                         !contactForm.name ||
                         !contactForm.email ||
@@ -754,10 +752,16 @@ export default function IndexPage() {
                       type="button"
                       onClick={handleContactSubmit}
                     >
-                      {isSubmitting
-                        ? "Opening..."
-                        : "Open email app to send message"}
-                      {!isSubmitting && <SendIcon size={14} />}
+                      <span
+                        aria-hidden
+                        className="absolute inset-0 bg-background origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                      />
+                      <span className="relative z-10 inline-flex items-center gap-2 transition-colors duration-300 group-hover:text-foreground">
+                        {isSubmitting
+                          ? "Opening..."
+                          : "Open email app to send message"}
+                        {!isSubmitting && <SendIcon size={14} />}
+                      </span>
                     </button>
                   )}
                 </div>

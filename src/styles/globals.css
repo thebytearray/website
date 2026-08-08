@@ -6,11 +6,11 @@
   --font-matter: "Matter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
-  --radius-2xl: 28px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
   --radius-full: 9999px;
 }
 
@@ -20,32 +20,32 @@
   --font-display: "Matter", system-ui, -apple-system, sans-serif;
 }
 
-/* Light theme — warm, refined, paper-like */
+/* Light theme — Warp day mode (surface.muted, text.primary, text.secondary) */
 :root,
 .light,
 [data-theme="light"] {
   color-scheme: light;
 
-  --background: #f7f7f5;
-  --foreground: oklch(0.1 0 0);
+  --background: #ffffff;
+  --foreground: oklch(0.07 0.007 220);
   --surface: #ffffff;
-  --surface-foreground: oklch(0.1 0 0);
-  --surface-secondary: #f0efec;
-  --surface-tertiary: #e6e5e1;
-  --default: oklch(94% 0 0);
-  --default-foreground: oklch(0.1 0 0);
-  --border: oklch(88% 0 0 / 40%);
-  --separator: oklch(90% 0 0 / 50%);
-  --muted: oklch(0.45 0 0);
-  --accent: oklch(0.1 0 0);
-  --accent-foreground: #ffffff;
+  --surface-foreground: oklch(0.07 0.007 220);
+  --surface-secondary: rgba(0, 0, 0, 0.04);
+  --surface-tertiary: rgba(0, 0, 0, 0.08);
+  --default: rgba(0, 0, 0, 0.06);
+  --default-foreground: oklch(0.07 0.007 220);
+  --border: rgba(0, 0, 0, 0.1);
+  --separator: rgba(0, 0, 0, 0.06);
+  --muted: oklch(0.4 0.007 220);
+  --accent: #000000;
+  --accent-foreground: oklch(0.97 0.007 220);
   --radius: var(--radius-md);
-  --surface-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.02);
-  --surface-shadow-hover: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --surface-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px;
+  --surface-shadow-hover: rgba(0, 0, 0, 0.16) 0px 2px 8px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
   --overlay-shadow: 0 4px 20px rgba(0, 0, 0, 0.07), 0 8px 32px rgba(0, 0, 0, 0.08);
   --glow-subtle: 0 0 40px rgba(0, 0, 0, 0.03);
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.08);
 }
 
 /* Dark theme — deep, premium dark with subtle glow */
@@ -173,14 +173,22 @@ textarea { font-family: inherit; }
   --glow-bg: oklch(30% 0 0 / 3%);
 }
 
-/* ---- Card hover lift ---- */
+/* ---- Card hover (subtle, no movement) ---- */
 .card-hover {
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.25s ease;
 }
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--surface-shadow-hover);
+  border-color: rgba(255, 255, 255, 0.18);
+  background-color: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+.light .card-hover:hover {
+  border-color: rgba(0, 0, 0, 0.18);
+  background-color: rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* ---- Gradient text ---- */

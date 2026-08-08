@@ -799,3 +799,63 @@ export const languageColors: Record<string, string> = {
   Makefile: "#427819",
   Markdown: "#083fa1",
 };
+
+// Language brand icon slugs (simple-icons CDN)
+const languageIconSlugs: Record<string, string> = {
+  TypeScript: "typescript",
+  JavaScript: "javascript",
+  Python: "python",
+  Java: "openjdk",
+  Kotlin: "kotlin",
+  Swift: "swift",
+  Go: "go",
+  Rust: "rust",
+  Ruby: "ruby",
+  PHP: "php",
+  "C++": "cplusplus",
+  C: "c",
+  HTML: "html5",
+  CSS: "css",
+  SCSS: "sass",
+  Shell: "gnubash",
+  Dart: "dart",
+  Vue: "vuedotjs",
+  Svelte: "svelte",
+  Elixir: "elixir",
+  Haskell: "haskell",
+  Lua: "lua",
+  R: "r",
+  Scala: "scala",
+  Dockerfile: "docker",
+  Markdown: "markdown",
+};
+
+export const LanguageIcon: React.FC<{
+  language: string;
+  size?: number;
+  className?: string;
+}> = ({ language, size = 14, className }) => {
+  const slug = languageIconSlugs[language];
+  if (!slug) {
+    return (
+      <span
+        aria-hidden
+        className="inline-block shrink-0 rounded-[2px]"
+        style={{
+          width: Math.round(size * 0.6),
+          height: Math.round(size * 0.6),
+          backgroundColor: languageColors[language] || "#71717a",
+        }}
+      />
+    );
+  }
+  return (
+    <img
+      alt=""
+      className={className}
+      loading="lazy"
+      src={`https://cdn.simpleicons.org/${slug}`}
+      style={{ width: size, height: size }}
+    />
+  );
+};

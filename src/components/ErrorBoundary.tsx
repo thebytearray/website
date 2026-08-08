@@ -36,11 +36,17 @@ export class ErrorBoundary extends React.Component<
             {this.state.error?.message || "An unexpected error occurred."}
           </p>
           <button
-            className="px-6 py-2  bg-foreground text-background text-sm font-medium"
+            className="group relative px-6 py-2 bg-foreground text-background text-sm font-medium overflow-hidden"
             type="button"
             onClick={() => window.location.reload()}
           >
-            Reload page
+            <span
+              aria-hidden
+              className="absolute inset-0 bg-background origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+            />
+            <span className="relative z-10 transition-colors duration-300 group-hover:text-foreground">
+              Reload page
+            </span>
           </button>
         </div>
       );

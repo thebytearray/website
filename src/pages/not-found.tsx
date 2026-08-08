@@ -21,10 +21,16 @@ export default function NotFoundPage() {
           the homepage.
         </p>
         <Link
-          className="inline-flex items-center justify-center bg-foreground text-background px-8 py-3 text-sm font-medium rounded-full transition-all hover:opacity-85 hover:scale-[1.02]"
+          className="group relative inline-flex items-center justify-center bg-foreground text-background px-8 py-3 text-sm font-medium rounded-md transition-transform hover:scale-[1.02] overflow-hidden"
           to="/"
         >
-          Back to home
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-background origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+          />
+          <span className="relative z-10 transition-colors duration-300 group-hover:text-foreground">
+            Back to home
+          </span>
         </Link>
       </section>
     </PageLayout>

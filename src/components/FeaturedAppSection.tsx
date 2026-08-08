@@ -237,17 +237,23 @@ export function FeaturedAppSection({
 
               <div className="flex flex-wrap items-center gap-3">
                 <a
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-full transition-all hover:opacity-85 hover:scale-[1.02]"
+                  className="group relative inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-lg overflow-hidden transition-transform hover:scale-[1.02]"
                   href={playStoreUrl}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <PlayStoreIcon size={18} />
-                  Get on Google Play
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 bg-background origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                  />
+                  <span className="relative z-10 inline-flex items-center gap-2 transition-colors duration-300 group-hover:text-foreground">
+                    <PlayStoreIcon size={18} />
+                    Get on Google Play
+                  </span>
                 </a>
                 {privacyUrl && (
                   <a
-                    className="inline-flex items-center gap-2 px-5 py-2.5 border border-foreground/[0.12] hover:border-foreground/25 text-foreground/70 text-sm font-medium rounded-full transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 border border-foreground/[0.12] hover:border-foreground/25 text-foreground/70 text-sm font-medium rounded-lg transition-colors"
                     href={privacyUrl}
                   >
                     Privacy Policy

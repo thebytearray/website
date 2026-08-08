@@ -43,11 +43,17 @@ export default function BlogPostPage() {
                 The blog post you are looking for does not exist.
               </p>
               <button
-                className="px-6 py-2 bg-foreground text-background text-sm font-medium rounded-full"
+                className="group relative px-6 py-2 bg-foreground text-background text-sm font-medium rounded-md overflow-hidden"
                 type="button"
                 onClick={() => navigate("/blog")}
               >
-                Back to Blog
+                <span
+                  aria-hidden
+                  className="absolute inset-0 bg-background origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+                />
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-foreground">
+                  Back to Blog
+                </span>
               </button>
             </div>
           </div>
